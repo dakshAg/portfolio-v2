@@ -1,0 +1,90 @@
+{
+  "Programming & Scripting Languages": [
+    {
+      "name": "Python",
+      "image": "/assets/images/skills/python.png"
+    },
+    {
+      "name": "R",
+      "image": "/assets/images/skills/r.png"
+    },
+    {
+      "name": "Java",
+      "image": "/assets/images/skills/java.png"
+    },
+    {
+      "name": "C",
+      "image": "/assets/images/skills/c.png"
+    },
+    {
+      "name": "JavaScript (TypeScript)",
+      "image": "/assets/images/skills/js.png"
+    }
+  ],
+  "Data Science & Machine Learning": [
+    {
+      "name": "PySpark",
+      "image": "/assets/images/skills/pyspark.webp"
+    },
+    {
+      "name": "Pandas",
+      "image": "/assets/images/skills/pandas.svg"
+    },
+    {
+      "name": "SciKit Learn",
+      "image": "/assets/images/skills/sklearn.png"
+    },
+    {
+      "name": "TensorFlow",
+      "image": "/assets/images/skills/tensorflow.svg"
+    },
+    {
+      "name": "PyTorch",
+      "image": "/assets/images/skills/pytorch.svg"
+    }
+  ],
+  "Web & Mobile Development": [
+    {
+      "name": "React (NextJS)",
+      "image": "/assets/images/skills/react.png"
+    },
+    {
+      "name": "Django",
+      "image": "/assets/images/skills/django.svg"
+    },
+    {
+      "name": "Flask",
+      "image": "/assets/images/skills/flask.png"
+    },
+    {
+      "name": "Git",
+      "image": "/assets/images/skills/git.png"
+    },
+    {
+      "name": "Android (Java, Kotlin)",
+      "image": "/assets/images/skills/android.svg"
+    }
+  ],
+  "Data Analysis & Visualization": [
+    {
+      "name": "PowerBI",
+      "image": "/assets/images/skills/powerbi.svg"
+    },
+    {
+      "name": "SQL",
+      "image": "/assets/images/skills/sql.png"
+    },
+    {
+      "name": "Statistics",
+      "image": "/assets/images/skills/statistics.png"
+    },
+    {
+      "name": "Probability",
+      "image": "/assets/images/skills/probability.png"
+    },
+    {
+      "name": "A/B Testing",
+      "image": "/assets/images/skills/ab-testing.png"
+    }
+  ]
+}

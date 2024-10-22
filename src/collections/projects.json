@@ -1,20 +1,20 @@
 [
 	{
-		"name": "Email.ML",
-		"description": "Minimalist temporary Email.",
-		"image": "/assets/images/projects/email.ml.png",
-		"url": "https://email.ml"
+		"name": "Strategic Taxi Distribution in NYC",
+		"description": "Predicting Demand and Optimal Movements using Machine Learning",
+		"image": "/assets/images/projects/nyc.png",
+		"url": "https://github.com/dakshAg/strategic-taxi-distribution-nyc"
 	},
 	{
-		"name": "DNS.Surf",
-		"description": "Querying DNS Resolution Results in Different Regions Worldwide.",
-		"image": "/assets/images/projects/dns.surf.png",
-		"url": "https://dns.surf"
+		"name": "Moon and Stones",
+		"description": "Interactive Game Demo for CCDP10003 using JavaScript Animations",
+		"image": "/assets/images/projects/glynn.png",
+		"url": "https://dakshag.github.io/Moon-and-Stones/"
 	},
 	{
-		"name": "HTML.ZONE",
-		"description": "Web Toolbox.",
-		"image": "/assets/images/projects/html.zone.png",
-		"url": "https://html.zone"
+		"name": "EcoZoom: Instant Sustainable Choices",
+		"description": "App for product sustainability insights using pictures, guiding informed choices and proper disposal.",
+		"image": "/assets/images/projects/ecozoom.jpg",
+		"url": "https://devpost.com/software/eco-zoom"
 	}
 ]

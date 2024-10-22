@@ -1,9 +1,12 @@
 ---
 import Button from "../components/button.astro";
+import Experiences from "../components/home/experiences.astro";
 import Projects from "../components/home/projects.astro";
 import Separator from "../components/home/separator.astro";
+import Gallery from "../components/home/gallery.astro";
 import Writings from "../components/home/writings.astro";
 import Layout from "../layouts/main.astro";
+import Skills from "../components/home/skills.astro";
 ---
 
 <Layout title="Kai">
@@ -15,12 +18,12 @@ import Layout from "../layouts/main.astro";
         <h1
           class="mb-5 text-4xl font-bold leading-tight md:text-4xl lg:text-6xl dark:text-white"
         >
-          Hello, I'm Kai.
+          Hello, I'm Daksh.
         </h1>
         <p class="mb-6 text-base text-neutral-600 dark:text-neutral-400">
-          I'm a front-end programmer living in Nanjing. <br
+          Aspiring Data Scientist with a knack for creative coding and clever solutions, balancing studies, side projects, and a sprinkle of poetic flair.<br
             class="hidden lg:block"
-          />I focus on Web development.
+          />
         </p>
         <p class="mb-2 font-semibold text-neutral-800 dark:text-neutral-200">
           I can help you out with:
@@ -28,10 +31,11 @@ import Layout from "../layouts/main.astro";
         <ul
           class="py-2 space-y-[3px] text-sm list-disc list-inside text-neutral-500 dark:text-neutral-400"
         >
-          <li>Vue.js Development</li>
-          <li>React.js Development</li>
-          <li>Node.js Development</li>
-          <li>Website Design</li>
+          <li>Data Science</li>
+          <li>Machine Learning</li>
+          <li>Web Development</li>
+          <li>App Development</li>
+          <li>Presentations</li>
           <li>and more...</li>
         </ul>
         <Button text="Follow me on 𝕏" link="https://twitter.com/0xKaiBi" />
@@ -48,7 +52,7 @@ import Layout from "../layouts/main.astro";
             >
               <span
                 class="flex items-center justify-center w-full h-full bg-white border border-dashed rounded-full dark:bg-neutral-950 border-neutral-300 dark:border-neutral-700"
-                >👋</span
+                >🦆</span
               >
             </span>
           </div>
@@ -69,8 +73,11 @@ import Layout from "../layouts/main.astro";
     </div>
   </div>
 
+  <Separator text="What I've been working on" />
+  <Experiences />
+  <Separator text="What I've been working with" />
+  <Skills />
   <Separator text="Check out my projects" />
   <Projects />
-  <Separator text="Some of my writing" />
-  <Writings />
+  <Gallery />  
 </Layout>

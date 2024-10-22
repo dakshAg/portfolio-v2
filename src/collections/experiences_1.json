@@ -1,0 +1,20 @@
+[
+	{
+		"name": "Academic Tutor and Demonstrator",
+		"description": "Taught Programming, Data Structures & Algorithms in Python and C to 100+ Students at The University of Melbourne",
+		"image": "/assets/images/experiences/tutoring.jpg",
+		"url": "https://github.com/dakshAg/strategic-taxi-distribution-nyc"
+	},
+	{
+		"name": "Director of Education",
+		"description": "Data Science Student Society, The University of Melbourne. Organised 10+ Workshops, 3 Hackathons, and 20+ Study Groups",
+		"image": "/assets/images/experiences/dscubed.jpg",
+		"url": "https://dakshag.github.io/Moon-and-Stones/"
+	},
+	{
+		"name": "Co-Founder and CTO",
+		"description": "G7 Smart Logistics. Co-founded a Tech-Oriented platform leading digital transformation for Logistics and Transport Industry in India.",
+		"image": "/assets/images/experiences/g7.png",
+		"url": "https://devpost.com/software/eco-zoom"
+	}
+]
