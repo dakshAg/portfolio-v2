@@ -7,5 +7,5 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [tailwind()],
   site: "https://dakshAg.github.io",
-  base: "portfolio-v2",
+  base: "/portfolio-v2",
 });
