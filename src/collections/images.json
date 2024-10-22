@@ -2,19 +2,19 @@
     {
       "name": "Dr. Shaanan Cohney",
       "description": "From Foundations of Algorithms to Information Security and Privacy.",
-      "image": "/assets/images/gallery/3.jpg",
+      "image": "./assets/images/gallery/3.jpg",
       "url": "/gallery/milkyway"
     },
     {
       "name": "Applied Data Science",
       "description": "Real Estate Price Prediction using Machine Learning.",
-      "image": "/assets/images/gallery/4.jpg",
+      "image": "./assets/images/gallery/4.jpg",
       "url": "/gallery/orion-nebula"
     },
     {
       "name": "Deans Honours List 2023",
       "description": "Top 3% of Students in the Faculty of Science.",
-      "image": "/assets/images/gallery/2.jpg",
+      "image": "./assets/images/gallery/2.jpg",
       "url": "/gallery/andromeda"
     }
   ]
