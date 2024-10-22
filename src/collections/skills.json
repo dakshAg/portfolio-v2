@@ -2,23 +2,23 @@
   "Programming & Scripting Languages": [
     {
       "name": "Python",
-      "image": "/assets/images/skills/python.png"
+      "image": "./assets/images/skills/python.png"
     },
     {
       "name": "R",
-      "image": "/assets/images/skills/r.png"
+      "image": "./assets/images/skills/r.png"
     },
     {
       "name": "Java",
-      "image": "/assets/images/skills/java.png"
+      "image": "./assets/images/skills/java.png"
     },
     {
       "name": "C",
-      "image": "/assets/images/skills/c.png"
+      "image": "./assets/images/skills/c.png"
     },
     {
       "name": "JavaScript (TypeScript)",
-      "image": "/assets/images/skills/js.png"
+      "image": "./assets/images/skills/js.png"
     }
   ],
   "Data Science & Machine Learning": [
