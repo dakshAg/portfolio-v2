@@ -1,83 +1,386 @@
 ---
-import Button from "../components/button.astro";
-import Experiences from "../components/home/experiences.astro";
-import Projects from "../components/home/projects.astro";
-import Separator from "../components/home/separator.astro";
-import Gallery from "../components/home/gallery.astro";
-import Writings from "../components/home/writings.astro";
 import Layout from "../layouts/main.astro";
-import Skills from "../components/home/skills.astro";
+import "../styles/globals.css";
 ---
 
 <Layout title="Daksh Agrawal | Portfolio">
-  <div
-    class="relative z-20 w-full max-w-4xl mx-auto mt-16 px-7 md:mt-24 lg:mt-32 xl:px-0"
-  >
-    <div class="flex flex-col items-center md:flex-row">
-      <div class="relative w-full md:w-1/2">
-        <h1
-          class="mb-5 text-4xl font-bold leading-tight md:text-4xl lg:text-6xl dark:text-white"
-        >
-          Hello, I'm Daksh.
-        </h1>
-        <p class="mb-6 text-base text-neutral-600 dark:text-neutral-400">
-          Aspiring Data Scientist with a knack for creative coding and clever solutions, balancing studies, side projects, and a sprinkle of poetic flair.<br
-            class="hidden lg:block"
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+    <!-- Hero Section -->
+    <section class="space-y-6">
+      <div class="flex gap-8 items-center">
+        <div class="flex-shrink-0">
+          <img 
+            src="/images/hero-avatar.png" 
+            alt="Daksh Agrawal" 
+            class="w-80 h-122"
           />
-        </p>
-        <p class="mb-2 font-semibold text-neutral-800 dark:text-neutral-200">
-          I can help you out with:
-        </p>
-        <ul
-          class="py-2 space-y-[3px] text-sm list-disc list-inside text-neutral-500 dark:text-neutral-400"
-        >
-          <li>Data Science</li>
-          <li>Machine Learning</li>
-          <li>Web Development</li>
-          <li>App Development</li>
-          <li>Presentations</li>
-          <li>and more...</li>
-        </ul>
-        <Button text="Download my Resume" link="./Daksh_Agrawal_Resume.pdf" />
-      </div>
-      <div
-        class="relative justify-end hidden w-full mt-10 md:flex md:pl-10 md:w-1/2 md:mt-0 md:translate-y-4 xl:translate-y-0"
-      >
-        <div class="relative z-50 w-full">
-          <div
-            class="absolute bottom-0 z-40 w-16 h-16 -translate-x-6 -translate-y-1/2 lg:top-auto top-0 lg:-translate-y-[330px] rounded-full"
-          >
-            <span
-              class="relative z-20 flex items-center justify-center w-full h-full text-2xl border-8 border-white rounded-full dark:border-neutral-950 bg-neutral-100 dark:bg-neutral-900"
-            >
-              <span
-                class="flex items-center justify-center w-full h-full bg-white border border-dashed rounded-full dark:bg-neutral-950 border-neutral-300 dark:border-neutral-700"
-                >🦆</span
-              >
-            </span>
+        </div>
+        <div class="space-y-6 flex-1 flex flex-col">
+          <div class="space-y-4">
+            <h1 class="text-4xl font-bold tracking-tight">Daksh Agrawal</h1>
+            <p class="text-xl text-muted-foreground font-medium">
+              Founder's energy, merchant's instinct, engineer's craft, analyst's eye.
+            </p>
           </div>
-          <div class="relative z-30 px-10">
-            <img
-              src="./assets/images/photo.png"
-              loading="eager"
-              decoding="auto"
-              class="relative z-30 w-full aspect-[790/1189] md:max-w-md mx-auto dark:-translate-y-0.5"
-            />
-          </div>
-          <div
-            class="absolute bottom-0 right-0 z-20 w-full h-full lg:h-[420px] translate-x-0 -translate-y-px border border-dashed rounded-2xl bg-gradient-to-r dark:from-neutral-950 dark:via-black dark:to-neutral-950 from-white via-neutral-50 to-white border-neutral-300 dark:border-neutral-700"
-          >
+          
+          <!-- Social Links & CV Download -->
+          <div class="flex items-center gap-4 flex-wrap">
+            <!-- Social Links -->
+            <div class="flex items-center gap-3">
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/daksh-agrawal/" target="_blank" rel="noopener noreferrer" 
+                 class="w-10 h-10 rounded-full bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition-colors">
+                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+              
+              <!-- GitHub -->
+              <a href="https://github.com/dakshAg" target="_blank" rel="noopener noreferrer"
+                 class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                <svg class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+              
+              <!-- Email -->
+              <a href="mailto:dakshagrawalx@gmail.com"
+                 class="w-10 h-10 rounded-full bg-green-100 hover:bg-green-200 flex items-center justify-center transition-colors">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </a>
+            </div>
+            
+            <!-- Download CV Button -->
+            <a href="/Daksh_Agrawal_Resume.pdf" download 
+               class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Download CV
+            </a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <Separator text="What I've been working on" />
-  <Experiences />
-  <Separator text="What I've been working with" />
-  <Skills />
-  <Separator text="Check out my projects" />
-  <Projects />
-  <Gallery />  
+    <!-- Separator -->
+    <div class="border-b border-border"></div>
+
+    <!-- Core Values Section -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-semibold">Core Values</h2>
+      <div class="grid gap-6">
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/values/mediocrity.png" 
+                alt="Hate mediocrity" 
+                class="w-16 h-16"
+              />
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-lg">Hate mediocrity</h3>
+              <p class="text-muted-foreground italic">
+                “Mediocrity is always invisible until passion shows up and exposes it.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/values/build.png" 
+                alt="Build relentlessly" 
+                class="w-16 h-16"
+              />
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-lg">Build relentlessly</h3>
+              <p class="text-muted-foreground italic">
+                “Sometimes you gotta run before you can walk.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/values/courage.png" 
+                alt="Courage over fear" 
+                class="w-16 h-16"
+              />
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-lg">Courage over fear</h3>
+              <p class="text-muted-foreground italic">
+                “I must not fear. Fear is the mind-killer.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/values/learn.png" 
+                alt="Learn aggressively" 
+                class="w-16 h-16"
+              />
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-lg">Learn aggressively</h3>
+              <p class="text-muted-foreground italic">
+                "The illiterate of the 21st century will not be those who cannot learn, unlearn, and relearn."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/values/ship.png" 
+                alt="Ship or be forgotten" 
+                class="w-16 h-16"
+              />
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-lg">Ship or be forgotten</h3>
+              <p class="text-muted-foreground italic">
+                “Good artists copy, great artists steal, real artists ship.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="border-b border-border"></div>
+
+    <!-- Work Experience Section -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-semibold">Work Experience</h2>
+      <div class="space-y-8">
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/work/square-peg.jpeg" 
+                alt="Square Peg Capital" 
+                class="w-20 h-20 rounded-lg"
+              />
+            </div>
+            <div class="space-y-2 flex-1">
+              <h3 class="font-semibold text-lg">Square Peg Capital — Data Science Intern</h3>
+              <p class="text-muted-foreground">
+                Built valuation tooling and people-analytics pipelines for a global tech fund.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/work/g7-logistics.png" 
+                alt="G7 Smart Logistics" 
+                class="w-20 h-20 rounded-lg"
+              />
+            </div>
+            <div class="space-y-2 flex-1">
+              <h3 class="font-semibold text-lg">G7 Smart Logistics — Co-Founder & CTO</h3>
+              <p class="text-muted-foreground">
+                Transformed WhatsApp truck chatter into a national logistics platform.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/work/unimelb.svg" 
+                alt="University of Melbourne" 
+                class="w-20 h-20 rounded-lg"
+              />
+            </div>
+            <div class="space-y-2 flex-1">
+              <h3 class="font-semibold text-lg">University of Melbourne — Academic Tutor</h3>
+              <p class="text-muted-foreground">
+                Taught algorithms and computing foundations to the next wave of builders.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/work/taswater.jpeg" 
+                alt="TasWater" 
+                class="w-20 h-20 rounded-lg"
+              />
+            </div>
+            <div class="space-y-2 flex-1">
+              <h3 class="font-semibold text-lg">TasWater — Graduate (2026)</h3>
+              <p class="text-muted-foreground">
+                Set to bring modern systems into legacy infra.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="border-b border-border"></div>
+
+    <!-- Projects Section -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-semibold">Projects</h2>
+      <div class="space-y-8">
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/projects/rental-market.png" 
+                alt="Rental Market Forecasting (Capstone)" 
+                class="w-24 h-24 rounded-lg"
+              />
+            </div>
+            <div class="space-y-3 flex-1">
+              <h3 class="font-semibold text-lg">
+                <a href="https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-3" class="hover:underline">Rental Market Forecasting (Capstone)</a>
+              </h3>
+              <p class="text-muted-foreground">
+                Scraped real estate + socio-economic data, built predictive models (Regression, RF, XGBoost), and translated findings into actionable insights for investors.
+              </p>
+              <div class="flex items-center gap-2 mt-2">
+                <img src="/images/tech/python.svg" alt="Python" class="w-5 h-5" />
+                <img src="/images/tech/scikit-learn.svg" alt="scikit-learn" class="w-5 h-5" />
+                <!-- XGBoost (keeping custom since no file found) -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="2" width="20" height="20" rx="2" fill="#1f77b4"/>
+                  <text x="12" y="14" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">XGB</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/projects/nyc-taxi.png" 
+                alt="NYC Taxi Demand Forecasting" 
+                class="w-24 h-24 rounded-lg"
+              />
+            </div>
+            <div class="space-y-3 flex-1">
+              <h3 class="font-semibold text-lg">
+                <a href="#" class="hover:underline">NYC Taxi Demand Forecasting</a>
+              </h3>
+              <p class="text-muted-foreground">
+                Time-series modeling of ride demand → optimized allocation strategies.
+              </p>
+              <div class="flex items-center gap-2 mt-2">
+                <img src="/images/tech/spark.svg" alt="PySpark" class="w-5 h-5" />
+                <img src="/images/tech/tensorflow.svg" alt="TensorFlow" class="w-5 h-5" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/projects/panelogy.png" 
+                alt="AI Comic Maker (Panelogy)" 
+                class="w-24 h-24 rounded-lg"
+              />
+            </div>
+            <div class="space-y-3 flex-1">
+              <h3 class="font-semibold text-lg">
+                <a href="#" class="hover:underline">AI Comic Maker (Panelogy)</a>
+              </h3>
+              <p class="text-muted-foreground">
+                Case law into comics → made legal education readable.
+              </p>
+              <div class="flex items-center gap-2 mt-2">
+                <img src="/images/tech/supabase.png" alt="Supabase" class="w-5 h-5" />
+                <img src="/images/tech/cloudflare.svg" alt="Cloudflare" class="w-5 h-5" />
+                <img src="/images/tech/gemini.svg" alt="Google Gemini" class="w-5 h-5" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="border-b border-border"></div>
+
+    <!-- Education Section -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-semibold">Education</h2>
+      <div class="space-y-4">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0">
+            <img 
+              src="/images/graduation-hat.png" 
+              alt="Education" 
+              class="w-20 h-20 rounded-lg"
+            />
+          </div>
+          <div class="space-y-2 flex-1">
+            <h3 class="font-semibold text-lg">University of Melbourne — B.Sc. Data Science</h3>
+            <p class="text-muted-foreground">
+              First Class Honours (H1), Dean's Honours List
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="border-b border-border"></div>
+
+    <!-- Writing Section -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-semibold">Writing</h2>
+      <div class="flex items-start gap-3">
+        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mt-0.5">
+          <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="space-y-1">
+          <h3 class="font-semibold">
+            <a href="#" class="hover:underline">Blog →</a>
+          </h3>
+          <p class="text-muted-foreground">
+            Thoughts, frameworks, and battle scars from building. Minimal words, maximal impact.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer spacing -->
+    <div class="py-8"></div>
+  </div>
 </Layout>

@@ -1,11 +1,15 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-
 import tailwind from "@astrojs/tailwind";
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind()],
+  integrations: [
+    react(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
+  ],
   site: "https://dakshAg.github.io",
-  base: "/portfolio-v2",
 });
