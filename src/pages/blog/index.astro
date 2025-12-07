@@ -1,0 +1,113 @@
+---
+import Layout from "../../layouts/main.astro";
+import { getCollection } from "astro:content";
+import "../../styles/globals.css";
+
+// Get all blog posts, sorted by publication date (newest first)
+const blogPosts = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<Layout title="Blog | Daksh Agrawal">
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <!-- Header -->
+    <header class="mb-16 text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+        Blog
+      </h1>
+      <p class="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+        Thoughts on technology, entrepreneurship, and the intersection of data and business.
+      </p>
+    </header>
+
+    <!-- Blog Posts List -->
+    <div class="space-y-8">
+      {blogPosts.map((post) => (
+        <article class="group border-b border-border pb-8 last:border-b-0">
+          <div class="flex flex-col sm:flex-row gap-6">
+            <!-- Hero Image (if exists) -->
+            {post.data.heroImage && (
+              <div class="flex-shrink-0 sm:w-48">
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.title}
+                  class="w-full h-32 sm:h-32 object-cover rounded-lg"
+                />
+              </div>
+            )}
+
+            <!-- Content -->
+            <div class="flex-1 space-y-3">
+              <div class="space-y-2">
+                <h2 class="text-xl sm:text-2xl font-semibold group-hover:text-primary transition-colors">
+                  <a href={`/blog/${post.slug}`} class="block">
+                    {post.data.title}
+                  </a>
+                </h2>
+                <p class="text-muted-foreground leading-relaxed">
+                  {post.data.description}
+                </p>
+              </div>
+
+              <!-- Meta Information -->
+              <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </time>
+
+                {post.data.updatedDate && post.data.updatedDate.getTime() !== post.data.pubDate.getTime() && (
+                  <span>
+                    Updated {post.data.updatedDate.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </span>
+                )}
+
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2">
+                    {post.data.tags.map((tag) => (
+                      <span class="px-2 py-1 bg-secondary text-secondary-foreground rounded-md text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <!-- Read More Link -->
+              <div>
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-colors"
+                >
+                  Read more
+                  <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Empty State -->
+    {blogPosts.length === 0 && (
+      <div class="text-center py-16">
+        <div class="text-6xl mb-4">📝</div>
+        <h2 class="text-2xl font-semibold mb-2">No posts yet</h2>
+        <p class="text-muted-foreground">
+          I'm working on some great content. Check back soon!
+        </p>
+      </div>
+    )}
+  </div>
+</Layout>

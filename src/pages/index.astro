@@ -1,6 +1,13 @@
 ---
 import Layout from "../layouts/main.astro";
 import "../styles/globals.css";
+import { getCollection } from "astro:content";
+
+// Get recent blog posts (limit to 3 most recent)
+const recentBlogPosts = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
 ---
 
 <Layout title="Daksh Agrawal | Portfolio">
@@ -362,21 +369,61 @@ import "../styles/globals.css";
 
     <!-- Writing Section -->
     <section class="space-y-6">
-      <h2 class="text-2xl font-semibold">Writing</h2>
-      <div class="flex items-start gap-3">
-        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mt-0.5">
-          <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-          </svg>
-        </div>
-        <div class="space-y-1">
-          <h3 class="font-semibold">
-            <a href="#" class="hover:underline">Blog →</a>
-          </h3>
-          <p class="text-muted-foreground">
-            Thoughts, frameworks, and battle scars from building. Minimal words, maximal impact.
-          </p>
-        </div>
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-semibold">Writing</h2>
+        <a href="/blog" class="text-sm text-primary hover:text-primary/80 font-medium transition-colors">
+          View all →
+        </a>
+      </div>
+
+      <div class="space-y-4">
+        {recentBlogPosts.map((post) => (
+          <div class="group border-b border-border pb-4 last:border-b-0 last:pb-0">
+            <div class="space-y-2">
+              <h3 class="font-semibold text-lg group-hover:text-primary transition-colors">
+                <a href={`/blog/${post.slug}`} class="block">
+                  {post.data.title}
+                </a>
+              </h3>
+              <p class="text-muted-foreground text-sm leading-relaxed">
+                {post.data.description}
+              </p>
+              <div class="flex items-center gap-2 text-xs text-muted-foreground">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+                </time>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <>
+                    <span>•</span>
+                    <div class="flex gap-1">
+                      {post.data.tags.slice(0, 2).map((tag) => (
+                        <span class="px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded text-xs">
+                          {tag}
+                        </span>
+                      ))}
+                      {post.data.tags.length > 2 && (
+                        <span class="text-muted-foreground">+{post.data.tags.length - 2}</span>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {recentBlogPosts.length === 0 && (
+          <div class="text-center py-8">
+            <div class="text-4xl mb-2">📝</div>
+            <p class="text-muted-foreground text-sm">
+              Blog posts coming soon...
+            </p>
+          </div>
+        )}
       </div>
     </section>
 
