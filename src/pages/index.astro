@@ -11,7 +11,7 @@ const recentBlogPosts = (await getCollection('blog'))
 ---
 
 <Layout title="Daksh Agrawal | Portfolio">
-  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
     <!-- Hero Section -->
     <section class="space-y-6">
       <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center lg:items-center">
@@ -78,94 +78,89 @@ const recentBlogPosts = (await getCollection('blog'))
     <!-- Core Values Section -->
     <section class="space-y-6">
       <h2 class="text-2xl font-semibold">Core Values</h2>
-      <div class="grid gap-6">
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/values/mediocrity.png" 
-                alt="Hate mediocrity" 
-                class="w-16 h-16"
-              />
-            </div>
-            <div class="flex-1">
-              <h3 class="font-semibold text-lg">Hate mediocrity</h3>
-              <p class="text-muted-foreground italic">
-                “Mediocrity is always invisible until passion shows up and exposes it.”
-              </p>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <!-- Hate mediocrity -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/mediocrity.png"
+              alt="Hate mediocrity"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Hate mediocrity</h3>
+            <p class="text-muted-foreground text-sm italic leading-relaxed">
+              "Mediocrity is always invisible until passion shows up and exposes it."
+            </p>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/values/build.png" 
-                alt="Build relentlessly" 
-                class="w-16 h-16"
-              />
-            </div>
-            <div class="flex-1">
-              <h3 class="font-semibold text-lg">Build relentlessly</h3>
-              <p class="text-muted-foreground italic">
-                “Sometimes you gotta run before you can walk.”
-              </p>
-            </div>
+        <!-- Build relentlessly -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/build.png"
+              alt="Build relentlessly"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Build relentlessly</h3>
+            <p class="text-muted-foreground text-sm italic leading-relaxed">
+              "Sometimes you gotta run before you can walk."
+            </p>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/values/courage.png" 
-                alt="Courage over fear" 
-                class="w-16 h-16"
-              />
-            </div>
-            <div class="flex-1">
-              <h3 class="font-semibold text-lg">Courage over fear</h3>
-              <p class="text-muted-foreground italic">
-                “I must not fear. Fear is the mind-killer.”
-              </p>
-            </div>
+        <!-- Courage over fear -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/courage.png"
+              alt="Courage over fear"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Courage over fear</h3>
+            <p class="text-muted-foreground text-sm italic leading-relaxed">
+              "I must not fear. Fear is the mind-killer."
+            </p>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/values/learn.png" 
-                alt="Learn aggressively" 
-                class="w-16 h-16"
-              />
-            </div>
-            <div class="flex-1">
-              <h3 class="font-semibold text-lg">Learn aggressively</h3>
-              <p class="text-muted-foreground italic">
-                "The illiterate of the 21st century will not be those who cannot learn, unlearn, and relearn."
-              </p>
-            </div>
+        <!-- Learn aggressively -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/learn.png"
+              alt="Learn aggressively"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Learn aggressively</h3>
+            <p class="text-muted-foreground text-sm italic leading-relaxed">
+              "The illiterate of the 21st century will not be those who cannot learn, unlearn, and relearn."
+            </p>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/values/ship.png" 
-                alt="Ship or be forgotten" 
-                class="w-16 h-16"
-              />
-            </div>
-            <div class="flex-1">
-              <h3 class="font-semibold text-lg">Ship or be forgotten</h3>
-              <p class="text-muted-foreground italic">
-                “Good artists copy, great artists steal, real artists ship.”
-              </p>
-            </div>
+        <!-- Ship or be forgotten -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/ship.png"
+              alt="Ship or be forgotten"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Ship or be forgotten</h3>
+            <p class="text-muted-foreground text-sm italic leading-relaxed">
+              "Good artists copy, great artists steal, real artists ship."
+            </p>
           </div>
         </div>
       </div>
