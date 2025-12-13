@@ -188,27 +188,9 @@ const recentBlogPosts = (await getCollection('blog'))
               />
             </div>
             <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">Square Peg Capital — Data Science Intern</h3>
+              <h3 class="font-semibold text-lg">Square Peg (Global Tech Fund) — Data Science Intern</h3>
               <p class="text-muted-foreground">
-                Built valuation tooling and people-analytics pipelines for a global tech fund.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/work/g7-logistics.png" 
-                alt="G7 Smart Logistics" 
-                class="w-20 h-20 rounded-lg"
-              />
-            </div>
-            <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">G7 Smart Logistics — Co-Founder & CTO</h3>
-              <p class="text-muted-foreground">
-                Transformed WhatsApp truck chatter into a national logistics platform.
+                Driven high-conviction investment decisions by engineering ML valuation models and alternative data pipelines (Talent Density) that directly informed Investment Committee strategy.
               </p>
             </div>
           </div>
@@ -226,7 +208,7 @@ const recentBlogPosts = (await getCollection('blog'))
             <div class="space-y-2 flex-1">
               <h3 class="font-semibold text-lg">University of Melbourne — Academic Tutor</h3>
               <p class="text-muted-foreground">
-                Taught algorithms and computing foundations to the next wave of builders.
+                Boosted pass rates by 18% for cohorts of 200+ students by engineering gamified Python and algorithm learning modules.
               </p>
             </div>
           </div>
@@ -242,13 +224,35 @@ const recentBlogPosts = (await getCollection('blog'))
               />
             </div>
             <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">TasWater — Graduate (2026)</h3>
+              <h3 class="font-semibold text-lg">TasWater — Data Analyst Intern</h3>
               <p class="text-muted-foreground">
-                Set to bring modern systems into legacy infra.
+                Secured a Graduate Data Science return offer by engineering Power BI solutions that reduced reporting overhead by 70% and optimized insights for a $1B+ asset portfolio.
               </p>
             </div>
           </div>
         </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/work/g7-logistics.png" 
+                alt="G7 Smart Logistics" 
+                class="w-20 h-20 rounded-lg"
+              />
+            </div>
+            <div class="space-y-2 flex-1">
+              <h3 class="font-semibold text-lg">G7 Smart Logistics — Co-Founder & CTO</h3>
+              <p class="text-muted-foreground">
+                Built the end-to-end architecture (Hono, Supabase, Android, NextJS) to successfully digitize offline workflows for a network of 10,000+ truckers.
+
+Scaled the platform to 5,000+ daily bookings and secured seed funding.
+              </p>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </section>
 
@@ -376,44 +380,58 @@ const recentBlogPosts = (await getCollection('blog'))
         </a>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-6">
         {recentBlogPosts.map((post) => (
-          <div class="group border-b border-border pb-4 last:border-b-0 last:pb-0">
-            <div class="space-y-2">
-              <h3 class="font-semibold text-lg group-hover:text-primary transition-colors">
-                <a href={`/blog/${post.slug}`} class="block">
-                  {post.data.title}
-                </a>
-              </h3>
-              <p class="text-muted-foreground text-sm leading-relaxed">
-                {post.data.description}
-              </p>
-              <div class="flex items-center gap-2 text-xs text-muted-foreground">
-                <time datetime={post.data.pubDate.toISOString()}>
-                  {post.data.pubDate.toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                  })}
-                </time>
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <>
-                    <span>•</span>
-                    <div class="flex gap-1">
-                      {post.data.tags.slice(0, 2).map((tag) => (
-                        <span class="px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded text-xs">
-                          {tag}
-                        </span>
-                      ))}
-                      {post.data.tags.length > 2 && (
-                        <span class="text-muted-foreground">+{post.data.tags.length - 2}</span>
-                      )}
-                    </div>
-                  </>
-                )}
+          <article class="group border-b border-border pb-6 last:border-b-0 last:pb-0">
+            <div class="flex gap-4">
+              <!-- Hero Image (if exists) -->
+              {post.data.heroImage && (
+                <div class="flex-shrink-0">
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.title}
+                    class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg"
+                  />
+                </div>
+              )}
+
+              <!-- Content -->
+              <div class="flex-1 min-w-0 space-y-2">
+                <h3 class="font-semibold text-lg group-hover:text-primary transition-colors">
+                  <a href={`/blog/${post.slug}`} class="block">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                  {post.data.description}
+                </p>
+                <div class="flex items-center gap-2 text-xs text-muted-foreground">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
+                  </time>
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <>
+                      <span>•</span>
+                      <div class="flex gap-1">
+                        {post.data.tags.slice(0, 2).map((tag) => (
+                          <span class="px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded text-xs">
+                            {tag}
+                          </span>
+                        ))}
+                        {post.data.tags.length > 2 && (
+                          <span class="text-muted-foreground">+{post.data.tags.length - 2}</span>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          </article>
         ))}
 
         {recentBlogPosts.length === 0 && (

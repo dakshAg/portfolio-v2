@@ -3,7 +3,7 @@ title: "Data Science @ Unimelb"
 description: "Just a fun onboarding pack. Continuously updated (hopefully). "
 pubDate: 2025-12-07
 updatedDate: 2025-12-07
-heroImage: "/images/Parkville-campus.jpg"
+heroImage: "/images/parkville.png"
 tags: ["education", "university", "careers"]
 draft: false
 ---

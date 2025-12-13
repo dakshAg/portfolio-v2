@@ -3,7 +3,7 @@ title: "Peace"
 description: "We're back to Poetry?"
 pubDate: 2025-12-07
 updatedDate: 2025-12-07
-heroImage: "/images/peace.jpg"
+heroImage: "/images/peace.png"
 tags: ["poetry", "motivation", "careers"]
 draft: false
 ---
