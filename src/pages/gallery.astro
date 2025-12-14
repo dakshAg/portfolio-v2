@@ -1,0 +1,68 @@
+---
+import Layout from "../layouts/main.astro";
+import "../styles/globals.css";
+import { getCollection } from "astro:content";
+
+const galleryItems = (await getCollection("gallery"))
+  .filter((item) => !item.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="Gallery | Daksh Agrawal">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-12">
+    <!-- Header -->
+    <header class="space-y-4">
+      <div class="flex items-center justify-between gap-4 flex-wrap">
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Gallery</h1>
+        <a href="/" class="text-sm text-primary hover:text-primary/80 font-medium transition-colors">
+          ← Home
+        </a>
+      </div>
+      <p class="text-lg text-muted-foreground max-w-2xl">
+        A small log of moments, screenshots, and things I’ve built.
+      </p>
+    </header>
+
+    <div class="border-b border-border"></div>
+
+    <!-- Gallery List -->
+    <section class="space-y-12">
+      {galleryItems.map((item) => (
+        <figure class="space-y-4">
+          <div class="rounded-xl border border-border bg-secondary/30 overflow-hidden">
+            <img
+              src={item.data.image}
+              alt={item.data.alt ?? item.data.caption}
+              class="w-full h-[60vh] sm:h-[65vh] lg:h-[70vh] object-cover object-center"
+              loading="lazy"
+            />
+          </div>
+
+          <figcaption class="space-y-1">
+            <div class="flex items-baseline justify-between gap-4 flex-wrap">
+              <p class="text-base font-medium">{item.data.caption}</p>
+              <time class="text-sm text-muted-foreground" datetime={item.data.date.toISOString()}>
+                {item.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+
+      {galleryItems.length === 0 && (
+        <div class="text-center py-16">
+          <div class="text-6xl mb-4">📷</div>
+          <h2 class="text-2xl font-semibold mb-2">No images yet</h2>
+          <p class="text-muted-foreground">I’ll start adding to this soon.</p>
+        </div>
+      )}
+    </section>
+
+    <!-- Footer spacing -->
+    <div class="py-8"></div>
+  </div>
+</Layout>

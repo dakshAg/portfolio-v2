@@ -8,6 +8,12 @@ const recentBlogPosts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
+
+// Get recent gallery items (limit to 3 most recent)
+const recentGalleryItems = (await getCollection('gallery'))
+  .filter(item => !item.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 ---
 
 <Layout title="Daksh Agrawal | Portfolio">
@@ -387,6 +393,53 @@ Scaled the platform to 5,000+ daily bookings and secured seed funding.
             </p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="border-b border-border"></div>
+
+    <!-- Gallery Section -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-semibold">Gallery</h2>
+        <a href="/gallery" class="text-sm text-primary hover:text-primary/80 font-medium transition-colors">
+          View all →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {recentGalleryItems.map((item) => (
+          <a href="/gallery" class="group block">
+            <div class="rounded-lg border border-border bg-secondary/30 overflow-hidden">
+              <img
+                src={item.data.image}
+                alt={item.data.alt ?? item.data.caption}
+                class="w-full h-56 object-cover object-center group-hover:scale-[1.02] transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
+            <div class="mt-3 space-y-1">
+              <p class="font-medium leading-snug line-clamp-2">{item.data.caption}</p>
+              <time class="text-xs text-muted-foreground" datetime={item.data.date.toISOString()}>
+                {item.data.date.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </time>
+            </div>
+          </a>
+        ))}
+
+        {recentGalleryItems.length === 0 && (
+          <div class="col-span-full text-center py-8">
+            <div class="text-4xl mb-2">📷</div>
+            <p class="text-muted-foreground text-sm">
+              Gallery coming soon...
+            </p>
+          </div>
+        )}
       </div>
     </section>
 
