@@ -1,0 +1,405 @@
+---
+import Layout from "../layouts/main.astro";
+---
+
+<Layout title="Tech Stack | Daksh Agrawal">
+  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+    <!-- Header -->
+    <section class="text-center space-y-4">
+      <h1 class="text-4xl lg:text-5xl font-bold tracking-tight">Tech Stack</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        My personal tier system for technologies and tools. S-tier are my absolute favorites, A-tier are battle-tested, B-tier are situational, and C-tier are ones I avoid when possible.
+      </p>
+      <p class="text-base text-muted-foreground max-w-xl mx-auto">
+        These are technologies I'm deeply familiar with and have built real projects with - from startups to personal projects.
+      </p>
+    </section>
+
+    <!-- S Tier -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 flex items-center justify-center">
+          <img src="/images/tiers/s.png" alt="S-Tier" class="w-16 h-16" />
+        </div>
+        <div>
+          <h2 class="text-2xl font-semibold">S-Tier</h2>
+          <p class="text-muted-foreground">Absolute favorites - I reach for these first</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <!-- Deepnote -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/deepnote.png" alt="Deepnote" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Deepnote</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Amazing in most aspects. Needs some minor catching up with Hex but incredible for complex DS use cases.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NextJS -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/nextjs.png" alt="NextJS" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">NextJS</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Well-developed ecosystem. Go to for anything web dev.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supabase -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/supabase.png" alt="Supabase" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Supabase</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Database done right, postgres is all you need and the addons for Auth, Realtime just hit right.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Github -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/github.svg" alt="GitHub" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">GitHub</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Well done, I would die without it.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cloudflare -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/cloudflare.svg" alt="Cloudflare" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Cloudflare</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Unbeatable infra capabilities, fast, reliable and fun to work with.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- A Tier -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 flex items-center justify-center">
+          <img src="/images/tiers/a.png" alt="A-Tier" class="w-16 h-16" />
+        </div>
+        <div>
+          <h2 class="text-2xl font-semibold">A-Tier</h2>
+          <p class="text-muted-foreground">Battle-tested and reliable - my go-to choices</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <!-- Hex -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/hex.png" alt="Hex" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Hex</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Strong, performant, Beautiful. Needs better ML support and multiple notebooks.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+
+                <!-- Hono -->
+                <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+                    <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                      <img src="/images/tech/hono.webp" alt="Hono" class="w-12 h-12" />
+                    </div>
+                    <span class="font-medium text-sm text-center">Hono</span>
+          
+                    <!-- Hover tooltip -->
+                    <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                      <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+                        Simple, boring, beautiful.
+                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                      </div>
+                    </div>
+                  </div>
+
+        <!-- PyTorch -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/PyTorch.svg" alt="PyTorch" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">PyTorch</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Not a fan of deep ML, but this gets the job done. Needs better support.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FastAPI -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/FastAPI.svg" alt="FastAPI" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">FastAPI</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Fast, builds great APIs, cannot ask for more. Hard to deploy so not S tier.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polars -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/polars.webp" alt="Polars" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Polars</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Fast, great syntax but painful coz of limited support with plotting.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- B Tier -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 flex items-center justify-center">
+          <img src="/images/tiers/b.png" alt="B-Tier" class="w-16 h-16" />
+        </div>
+        <div>
+          <h2 class="text-2xl font-semibold">B-Tier</h2>
+          <p class="text-muted-foreground">Situational tools - good when they fit the use case</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <!-- n8n -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/n8n.png" alt="n8n" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">n8n</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Getting started quite well. With more ecosystem and some software stability, strongly moving into tier A.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- PySpark -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/spark.svg" alt="PySpark" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">PySpark</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Fast but shit syntax, needs work.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flutter -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/Flutter.svg" alt="Flutter" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Flutter</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Love the cross platform capabilities but not a fan of the syntax.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Android Native -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/Android Studio.svg" alt="Android Studio" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Android Native</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Bloated, very bloated.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Django -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/Django.svg" alt="Django" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Django</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Bloated, very bloated.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Docker -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/Docker.svg" alt="Docker" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Docker</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Bloated.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pandas -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/Pandas.svg" alt="Pandas" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">Pandas</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Slow and bad syntax.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TensorFlow -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/tensorflow.svg" alt="TensorFlow" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">TensorFlow</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Good, but loses to PyTorch.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+    <!-- C Tier -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 flex items-center justify-center">
+          <img src="/images/tiers/c.png" alt="C-Tier" class="w-16 h-16" />
+        </div>
+        <div>
+          <h2 class="text-2xl font-semibold">C-Tier</h2>
+          <p class="text-muted-foreground">Avoid when possible - only when absolutely necessary</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <!-- PowerBI -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/powerbi.png" alt="PowerBI" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">PowerBI</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Screams legacy, painful for no reason.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MySQL -->
+        <div class="group relative flex flex-col items-center p-4 hover:scale-105 transition-transform duration-300">
+          <div class="w-16 h-16 mb-3 flex items-center justify-center">
+            <img src="/images/tech/MySQL.svg" alt="MySQL" class="w-12 h-12" />
+          </div>
+          <span class="font-medium text-sm text-center">MySQL</span>
+
+          <!-- Hover tooltip -->
+          <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+            <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 max-w-xs text-center shadow-lg">
+              Defined a generation, but time to die, thanks.
+              <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer spacing -->
+    <div class="py-8"></div>
+  </div>
+</Layout>
