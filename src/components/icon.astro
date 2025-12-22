@@ -1,0 +1,67 @@
+---
+type IconName = "home" | "pen" | "image" | "stack" | "download" | "menu";
+
+const {
+  name,
+  class: className = "w-4 h-4",
+} = Astro.props as { name: IconName; class?: string };
+---
+
+{name === "home" && (
+  <svg class={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3 10.5L12 3l9 7.5V21a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1v-10.5z"
+    />
+  </svg>
+)}
+
+{name === "pen" && (
+  <svg class={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M16.862 3.487a2.1 2.1 0 012.97 2.97L8.5 17.79 4 19l1.21-4.5L16.862 3.487z"
+    />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5l4 4" />
+  </svg>
+)}
+
+{name === "image" && (
+  <svg class={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"
+    />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11l3 3 5-5 4 4" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h.01" />
+  </svg>
+)}
+
+{name === "stack" && (
+  <svg class={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l9 5-9 5-9-5 9-5z" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9 5 9-5" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 16l9 5 9-5" />
+  </svg>
+)}
+
+{name === "download" && (
+  <svg class={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v10m0 0l-4-4m4 4l4-4" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 17v3a1 1 0 001 1h14a1 1 0 001-1v-3" />
+  </svg>
+)}
+
+{name === "menu" && (
+  <svg class={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+)}
+
+
