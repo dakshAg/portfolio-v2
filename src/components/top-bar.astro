@@ -60,12 +60,11 @@ const isActive = (href: string) => {
 
     <div class="flex items-center gap-2">
       <a
-        href="/Daksh_Agrawal_Resume.pdf"
-        download
+        href="mailto:dakshagrawalx@gmail.com"
         class="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium"
       >
-        <Icon name="download" class="w-4 h-4" />
-        Download CV
+        <Icon name="mail" class="w-4 h-4" />
+        Email me
       </a>
 
       <!-- Mobile menu (no JS) -->
@@ -95,9 +94,17 @@ const isActive = (href: string) => {
             ))}
             <div class="my-1 border-t border-border"></div>
             <a
+              href="mailto:dakshagrawalx@gmail.com"
+              class="px-3 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+            >
+              <Icon name="mail" class="w-4 h-4" />
+              Email me
+            </a>
+
+            <a
               href="/Daksh_Agrawal_Resume.pdf"
               download
-              class="px-3 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+              class="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors inline-flex items-center gap-2"
             >
               <Icon name="download" class="w-4 h-4" />
               Download CV
