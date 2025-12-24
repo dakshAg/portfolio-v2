@@ -72,30 +72,13 @@ A lot of your performance as a data scientist is based on how good your toolset 
 
 ### Probability vs Probability for Statistics (PFS)
 
-Age-old question. Simple answer:
-
-```python
-if you.loves(math) and you.loves(math.proofs):
-	return "Probability"
-else:
-	return "Probability for Statistics"
-```
+Age-old question. Simple answer. If you love math and proofs, take probebility. Otherwise take Probability for Statistics. Delay that decision until after you've done Calculus 2 and Linear Algebra.
 
 Both will leave you unprepared for statistics, both might/might not kill your WAM.
 
 ### Design of Algorithms vs Algorithms and Data Structures vs Nothing
 
-It’s an elective, so you have the choice of nothing too. Here’s the answer for that:
-
-```python
-if you.loves(computing):
-	if you.loves(math) and you.loves(math.proofs):
-		return "Design of Algorithms"
-	else:
-		return "Algorithms and Data Structures"
-else:
-	return None
-```
+It’s an elective, so you have the choice of nothing too. If you loved Foundations of Computing and Foundations of Algorithms, you should do a second year algorithms subject, otherwise skip. If you love math and proofs, do Design of Algorithms otherwise Algorithms and Data Structures will give you a generally easier life.
 
 ## Part-time Work
 
