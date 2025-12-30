@@ -92,100 +92,6 @@ const recentGalleryItems = (await getCollection('gallery'))
     <!-- Separator -->
     <div class="border-b border-border"></div>
 
-    <!-- Core Values Section -->
-    <section class="space-y-6">
-      <h2 class="text-2xl font-semibold">Core Values</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        <!-- Hate mediocrity -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/mediocrity.png"
-              alt="Hate mediocrity"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Hate mediocrity</h3>
-            <p class="text-muted-foreground text-sm italic leading-relaxed">
-              "Mediocrity is always invisible until passion shows up and exposes it."
-            </p>
-          </div>
-        </div>
-
-        <!-- Build relentlessly -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/build.png"
-              alt="Build relentlessly"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Build relentlessly</h3>
-            <p class="text-muted-foreground text-sm italic leading-relaxed">
-              "Sometimes you gotta run before you can walk."
-            </p>
-          </div>
-        </div>
-
-        <!-- Courage over fear -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/courage.png"
-              alt="Courage over fear"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Courage over fear</h3>
-            <p class="text-muted-foreground text-sm italic leading-relaxed">
-              "I must not fear. Fear is the mind-killer."
-            </p>
-          </div>
-        </div>
-
-        <!-- Learn aggressively -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/learn.png"
-              alt="Learn aggressively"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Learn aggressively</h3>
-            <p class="text-muted-foreground text-sm italic leading-relaxed">
-              "The illiterate of the 21st century will not be those who cannot learn, unlearn, and relearn."
-            </p>
-          </div>
-        </div>
-
-        <!-- Ship or be forgotten -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/ship.png"
-              alt="Ship or be forgotten"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Ship or be forgotten</h3>
-            <p class="text-muted-foreground text-sm italic leading-relaxed">
-              "Good artists copy, great artists steal, real artists ship."
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Separator -->
-    <div class="border-b border-border"></div>
-
     <!-- Work Experience Section -->
     <section class="space-y-6">
       <h2 class="text-2xl font-semibold">Work Experience</h2>
@@ -207,6 +113,30 @@ const recentGalleryItems = (await getCollection('gallery'))
               </h3>
               <p class="text-muted-foreground">
                 Driven high-conviction investment decisions by engineering ML valuation models and alternative data pipelines (Talent Density) that directly informed Investment Committee strategy.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <img 
+                src="/images/work/g7-logistics.png" 
+                alt="G7 Smart Logistics" 
+                class="w-20 h-20 rounded-lg"
+              />
+            </div>
+            <div class="space-y-2 flex-1">
+              <h3 class="font-semibold text-lg">
+                <a href="https://g7smartlogistics.com/" target="_blank" rel="noopener noreferrer" class="hover:underline">
+                  G7 Smart Logistics — Co-Founder & Tech Advisor (formerly CTO)
+                </a>
+              </h3>
+              <p class="text-muted-foreground">
+                Built the end-to-end architecture (Hono, Supabase, Android, NextJS) to successfully digitize offline workflows for a network of 10,000+ truckers.
+
+Scaled the platform to 8,000+ daily bookings and secured seed funding.
               </p>
             </div>
           </div>
@@ -256,29 +186,7 @@ const recentGalleryItems = (await getCollection('gallery'))
           </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/work/g7-logistics.png" 
-                alt="G7 Smart Logistics" 
-                class="w-20 h-20 rounded-lg"
-              />
-            </div>
-            <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">
-                <a href="https://g7smartlogistics.com/" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                  G7 Smart Logistics — Co-Founder & CTO
-                </a>
-              </h3>
-              <p class="text-muted-foreground">
-                Built the end-to-end architecture (Hono, Supabase, Android, NextJS) to successfully digitize offline workflows for a network of 10,000+ truckers.
-
-Scaled the platform to 5,000+ daily bookings and secured seed funding.
-              </p>
-            </div>
-          </div>
-        </div>
+        
 
 
       </div>
@@ -290,84 +198,208 @@ Scaled the platform to 5,000+ daily bookings and secured seed funding.
     <!-- Projects Section -->
     <section class="space-y-6">
       <h2 class="text-2xl font-semibold">Projects</h2>
-      <div class="space-y-8">
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/projects/rental-market.png" 
-                alt="Rental Market Forecasting (Capstone)" 
-                class="w-24 h-24 rounded-lg"
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rental Market Forecasting -->
+        <article class="group rounded-xl border border-border bg-secondary/30 overflow-hidden hover:bg-secondary/40 transition-colors">
+          <a
+            href="https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-3"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block"
+          >
+            <div class="relative">
+              <img
+                src="/images/projects/rental-market-v2.jpg"
+                alt="Rental Market Forecasting (Capstone)"
+                class="w-full h-56 sm:h-64 lg:h-72 object-cover"
+                loading="lazy"
               />
+              <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </div>
-            <div class="space-y-3 flex-1">
-              <h3 class="font-semibold text-lg">
-                <a href="https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-3" class="hover:underline">Rental Market Forecasting (Capstone)</a>
-              </h3>
-              <p class="text-muted-foreground">
-                Scraped real estate + socio-economic data, built predictive models (Regression, RF, XGBoost), and translated findings into actionable insights for investors.
-              </p>
-              <div class="flex items-center gap-2 mt-2">
-                <img src="/images/tech/python.svg" alt="Python" class="w-5 h-5" />
-                <img src="/images/tech/scikit-learn.svg" alt="scikit-learn" class="w-5 h-5" />
+          </a>
+
+          <div class="p-4 sm:p-5 space-y-2">
+            <h3 class="font-semibold text-base sm:text-lg leading-snug">
+              <a
+                href="https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-3"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-3 hover:underline"
+              >
+                <img
+                  src="/images/projects/rental-market.png"
+                  alt=""
+                  class="w-10 h-10 rounded-md object-cover"
+                  loading="lazy"
+                />
+                <span>Rental Market Forecasting (Capstone)</span>
+              </a>
+            </h3>
+            <p class="text-muted-foreground leading-snug text-sm">
+              Scraped real estate + socio-economic data, built predictive models (Regression, RF, XGBoost), and translated findings into actionable insights for investors.
+            </p>
+
+            <div class="pt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div class="flex flex-wrap gap-3">
+                <a
+                  href="https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs font-medium"
+                >
+                  View repo
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-3#readme"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors text-xs font-medium"
+                >
+                  Read more
+                </a>
+              </div>
+
+              <div class="flex items-center gap-2 justify-start sm:justify-end">
+                <img src="/images/tech/python.svg" alt="Python" class="w-6 h-6" />
+                <img src="/images/tech/scikit-learn.svg" alt="scikit-learn" class="w-6 h-6" />
                 <!-- XGBoost (keeping custom since no file found) -->
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                  <rect x="2" y="2" width="20" height="20" rx="2" fill="#1f77b4"/>
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-label="XGBoost">
+                  <rect x="2" y="2" width="20" height="20" rx="2" fill="#1f77b4" />
                   <text x="12" y="14" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">XGB</text>
                 </svg>
               </div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/projects/nyc-taxi.png" 
-                alt="NYC Taxi Demand Forecasting" 
-                class="w-24 h-24 rounded-lg"
+        <!-- NYC Taxi Demand Forecasting -->
+        <article class="group rounded-xl border border-border bg-secondary/30 overflow-hidden hover:bg-secondary/40 transition-colors">
+          <a
+            href="https://github.com/dakshAg/strategic-taxi-distribution-nyc"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block"
+          >
+            <div class="relative">
+              <img
+                src="/images/projects/nyx-taxi-v2.jpg"
+                alt="NYC Taxi Demand Forecasting"
+                class="w-full h-56 sm:h-64 lg:h-72 object-cover"
+                loading="lazy"
               />
+              <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </div>
-            <div class="space-y-3 flex-1">
-              <h3 class="font-semibold text-lg">
-                <a href="#" class="hover:underline">NYC Taxi Demand Forecasting</a>
-              </h3>
-              <p class="text-muted-foreground">
-                Time-series modeling of ride demand → optimized allocation strategies.
-              </p>
-              <div class="flex items-center gap-2 mt-2">
-                <img src="/images/tech/spark.svg" alt="PySpark" class="w-5 h-5" />
-                <img src="/images/tech/tensorflow.svg" alt="TensorFlow" class="w-5 h-5" />
+          </a>
+
+          <div class="p-4 sm:p-5 space-y-2">
+            <h3 class="font-semibold text-base sm:text-lg leading-snug">
+              <a
+                href="https://github.com/dakshAg/strategic-taxi-distribution-nyc"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-3 hover:underline"
+              >
+                <img
+                  src="/images/projects/nyc-taxi.png"
+                  alt=""
+                  class="w-10 h-10 rounded-md object-cover"
+                  loading="lazy"
+                />
+                <span>NYC Taxi Demand Forecasting</span>
+              </a>
+            </h3>
+            <p class="text-muted-foreground leading-snug text-sm">
+              Time-series modeling of ride demand → optimized allocation strategies.
+            </p>
+
+            <div class="pt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div class="flex flex-wrap gap-3">
+                <a
+                  href="https://github.com/dakshAg/strategic-taxi-distribution-nyc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs font-medium"
+                >
+                  View repo
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/dakshAg/strategic-taxi-distribution-nyc#readme"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors text-xs font-medium"
+                >
+                  Read more
+                </a>
+              </div>
+
+              <div class="flex items-center gap-2 justify-start sm:justify-end">
+                <img src="/images/tech/spark.svg" alt="PySpark" class="w-6 h-6" />
+                <img src="/images/tech/tensorflow.svg" alt="TensorFlow" class="w-6 h-6" />
               </div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/projects/panelogy.png" 
-                alt="AI Comic Maker (Panelogy)" 
-                class="w-24 h-24 rounded-lg"
+        <!-- AI Comic Maker (Panelogy) -->
+        <article class="group rounded-xl border border-border bg-secondary/30 overflow-hidden hover:bg-secondary/40 transition-colors">
+          <a href="#" class="block" aria-label="AI Comic Maker (Panelogy)">
+            <div class="relative">
+              <img
+                src="/images/projects/panelogy-v2.png"
+                alt="AI Comic Maker (Panelogy)"
+                class="w-full h-56 sm:h-64 lg:h-72 object-cover"
+                loading="lazy"
               />
+              <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </div>
-            <div class="space-y-3 flex-1">
-              <h3 class="font-semibold text-lg">
-                <a href="#" class="hover:underline">AI Comic Maker (Panelogy)</a>
-              </h3>
-              <p class="text-muted-foreground">
-                Case law into comics → made legal education readable.
-              </p>
-              <div class="flex items-center gap-2 mt-2">
-                <img src="/images/tech/supabase.png" alt="Supabase" class="w-5 h-5" />
-                <img src="/images/tech/cloudflare.svg" alt="Cloudflare" class="w-5 h-5" />
-                <img src="/images/tech/gemini.svg" alt="Google Gemini" class="w-5 h-5" />
+          </a>
+
+          <div class="p-4 sm:p-5 space-y-2">
+            <h3 class="font-semibold text-base sm:text-lg leading-snug">
+              <a href="#" class="flex items-center gap-3 hover:underline">
+                <img
+                  src="/images/projects/panelogy.png"
+                  alt=""
+                  class="w-10 h-10 rounded-md object-cover"
+                  loading="lazy"
+                />
+                <span>AI Comic Maker (Panelogy)</span>
+              </a>
+            </h3>
+            <p class="text-muted-foreground leading-snug text-sm">
+              Case law into comics → made legal education readable.
+            </p>
+
+            <div class="pt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div class="flex flex-wrap gap-3">
+                <span
+                  class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-primary text-primary-foreground text-xs font-medium opacity-60 cursor-not-allowed"
+                  aria-disabled="true"
+                >
+                  Demo (private)
+                </span>
+                <span
+                  class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-secondary text-secondary-foreground text-xs font-medium opacity-60 cursor-not-allowed"
+                  aria-disabled="true"
+                >
+                  Source (private)
+                </span>
+              </div>
+
+              <div class="flex items-center gap-2 justify-start sm:justify-end">
+                <img src="/images/tech/supabase.png" alt="Supabase" class="w-6 h-6" />
+                <img src="/images/tech/cloudflare.svg" alt="Cloudflare" class="w-6 h-6" />
+                <img src="/images/tech/gemini.svg" alt="Google Gemini" class="w-6 h-6" />
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
@@ -391,6 +423,85 @@ Scaled the platform to 5,000+ daily bookings and secured seed funding.
             <p class="text-muted-foreground">
               First Class Honours (H1), Dean's Honours List
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="border-b border-border"></div>
+
+    <!-- Core Values Section -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-semibold">Core Values</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <!-- Excellence -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/excellence.png"
+              alt="Excellence"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Excellence</h3>
+          </div>
+        </div>
+
+        <!-- Build -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/build.png"
+              alt="Build"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Build</h3>
+          </div>
+        </div>
+
+        <!-- Courage -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/courage.png"
+              alt="Courage"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Courage</h3>
+          </div>
+        </div>
+
+        <!-- Learn -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/learn.png"
+              alt="Learn"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Learn</h3>
+          </div>
+        </div>
+
+        <!-- Discipline -->
+        <div class="flex flex-col items-center text-center space-y-4 p-4">
+          <div class="flex-shrink-0">
+            <img
+              src="/images/values/discipline.png"
+              alt="Discipline"
+              class="w-24 h-24 md:w-28 md:h-28"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-semibold text-lg">Discipline</h3>
           </div>
         </div>
       </div>
@@ -455,32 +566,33 @@ Scaled the platform to 5,000+ daily bookings and secured seed funding.
         </a>
       </div>
 
-      <div class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentBlogPosts.map((post) => (
-          <article class="group border-b border-border pb-6 last:border-b-0 last:pb-0">
-            <div class="flex gap-4">
-              <!-- Hero Image (if exists) -->
-              {post.data.heroImage && (
-                <div class="flex-shrink-0">
+          <article class="group rounded-xl border border-border bg-secondary/30 overflow-hidden hover:bg-secondary/40 transition-colors">
+            <a href={`/blog/${post.slug}`} class="block">
+              <div class="relative">
+                {post.data.heroImage ? (
                   <img
                     src={post.data.heroImage}
                     alt={post.data.title}
-                    class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg"
+                    class="w-full h-48 sm:h-52 object-cover"
+                    loading="lazy"
                   />
-                </div>
-              )}
+                ) : (
+                  <div class="w-full h-48 sm:h-52 bg-gradient-to-br from-secondary to-background" aria-hidden="true" />
+                )}
+                <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
 
-              <!-- Content -->
-              <div class="flex-1 min-w-0 space-y-2">
-                <h3 class="font-semibold text-lg group-hover:text-primary transition-colors">
-                  <a href={`/blog/${post.slug}`} class="block">
-                    {post.data.title}
-                  </a>
+              <div class="p-4 sm:p-5 space-y-2">
+                <h3 class="font-semibold text-base sm:text-lg leading-snug group-hover:text-primary transition-colors">
+                  {post.data.title}
                 </h3>
-                <p class="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                <p class="text-muted-foreground text-sm leading-snug line-clamp-3">
                   {post.data.description}
                 </p>
-                <div class="flex items-center gap-2 text-xs text-muted-foreground">
+
+                <div class="flex items-center justify-between gap-2 text-xs text-muted-foreground">
                   <time datetime={post.data.pubDate.toISOString()}>
                     {post.data.pubDate.toLocaleDateString('en-US', {
                       year: 'numeric',
@@ -488,29 +600,33 @@ Scaled the platform to 5,000+ daily bookings and secured seed funding.
                       day: 'numeric'
                     })}
                   </time>
+
                   {post.data.tags && post.data.tags.length > 0 && (
-                    <>
-                      <span>•</span>
-                      <div class="flex gap-1">
-                        {post.data.tags.slice(0, 2).map((tag: string) => (
-                          <span class="px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded text-xs">
-                            {tag}
-                          </span>
-                        ))}
-                        {post.data.tags.length > 2 && (
-                          <span class="text-muted-foreground">+{post.data.tags.length - 2}</span>
-                        )}
-                      </div>
-                    </>
+                    <div class="flex items-center gap-1 justify-end flex-wrap">
+                      {post.data.tags.slice(0, 2).map((tag: string) => (
+                        <span class="px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded text-xs">
+                          {tag}
+                        </span>
+                      ))}
+                      {post.data.tags.length > 2 && (
+                        <span class="text-muted-foreground">+{post.data.tags.length - 2}</span>
+                      )}
+                    </div>
                   )}
                 </div>
+
+                <div>
+                  <span class="inline-flex items-center gap-2 text-xs font-medium text-primary">
+                    Read →
+                  </span>
+                </div>
               </div>
-            </div>
+            </a>
           </article>
         ))}
 
         {recentBlogPosts.length === 0 && (
-          <div class="text-center py-8">
+          <div class="col-span-full text-center py-8">
             <div class="text-4xl mb-2">📝</div>
             <p class="text-muted-foreground text-sm">
               Blog posts coming soon...
