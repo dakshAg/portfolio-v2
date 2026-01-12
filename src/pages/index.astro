@@ -33,6 +33,41 @@ type Project = {
   actions: ProjectAction[];
 };
 
+type Referee = {
+  name: string;
+  position: string;
+  image: string;
+  imageAlt: string;
+  content: string;
+};
+
+function makePreview(text: string, maxChars = 180) {
+  const trimmed = text.trim().replace(/\s+/g, " ");
+  if (trimmed.length <= maxChars) return trimmed;
+  const cut = trimmed.slice(0, maxChars);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${cut.slice(0, Math.max(0, lastSpace))}…`;
+}
+
+const referees: Referee[] = [
+  {
+    name: "Peter Elliot",
+    position: "Procurement & Category Manager @ TasWater",
+    image: "/images/peter.jpeg",
+    imageAlt: "Portrait of Dr. Cohney",
+    content:
+      "During his summer placement at TW, Daksh made a significant impact by enhancing data management within the procurement and contract management functions. He played a key role in developing performance and KPI dashboards that improved decision-making across teams. Known for his excellent work ethic, technical skills, and proactive approach, Daksh quickly adapted to new challenges and consistently delivered high-quality work. His contributions have made him a valuable asset to the company, and we're excited to see all that he will achieve in the future!",
+  },
+  {
+    name: "Syed Ashfam Ahsan",
+    position: "Student @ University of Melbourne",
+    image: "/images/syed.jpeg",
+    imageAlt: "Square Peg Capital logo",
+    content:
+      "Daksh was one of the nicest and most approachable tutors I encountered during my time at the University of Melbourne. He was always keen to listen and genuinely understand where students were struggling, and consistently went out of his way to help clarify concepts and support our learning. His explanations were clear, patient, and encouraging, which made a real difference to my understanding of the subject. Daksh is highly capable at what he does and an excellent individual to learn from. I have no doubt he will have an amazing future.Daksh was one of the nicest and most approachable tutors I encountered during my time at the University of Melbourne. He was always keen to listen and genuinely understand where students were struggling, and consistently went out of his way to help clarify concepts and support our learning. His explanations were clear, patient, and encouraging, which made a real difference to my understanding of the subject. Daksh is highly capable at what he does and an excellent individual to learn from. I have no doubt he will have an amazing future.",
+  },
+];
+
 const projects: Project[] = [
   {
     title: "AI Comic Maker (Panelogy)",
@@ -683,6 +718,100 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     <!-- Separator -->
     <div class="border-b border-border"></div>
 
+    <!-- Referrals Section -->
+    <section class="space-y-6" aria-label="Referrals">
+      <div class="space-y-2">
+        <h2 class="text-2xl font-semibold">Referrals</h2>
+        <p class="text-muted-foreground text-sm">
+          People I’ve worked with who can speak to my strengths.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {referees.slice(0, 2).map((ref, idx) => {
+          const dialogId = `referral-dialog-${idx}`;
+          const titleId = `referral-title-${idx}`;
+          const preview = makePreview(ref.content);
+
+          return (
+            <>
+              <button
+                type="button"
+                data-open-dialog={dialogId}
+                class="text-left w-full rounded-xl border border-border bg-secondary/30 p-5 hover:bg-secondary/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                aria-haspopup="dialog"
+                aria-controls={dialogId}
+              >
+                <div class="flex items-center gap-4">
+                  <img
+                    src={ref.image}
+                    alt={ref.imageAlt}
+                    class="w-14 h-14 rounded-full object-cover border border-border"
+                    loading="lazy"
+                  />
+                  <div class="min-w-0">
+                    <h3 class="font-semibold leading-snug truncate">{ref.name}</h3>
+                    <p class="text-sm text-muted-foreground truncate">{ref.position}</p>
+                  </div>
+                </div>
+
+                <p class="mt-4 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                  {preview}
+                </p>
+
+                <p class="mt-3 text-xs text-primary font-medium">
+                  Read full referral →
+                </p>
+              </button>
+
+              <dialog
+                id={dialogId}
+                data-referral-dialog
+                aria-labelledby={titleId}
+                class="w-[min(92vw,44rem)] rounded-xl border border-border bg-background text-foreground shadow-2xl"
+              >
+                <div class="p-6 sm:p-7">
+                  <div class="flex items-start justify-between gap-4">
+                    <div class="flex items-center gap-4 min-w-0">
+                      <img
+                        src={ref.image}
+                        alt={ref.imageAlt}
+                        class="w-14 h-14 rounded-full object-cover border border-border"
+                        loading="lazy"
+                      />
+                      <div class="min-w-0">
+                        <h3 id={titleId} class="text-lg font-semibold leading-snug truncate">
+                          {ref.name}
+                        </h3>
+                        <p class="text-sm text-muted-foreground truncate">{ref.position}</p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      data-close-dialog
+                      class="shrink-0 inline-flex items-center justify-center rounded-md border border-border bg-secondary px-3 py-2 text-sm font-medium hover:bg-secondary/80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    >
+                      Close
+                    </button>
+                  </div>
+
+                  <div class="mt-5 space-y-4">
+                    {ref.content.split("\n\n").map((para) => (
+                      <p class="text-sm leading-relaxed text-muted-foreground">{para}</p>
+                    ))}
+                  </div>
+                </div>
+              </dialog>
+            </>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="border-b border-border"></div>
+
     <!-- Gallery Section -->
     <section class="space-y-6">
       <div class="flex items-center justify-between">
@@ -891,4 +1020,38 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     <!-- Footer spacing -->
     <div class="py-8"></div>
   </div>
+
+  <style>
+    dialog[data-referral-dialog]::backdrop { background: rgba(0, 0, 0, 0.55); }
+  </style>
+
+  <script is:inline>
+    (() => {
+      const openDialog = (id) => {
+        const el = document.getElementById(id);
+        if (el && el instanceof HTMLDialogElement) el.showModal();
+      };
+
+      document.addEventListener("click", (e) => {
+        const openBtn = e.target.closest("[data-open-dialog]");
+        if (openBtn) {
+          const id = openBtn.getAttribute("data-open-dialog");
+          if (id) openDialog(id);
+          return;
+        }
+
+        const closeBtn = e.target.closest("[data-close-dialog]");
+        if (closeBtn) {
+          const dlg = closeBtn.closest("dialog");
+          if (dlg && dlg instanceof HTMLDialogElement) dlg.close();
+        }
+      });
+
+      document.querySelectorAll("dialog[data-referral-dialog]").forEach((dlg) => {
+        dlg.addEventListener("click", (e) => {
+          if (e.target === dlg) dlg.close();
+        });
+      });
+    })();
+  </script>
 </Layout>
