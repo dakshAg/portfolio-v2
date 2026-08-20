@@ -6,12 +6,15 @@ type NavItem = { href: string; label: string; icon: "home" | "pen" | "image" | "
 
 const navItems: NavItem[] = [
   { href: "/", label: "Home", icon: "home" },
-  { href: "/blog", label: "Writing", icon: "pen" },
+  { href: "https://dakshagrawal.substack.com/", label: "Writing", icon: "pen" },
   { href: "/gallery", label: "Gallery", icon: "image" },
   { href: "/tech-stack", label: "Tech Stack", icon: "stack" },
 ];
 
+const isExternal = (href: string) => href.startsWith("http");
+
 const isActive = (href: string) => {
+  if (isExternal(href)) return false;
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 };
@@ -44,6 +47,8 @@ const isActive = (href: string) => {
       {navItems.map((item) => (
         <a
           href={item.href}
+          target={isExternal(item.href) ? "_blank" : undefined}
+          rel={isExternal(item.href) ? "noopener noreferrer" : undefined}
           aria-current={isActive(item.href) ? "page" : undefined}
           class:list={[
             "px-3 py-2 rounded-md text-sm font-medium transition-colors inline-flex items-center gap-2",
@@ -80,6 +85,8 @@ const isActive = (href: string) => {
             {navItems.map((item) => (
               <a
                 href={item.href}
+                target={isExternal(item.href) ? "_blank" : undefined}
+                rel={isExternal(item.href) ? "noopener noreferrer" : undefined}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 class:list={[
                   "px-3 py-2 rounded-md text-sm font-medium transition-colors inline-flex items-center gap-2",

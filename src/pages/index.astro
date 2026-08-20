@@ -3,12 +3,6 @@ import Layout from "../layouts/main.astro";
 import "../styles/globals.css";
 import { getCollection } from "astro:content";
 
-// Get recent blog posts (limit to 3 most recent)
-const recentBlogPosts = (await getCollection('blog'))
-  .filter(post => !post.data.draft)
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 3);
-
 // Get recent gallery items (limit to 3 most recent)
 const recentGalleryItems = (await getCollection('gallery'))
   .filter(item => !item.data.draft)
@@ -905,79 +899,67 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     <section class="space-y-6">
       <div class="flex items-center justify-between">
         <h2 class="text-2xl font-semibold">Writing</h2>
-        <a href="/blog" class="text-sm text-primary hover:text-primary/80 font-medium transition-colors">
+        <a
+          href="https://dakshagrawal.substack.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+        >
           View all →
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {recentBlogPosts.map((post) => (
-          <article class="group rounded-xl border border-border bg-secondary/30 overflow-hidden hover:bg-secondary/40 transition-colors">
-            <a href={`/blog/${post.slug}`} class="block">
-              <div class="relative">
-                {post.data.heroImage ? (
-                  <img
-                    src={post.data.heroImage}
-                    alt={post.data.title}
-                    class="w-full h-48 sm:h-52 object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div class="w-full h-48 sm:h-52 bg-gradient-to-br from-secondary to-background" aria-hidden="true" />
-                )}
-                <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </div>
-
-              <div class="p-4 sm:p-5 space-y-2">
-                <h3 class="font-semibold text-base sm:text-lg leading-snug group-hover:text-primary transition-colors">
-                  {post.data.title}
-                </h3>
-                <p class="text-muted-foreground text-sm leading-snug line-clamp-3">
-                  {post.data.description}
-                </p>
-
-                <div class="flex items-center justify-between gap-2 text-xs text-muted-foreground">
-                  <time datetime={post.data.pubDate.toISOString()}>
-                    {post.data.pubDate.toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric'
-                    })}
-                  </time>
-
-                  {post.data.tags && post.data.tags.length > 0 && (
-                    <div class="flex items-center gap-1 justify-end flex-wrap">
-                      {post.data.tags.slice(0, 2).map((tag: string) => (
-                        <span class="px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded text-xs">
-                          {tag}
-                        </span>
-                      ))}
-                      {post.data.tags.length > 2 && (
-                        <span class="text-muted-foreground">+{post.data.tags.length - 2}</span>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                <div>
-                  <span class="inline-flex items-center gap-2 text-xs font-medium text-primary">
-                    Read →
-                  </span>
-                </div>
-              </div>
-            </a>
-          </article>
-        ))}
-
-        {recentBlogPosts.length === 0 && (
-          <div class="col-span-full text-center py-8">
-            <div class="text-4xl mb-2">📝</div>
-            <p class="text-muted-foreground text-sm">
-              Blog posts coming soon...
-            </p>
-          </div>
-        )}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 substack-embeds">
+        <div class="substack-post-embed">
+          <p lang="en-gb">The Lean Architect’s Guide to Shipping by Daksh Agrawal</p>
+          <p>Stop writing code and start building products</p>
+          <a data-post-link href="https://dakshagrawal.substack.com/p/the-lean-architects-guide-to-shipping">Read on Substack</a>
+        </div>
+        <div class="substack-post-embed">
+          <p lang="en-gb">Data Science @ Unimelb by Daksh Agrawal</p>
+          <p>Just a fun onboarding pack. Continuously updated (hopefully). </p>
+          <a data-post-link href="https://dakshagrawal.substack.com/p/data-science-unimelb">Read on Substack</a>
+        </div>
       </div>
+      <script is:inline>
+        (() => {
+          document.querySelectorAll(".substack-post-embed").forEach((element) => {
+            const postLink = element.querySelector("[data-post-link]");
+            if (!postLink) return;
+
+            const href = postLink.getAttribute("href") || "";
+            const match = href.match(/^(https?:\/\/[^/]+)\/p\/([^/?#]+)/);
+            if (!match) return;
+
+            const [, origin, slug] = match;
+            const iframe = document.createElement("iframe");
+            const frameURL = new URL(`${origin}/embed/p/${slug}`);
+            frameURL.searchParams.set("origin", window.location.origin);
+            frameURL.searchParams.set("fullURL", window.location.href);
+            iframe.src = frameURL.toString();
+            iframe.scrolling = "no";
+            iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-top-navigation allow-popups");
+            iframe.setAttribute("allow", "clipboard-read clipboard-write");
+            iframe.style.border = "none";
+            iframe.style.display = "block";
+            iframe.style.width = "100%";
+            iframe.height = "470";
+            iframe.title = postLink.textContent?.trim() || "Substack post";
+
+            element.style.maxWidth = "100%";
+            element.style.width = "100%";
+            element.style.display = "block";
+
+            window.addEventListener("message", (event) => {
+              if (event.origin === origin && event.source === iframe.contentWindow && event.data?.iframeHeight) {
+                iframe.height = event.data.iframeHeight;
+              }
+            });
+
+            element.replaceChildren(iframe);
+          });
+        })();
+      </script>
     </section>
     <!-- Music I Love Section -->
     <section class="space-y-4 my-8">
@@ -1065,6 +1047,11 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
 
   <style>
     dialog[data-referral-dialog]::backdrop { background: rgba(0, 0, 0, 0.55); }
+    .substack-embeds :global(.substack-post-embed),
+    .substack-embeds :global(iframe) {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
   </style>
 
   <script is:inline>
