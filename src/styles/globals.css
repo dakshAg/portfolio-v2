@@ -1058,3 +1058,142 @@ dialog[open] { animation: slam 0.4s var(--ease-snap); }
   .vibe, .spider, .heart-rain { display: none !important; }
   .mv > .mv-layer { display: none; }
 }
+
+/* ==================================================================
+   Tech stack tool vibes (one scene per tool)
+================================================================== */
+.tv { opacity: 0.55; transition: opacity 0.3s ease; }
+.group:hover .tv { opacity: 1; }
+.tv svg { overflow: visible; }
+.tv .hud { color: var(--ink); }
+
+/* Cloudflare */
+.tv-clouds .cloud { position: absolute; left: -130px; width: 110px; height: 55px; animation: drift var(--dur, 18s) linear infinite; animation-delay: var(--d, 0s); transform: scale(var(--s, 1)); }
+@keyframes drift { to { left: 110%; } }
+.tv-clouds .zap { position: absolute; right: 14px; top: 8px; width: 26px; height: 52px; opacity: 0; animation: zap 3.5s steps(1, end) infinite; }
+@keyframes zap { 10%, 14% { opacity: 1; } 12% { opacity: 0; } }
+
+/* Hono */
+.tv-fire .flame { position: absolute; bottom: -6px; width: 34px; height: 50px; transform-origin: bottom center; animation: flicker 0.55s ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
+@keyframes flicker { from { transform: scaleY(var(--h, 1)) scaleX(0.9) skewX(-4deg); } to { transform: scaleY(calc(var(--h, 1) + 0.25)) scaleX(1.05) skewX(4deg); } }
+.tv-fire .ember { position: absolute; bottom: 20px; width: 5px; height: 5px; background: var(--yellow); border: 1.5px solid var(--ink); animation: ember 2.2s ease-out infinite; animation-delay: var(--d, 0s); }
+@keyframes ember { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-90px) translateX(12px); } }
+
+/* Polars */
+.tv-bear { background: linear-gradient(180deg, transparent 60%, rgba(29,233,255,0.18)); }
+.tv-bear .flake { position: absolute; top: -8px; width: 4px; height: 4px; border-radius: 99px; background: var(--paper); border: 1px solid var(--ink); animation: snow var(--dur, 6s) linear infinite; animation-delay: var(--d, 0s); }
+@keyframes snow { to { transform: translateY(160px) translateX(14px); } }
+.tv-bear .floe { position: absolute; right: 10px; bottom: 6px; width: 150px; height: 28px; animation: bob 4s ease-in-out infinite; }
+.tv-bear .bear { position: absolute; right: 40px; bottom: 22px; width: 90px; height: 60px; animation: bob 4s ease-in-out infinite; }
+.tv-bear .head { transform-origin: 60px 30px; animation: sniff 3s ease-in-out infinite; }
+.tv-bear .leg { transform-origin: top center; animation: waddle 0.9s ease-in-out infinite alternate; }
+.tv-bear .leg.b { animation-delay: -0.45s; }
+@keyframes bob { 50% { transform: translateY(-4px) rotate(-1.5deg); } }
+@keyframes sniff { 50% { transform: rotate(-8deg) translateY(2px); } }
+@keyframes waddle { to { transform: rotate(10deg); } }
+
+/* Pandas */
+.tv-panda .bamboo { position: absolute; bottom: 0; width: 6px; height: var(--h, 70%); background: repeating-linear-gradient(180deg, #2e9e44 0 18px, #1f6b2f 18px 21px); border: 1.5px solid var(--ink); transform-origin: bottom; animation: sway 3s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes sway { 50% { transform: rotate(3deg); } }
+.tv-panda .panda { position: absolute; right: 44px; bottom: -34px; width: 80px; height: 70px; animation: peek 5s ease-in-out infinite; }
+@keyframes peek { 0%, 20% { transform: translateY(40px); } 40%, 75% { transform: translateY(0); } 95%, 100% { transform: translateY(40px); } }
+.tv-panda .eye { animation: blink-eye 4s steps(1, end) infinite; }
+@keyframes blink-eye { 48%, 50% { opacity: 0; } }
+
+/* PySpark */
+.tv-sparks .arc { stroke-dasharray: 200; stroke-dashoffset: 200; animation: arc 1.4s linear infinite; animation-delay: var(--d, 0s); filter: drop-shadow(0 0 4px #e25a1c); }
+@keyframes arc { 0% { stroke-dashoffset: 200; opacity: 0; } 20% { opacity: 1; } 60% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+.tv-sparks .spark { animation: pop 1.8s ease-out infinite; animation-delay: var(--d, 0s); transform-origin: center; transform-box: fill-box; }
+@keyframes pop { 0%, 100% { transform: scale(0); opacity: 0; } 30% { transform: scale(1.4); opacity: 1; } 60% { transform: scale(0.6); } }
+
+/* Supabase */
+.tv-bolt .cyl { position: absolute; right: 16px; bottom: 6px; width: 64px; height: 80px; }
+.tv-bolt .fill { transform-origin: bottom; animation: fillup 4s ease-in-out infinite; }
+@keyframes fillup { 0% { transform: scaleY(0.1); } 50% { transform: scaleY(1); } 100% { transform: scaleY(0.1); } }
+.tv-bolt .sbolt { position: absolute; left: 14px; top: 10px; width: 30px; height: 52px; animation: charge 1.2s ease-in-out infinite alternate; }
+@keyframes charge { from { transform: translateY(0) scale(0.9); filter: drop-shadow(0 0 0 #3ecf8e); } to { transform: translateY(-8px) scale(1.1); filter: drop-shadow(0 0 10px #3ecf8e); } }
+
+/* Next.js */
+.tv-routes .route { position: absolute; left: 110%; white-space: nowrap; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink); animation: route 4.5s linear infinite; animation-delay: var(--d, 0s); }
+.tv-routes .route b { color: var(--lime); background: var(--ink); padding: 0 3px; }
+@keyframes route { to { left: -40%; } }
+.tv-routes .tri { position: absolute; right: 12px; bottom: 8px; width: 44px; height: 44px; animation: spin 6s linear infinite; }
+
+/* GitHub */
+.tv-commits .commit { transform-origin: center; transform-box: fill-box; animation: commit 2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes commit { 0%, 100% { transform: scale(0.6); fill: var(--paper); } 30%, 60% { transform: scale(1.2); fill: var(--lime); } }
+.tv-commits .branch.b { stroke-dasharray: 260; stroke-dashoffset: 260; animation: draw-branch 4s ease-in-out infinite; }
+@keyframes draw-branch { 40%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 0; } }
+
+/* Deepnote */
+.tv-cells .cell { position: absolute; left: 58%; right: 10px; top: auto; bottom: calc(10px + var(--i, 0) * 26px); display: flex; gap: 8px; align-items: center; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink); opacity: 0.85; }
+.tv-cells .prompt { color: #3d7bff; font-weight: 700; }
+.tv-cells .run { width: 40px; height: 4px; background: var(--ink); margin-left: auto; transform-origin: left; animation: run 4s linear infinite; animation-delay: var(--d, 0s); }
+@keyframes run { 0% { transform: scaleX(0); background: var(--ink); } 60% { transform: scaleX(1); background: var(--ink); } 62%, 100% { transform: scaleX(1); background: var(--lime); } }
+
+/* Hex */
+.tv-hexes .hex { transform-origin: center; transform-box: fill-box; animation: hexpulse 2.4s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes hexpulse { 0%, 100% { transform: scale(0.85); opacity: 0.35; } 50% { transform: scale(1); opacity: 1; } }
+
+/* FastAPI */
+.tv-speed .line { position: absolute; right: 0; height: 3px; width: var(--w, 40%); background: var(--ink); opacity: 0.6; animation: speed 0.9s linear infinite; animation-delay: var(--d, 0s); }
+@keyframes speed { from { transform: translateX(120%); } to { transform: translateX(-260%); } }
+.tv-speed .dash { position: absolute; left: 14px; bottom: 8px; width: 50px; height: 50px; animation: dash 0.9s ease-in-out infinite alternate; }
+@keyframes dash { to { transform: translateX(8px) skewX(-12deg); } }
+
+/* n8n */
+.tv-nodes .node { transform-origin: center; transform-box: fill-box; animation: nodeblink 2.4s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes nodeblink { 50% { transform: scale(1.12); fill: var(--yellow); } }
+
+/* Flutter */
+.tv-wings .bird { position: absolute; left: -70px; width: 60px; height: 30px; transform: scale(var(--s, 1)); animation: fly var(--dur, 8s) ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes fly { 0% { left: -70px; translate: 0 0; } 50% { translate: 0 -14px; } 100% { left: 110%; translate: 0 0; } }
+.tv-wings .w { transform-origin: 30px 19px; animation: flap 0.35s ease-in-out infinite alternate; }
+.tv-wings .w.r { animation-name: flap-r; }
+@keyframes flap { from { transform: rotate(-25deg); } to { transform: rotate(15deg); } }
+@keyframes flap-r { from { transform: rotate(25deg); } to { transform: rotate(-15deg); } }
+
+/* Android Studio */
+.tv-gradle .gradle { position: absolute; left: 12px; right: 12px; bottom: 10px; font-size: 9px; }
+.tv-gradle .bar { height: 10px; border: 2px solid var(--ink); background: var(--paper); margin: 6px 0; overflow: hidden; }
+.tv-gradle .bar i { display: block; height: 100%; width: 40%; background: repeating-linear-gradient(90deg, #3ddc84 0 8px, #1a8f52 8px 12px); animation: gradle 3s ease-in-out infinite; }
+@keyframes gradle { 0% { transform: translateX(-100%); } 70% { transform: translateX(180%); } 71%, 100% { transform: translateX(-100%); } }
+.tv-gradle .eta { font-family: "JetBrains Mono", monospace; color: var(--ink); opacity: 0.7; }
+.tv-gradle .droid { position: absolute; right: 0; bottom: 26px; width: 48px; height: 40px; animation: bob 1.4s ease-in-out infinite; }
+
+/* Django */
+.tv-pony .sparkle { position: absolute; color: var(--yellow); font-size: 14px; text-shadow: 0 0 2px var(--ink); animation: twinkle 2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.tv-pony .horse { position: absolute; right: 14px; bottom: 6px; font-size: 44px; animation: gallop 0.7s ease-in-out infinite alternate; filter: drop-shadow(2px 2px 0 var(--ink)); }
+@keyframes gallop { from { transform: translateY(0) rotate(-6deg); } to { transform: translateY(-8px) rotate(6deg); } }
+.tv-pony .magic { position: absolute; left: 12px; bottom: 12px; opacity: 0.6; }
+
+/* Docker */
+.tv-whale .sea, .tv-dolphin .sea { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; width: 200%; animation: wave 6s linear infinite; }
+.tv-whale .whale { position: absolute; left: 10px; bottom: 4px; width: 150px; height: 85px; animation: bob 3s ease-in-out infinite; }
+.tv-whale .tail { transform-origin: 20px 46px; animation: tailwag 1s ease-in-out infinite alternate; }
+@keyframes tailwag { to { transform: rotate(14deg); } }
+.tv-whale .crate { animation: crate 3s ease-in-out infinite; }
+.tv-whale .crate.b { animation-delay: 1.5s; }
+@keyframes crate { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.tv-whale .spout { stroke-dasharray: 30; stroke-dashoffset: 30; animation: spout 2.5s ease-out infinite; }
+@keyframes spout { 30% { stroke-dashoffset: 0; opacity: 1; } 60% { opacity: 0; } 100% { stroke-dashoffset: 30; opacity: 0; } }
+
+/* TensorFlow */
+.tv-tensors .num { position: absolute; top: -10px; font-family: "JetBrains Mono", monospace; font-size: 9px; color: #ff6f00; font-weight: 700; animation: numfall var(--dur, 6s) linear infinite; animation-delay: var(--d, 0s); }
+@keyframes numfall { to { transform: translateY(180px); opacity: 0; } }
+.tv-tensors .cube { position: absolute; right: 12px; bottom: 8px; width: 54px; height: 54px; animation: spin 8s linear infinite; }
+
+/* Power BI */
+.tv-loading .pbi { position: absolute; left: 12px; right: 12px; bottom: 10px; }
+.tv-loading .bars { display: flex; gap: 6px; align-items: flex-end; height: 26px; width: 45%; margin-left: auto; }
+.tv-loading .bars i { flex: 1; height: calc(var(--h, 0.5) * 100%); background: #f2c811; border: 2px solid var(--ink); animation: jitter 1.6s steps(3, end) infinite; animation-delay: var(--d, 0s); }
+@keyframes jitter { 33% { height: 20%; } 66% { height: 90%; } }
+.tv-loading .spin { display: inline-block; animation: spin 1.2s linear infinite; }
+.tv-loading .hud { margin-top: 6px; opacity: 0.8; }
+
+/* MySQL */
+.tv-dolphin .dolphin { position: absolute; left: 20px; bottom: -30px; width: 110px; height: 55px; animation: leap 3.6s ease-in-out infinite; }
+@keyframes leap { 0%, 100% { transform: translateY(50px) rotate(20deg); } 45% { transform: translate(40px, -40px) rotate(-10deg); } 55% { transform: translate(60px, -40px) rotate(-25deg); } }
+.tv-dolphin .splash { position: absolute; right: 12px; bottom: 36px; opacity: 0.5; }
+
+@media (prefers-reduced-motion: reduce) { .tv { display: none !important; } }

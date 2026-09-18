@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/main.astro";
 import { tiers } from "../data/site";
+import ToolVibe from "../components/tool-vibe.astro";
 
 const band: Record<string, { bg: string; text: string; label: string }> = {
   S: { bg: "bg-pink", text: "text-ink", label: "GOD TIER" },
@@ -39,7 +40,8 @@ const rot = ["-1.5deg", "1deg", "-0.5deg", "1.5deg", "-1deg"];
 
         <ul class="grid gap-0 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
           {tier.tools.map((tool, i) => (
-            <li class="group relative border-ink p-5 transition-colors hover:bg-yellow sm:border-r-[3px] sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r-[3px] lg:[&:nth-child(3n)]:border-r-0 border-b-[3px]" data-tilt="4">
+            <li class="group relative isolate min-h-[13.5rem] overflow-hidden border-ink p-5 transition-colors hover:bg-yellow sm:border-r-[3px] sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r-[3px] lg:[&:nth-child(3n)]:border-r-0 border-b-[3px]" data-tilt="4">
+              <ToolVibe name={tool.name} />
               <div class="flex items-center gap-4">
                 <span class="grid h-12 w-12 flex-none place-items-center border-[3px] border-ink bg-paper shadow-hard-sm transition-transform group-hover:-rotate-6">
                   <img src={tool.icon} alt="" width="28" height="28" class="h-7 w-7 object-contain" loading="lazy" />
@@ -47,7 +49,7 @@ const rot = ["-1.5deg", "1deg", "-0.5deg", "1.5deg", "-1deg"];
                 <h3 class="font-display text-3xl tracking-wide">{tool.name}</h3>
                 <span class="ml-auto font-pixel text-[9px] text-ink/40">#{String(i + 1).padStart(2, "0")}</span>
               </div>
-              <p class="mt-4 text-sm leading-relaxed text-ink/80">{tool.note}</p>
+              <p class="mt-4 max-w-[62%] text-sm leading-relaxed text-ink/80">{tool.note}</p>
             </li>
           ))}
         </ul>
