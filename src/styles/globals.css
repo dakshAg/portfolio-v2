@@ -1197,3 +1197,33 @@ dialog[open] { animation: slam 0.4s var(--ease-snap); }
 .tv-dolphin .splash { position: absolute; right: 12px; bottom: 36px; opacity: 0.5; }
 
 @media (prefers-reduced-motion: reduce) { .tv { display: none !important; } }
+
+/* ==================================================================
+   Inked icons (stats + perks)
+================================================================== */
+.ink-icon { display: block; overflow: visible; flex: none; filter: drop-shadow(2px 2px 0 var(--ink)); }
+.ink-software .cursor { animation: blink 1s steps(2, start) infinite; }
+.ink-data .bar { transform-origin: bottom; transform-box: fill-box; animation: bargrow 2.4s ease-in-out infinite; }
+.ink-data .b2 { animation-delay: 0.2s; } .ink-data .b3 { animation-delay: 0.4s; }
+@keyframes bargrow { 0%, 100% { transform: scaleY(0.6); } 50% { transform: scaleY(1); } }
+.ink-data .dot { animation: pop 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+.ink-finance .coin { transform-origin: center; transform-box: fill-box; animation: coinspin 2.6s ease-in-out infinite; }
+@keyframes coinspin { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.15); } }
+.ink-finance .up { animation: bob 1.4s ease-in-out infinite; }
+.ink-teaching .chalk { animation: chalkwrite 3s linear infinite; }
+@keyframes chalkwrite { 0% { stroke-dashoffset: 40; } 60%, 100% { stroke-dashoffset: 0; } }
+.ink-teaching .cap { transform-origin: center; transform-box: fill-box; animation: bob 2s ease-in-out infinite; }
+.ink-product .glow { transform-origin: center; transform-box: fill-box; animation: glow 1.6s ease-in-out infinite; }
+@keyframes glow { 50% { transform: scale(1.7); opacity: 0.6; } }
+.ink-product .ray { animation: blink 1.6s steps(2, start) infinite; }
+.ink-excellence .star { transform-origin: center; transform-box: fill-box; animation: starspin 4s ease-in-out infinite; }
+@keyframes starspin { 0%, 100% { transform: rotate(-8deg) scale(1); } 50% { transform: rotate(8deg) scale(1.1); } }
+.ink-excellence .shine { animation: blink 0.8s steps(2, start) infinite; }
+.ink-build .hammer { transform-origin: 32px 42px; animation: hammer 0.9s ease-in-out infinite; }
+@keyframes hammer { 0%, 100% { transform: rotate(0); } 40% { transform: rotate(-35deg); } 55% { transform: rotate(6deg); } }
+.ink-build .spark { animation: blink 0.9s steps(2, end) infinite; }
+.ink-courage .flame { transform-origin: bottom center; transform-box: fill-box; animation: flicker 0.5s ease-in-out infinite alternate; }
+.ink-learn .bulb { transform-origin: center; transform-box: fill-box; animation: pop 3s ease-in-out infinite; }
+.ink-discipline .hand.h { transform-origin: 24px 26px; animation: spin 12s linear infinite; }
+.ink-discipline .hand.m { transform-origin: 24px 26px; animation: spin 1s steps(60) infinite; }
+.sticker .ink-icon { width: 36px; height: 36px; }

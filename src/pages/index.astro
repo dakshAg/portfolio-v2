@@ -4,9 +4,10 @@ import SectionHeading from "../components/section-heading.astro";
 import MisregImage from "../components/misreg-image.astro";
 import Multiverse from "../components/multiverse.astro";
 import Vibe from "../components/vibe.astro";
+import InkIcon from "../components/ink-icon.astro";
 import Burst from "../components/burst.astro";
 import { getCollection } from "astro:content";
-import { site, experience, education, projects, skills, values, referees, player2 } from "../data/site";
+import { site, experience, education, projects, values, referees, player2 } from "../data/site";
 
 const gallery = (await getCollection("gallery"))
   .filter((i) => !i.data.draft)
@@ -30,7 +31,6 @@ const stats = [
   { label: "Teaching", v: 0.86, bar: "var(--lime)" },
   { label: "Product Thinking", v: 0.88, bar: "var(--violet)" },
 ];
-const statIcon = (label: string) => skills.find((s) => s.label === label)?.icon ?? "";
 
 const tape = [
   "Head of Data @ Cruz Trading", "ex Square Peg", "ex CTO @ G7", "H1 Data Science @ Unimelb", "Melbourne, AU",
@@ -299,8 +299,8 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
           {stats.map((s, i) => (
             <li>
               <div class="mb-2 flex items-center justify-between gap-3">
-                <span class="flex items-center gap-2 font-display text-2xl tracking-wide">
-                  <img src={statIcon(s.label)} alt="" width="26" height="26" class="h-[26px] w-[26px] object-contain" loading="lazy" />
+                <span class="flex items-center gap-3 font-display text-2xl tracking-wide">
+                  <InkIcon name={s.label} class="h-8 w-8" />
                   {s.label}
                 </span>
                 <span class="font-pixel text-[10px]">{Math.round(s.v * 100)}</span>
@@ -315,7 +315,7 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
         <ul class="flex flex-wrap gap-5" data-reveal>
           {values.map((v, i) => (
             <li class:list={["sticker !gap-3 !px-5 !py-3 !text-2xl", stickerColors[i % stickerColors.length]]} style={`--rot: ${rot[i % rot.length]}`} data-magnetic="0.25">
-              <img src={v.icon} alt="" width="36" height="36" class="h-9 w-9 object-contain" loading="lazy" />
+              <InkIcon name={v.label} />
               {v.label}
             </li>
           ))}
