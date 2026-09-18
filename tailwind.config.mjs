@@ -53,8 +53,8 @@ export default {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
-				sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
-				display: ["Instrument Serif", "Iowan Old Style", "Georgia", "serif"],
+				sans: ["Plus Jakarta Sans", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+				display: ["Bricolage Grotesque", "ui-sans-serif", "system-ui", "sans-serif"],
 				mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
 			},
 			typography: ({ theme }) => ({
@@ -75,7 +75,7 @@ export default {
 						"--tw-prose-counters": "hsl(var(--muted-foreground))",
 						"--tw-prose-bullets": "hsl(var(--muted-foreground))",
 						maxWidth: "none",
-						"h1, h2, h3": { fontFamily: theme("fontFamily.display").join(", "), fontWeight: "400" },
+						"h1, h2, h3": { fontFamily: theme("fontFamily.display").join(", "), fontWeight: "600", letterSpacing: "-0.02em" },
 						a: { textDecoration: "none", borderBottom: "1px solid hsl(var(--accent) / 0.4)" },
 						"a:hover": { borderBottomColor: "hsl(var(--accent))" },
 					},

@@ -78,9 +78,15 @@
   }
 
   h1, h2, h3, .font-display {
-    font-family: "Instrument Serif", "Iowan Old Style", Georgia, serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    font-variation-settings: "opsz" 96;
+  }
+  h1 em, h2 em, .font-display em {
+    font-style: normal;
+    font-weight: 700;
+    color: hsl(var(--accent));
   }
 
   :focus-visible {
