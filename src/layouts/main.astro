@@ -45,7 +45,7 @@ const { title, description = site.tagline, page } = Astro.props;
         <p class="font-display text-5xl text-paper chroma sm:text-7xl">LOADING</p>
         <div class="boot__bar"><i data-boot-bar></i></div>
         <p class="boot__log" data-boot-log>booting…</p>
-        <p class="hud mt-2 opacity-60">press any key to skip</p>
+        <p class="hud mt-2 opacity-60">press any key to start · esc for silent mode</p>
       </div>
     </div>
 
@@ -61,6 +61,97 @@ const { title, description = site.tagline, page } = Astro.props;
     </div>
 
     <div class="toast-stack" data-toasts aria-live="polite"></div>
+    <div class="heart-rain" data-heart-rain aria-hidden="true"></div>
+
+    <!-- Spider on a thread. Click it. -->
+    <div class="spider" data-spider aria-hidden="true">
+      <button type="button" tabindex="-1" data-spider-btn aria-label="A spider">
+        <svg viewBox="0 0 34 34" width="34" height="34">
+          <g stroke="var(--paper)" stroke-width="2" fill="none" stroke-linecap="round">
+            <path d="M12 14 L3 8 M12 17 L2 17 M12 20 L3 26 M22 14 L31 8 M22 17 L32 17 M22 20 L31 26" />
+          </g>
+          <ellipse cx="17" cy="19" rx="7" ry="9" fill="var(--pink)" stroke="var(--ink)" stroke-width="2" />
+          <circle cx="17" cy="9" r="4.5" fill="var(--pink)" stroke="var(--ink)" stroke-width="2" />
+          <circle cx="15.5" cy="8.5" r="1" fill="var(--ink)" /><circle cx="18.5" cy="8.5" r="1" fill="var(--ink)" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Attract mode: shows after idle, like an arcade cabinet nobody is playing -->
+    <div class="attract" data-attract aria-hidden="true">
+      <div class="px-6">
+        <p class="hud text-cyan">DAKSH.EXE · demo mode</p>
+        <h2 class="font-display chroma-lg mt-4 leading-none">INSERT COIN</h2>
+        <p class="insert hud mt-6 text-yellow">press any key · move the mouse · touch anything</p>
+        <div class="mt-10 inline-block border-[3px] border-paper p-5 text-left">
+          <p class="hud mb-3 text-pink">HIGH SCORES</p>
+          <ol class="scores space-y-1" data-attract-scores></ol>
+        </div>
+      </div>
+      <div class="demo-tape stripes h-6" style="--stripe-a: var(--pink); --stripe-b: var(--cyan)"></div>
+    </div>
+
+    <!-- Cheat menu: press ? -->
+    <dialog data-cheat data-dialog class="cheat">
+      <div class="dialogue">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="hud text-yellow">▸ CHEAT MENU</p>
+            <h2 class="font-display mt-2 text-4xl">Achievements</h2>
+            <p class="font-mono mt-1 text-xs text-muted" data-cheat-count></p>
+          </div>
+          <button type="button" data-close-dialog class="btn-yellow !px-3 !py-1.5 !text-base">✕</button>
+        </div>
+        <ul class="mt-5 font-mono text-sm" data-cheat-list></ul>
+        <p class="hud mt-5 text-muted">hints unlock as you play · ? toggles this</p>
+      </div>
+    </dialog>
+
+    <!-- SVG filter universes for multiverse images -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <filter id="mv-neon" color-interpolation-filters="sRGB">
+          <feColorMatrix type="saturate" values="0" />
+          <feConvolveMatrix order="3" kernelMatrix="-1 -1 -1 -1 8 -1 -1 -1 -1" preserveAlpha="true" />
+          <feComponentTransfer><feFuncR type="linear" slope="3" /><feFuncG type="linear" slope="3" /><feFuncB type="linear" slope="3" /></feComponentTransfer>
+          <feColorMatrix type="matrix" values="0.1 0 0 0 0  0 0.9 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+          <feGaussianBlur stdDeviation="0.6" result="glow" />
+          <feMerge><feMergeNode in="glow" /><feMergeNode in="SourceGraphic" /></feMerge>
+          <feComposite in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="0.15" k4="0" />
+        </filter>
+        <filter id="mv-pixel" x="0" y="0" color-interpolation-filters="sRGB">
+          <feFlood x="4" y="4" height="2" width="2" />
+          <feComposite width="8" height="8" />
+          <feTile result="a" />
+          <feComposite in="SourceGraphic" in2="a" operator="in" />
+          <feMorphology operator="dilate" radius="4" />
+          <feComponentTransfer>
+            <feFuncR type="discrete" tableValues="0 0.25 0.5 0.75 1" /><feFuncG type="discrete" tableValues="0 0.25 0.5 0.75 1" /><feFuncB type="discrete" tableValues="0 0.25 0.5 0.75 1" />
+          </feComponentTransfer>
+        </filter>
+        <filter id="mv-poster" color-interpolation-filters="sRGB">
+          <feComponentTransfer>
+            <feFuncR type="discrete" tableValues="0.1 0.5 1" /><feFuncG type="discrete" tableValues="0.05 0.45 0.95" /><feFuncB type="discrete" tableValues="0.2 0.6 1" />
+          </feComponentTransfer>
+          <feColorMatrix type="hueRotate" values="25" />
+        </filter>
+        <filter id="mv-thermal" color-interpolation-filters="sRGB">
+          <feColorMatrix type="saturate" values="0" />
+          <feComponentTransfer>
+            <feFuncR type="table" tableValues="0.05 0.5 1 1 1" /><feFuncG type="table" tableValues="0 0 0.3 0.9 1" /><feFuncB type="table" tableValues="0.4 0.9 0.2 0 0.6" />
+          </feComponentTransfer>
+        </filter>
+        <filter id="mv-print" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="1.2 0 0 0 -0.1  0 1.2 0 0 -0.1  0 0 1.2 0 -0.1  0 0 0 1 0" />
+          <feOffset dx="3" dy="0" in="SourceGraphic" result="c" />
+          <feColorMatrix in="c" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.6 0" result="cyan" />
+          <feOffset dx="-3" dy="0" in="SourceGraphic" result="m" />
+          <feColorMatrix in="m" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 0.6 0" result="mag" />
+          <feBlend in="cyan" in2="mag" mode="screen" result="cm" />
+          <feBlend in="SourceGraphic" in2="cm" mode="multiply" />
+        </filter>
+      </defs>
+    </svg>
 
     <TopBar />
     <main id="main-content" class="flex-1">

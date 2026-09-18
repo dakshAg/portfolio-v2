@@ -17,25 +17,25 @@ const isActive = (href: string) => {
 </a>
 
 <header class="hud-bar" transition:persist>
-  <div class="container-x flex h-16 items-center justify-between gap-4">
+  <div class="container-x flex h-16 items-center justify-between gap-3 lg:gap-6">
     <!-- Player tag -->
-    <a href="/" class="group flex items-center gap-3" data-cursor-label="Home">
+    <a href="/" class="group flex items-center gap-3" data-cursor-label="Home" data-p1-tag>
       <span class="relative grid h-10 w-10 place-items-center border-[3px] border-paper bg-pink shadow-[3px_3px_0_var(--cyan)] transition-transform group-hover:-rotate-6">
         <img src="/images/icon.png" alt="" width="28" height="28" class="h-7 w-7" loading="eager" />
       </span>
       <span class="flex flex-col leading-none">
-        <span class="hud text-cyan">P1</span>
-        <span class="font-display text-2xl tracking-wider">{site.name}</span>
+        <span class="hud text-cyan" data-p1-label>P1</span>
+        <span class="whitespace-nowrap font-display text-2xl tracking-wider">{site.name}</span>
       </span>
     </a>
 
-    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+    <nav class="hidden items-center md:flex" aria-label="Primary">
       {nav.map((item, i) => (
         <a
           href={item.href}
           data-scramble
           class:list={[
-            "hud relative px-3 py-2 transition-colors hover:text-yellow",
+            "hud relative whitespace-nowrap px-2 py-2 transition-colors hover:text-yellow lg:px-3",
             isActive(item.href) ? "text-yellow" : "text-paper",
           ]}
           aria-current={isActive(item.href) ? "page" : undefined}
@@ -47,10 +47,17 @@ const isActive = (href: string) => {
 
     <div class="flex items-center gap-3">
       <!-- XP meter, fills as you scroll -->
-      <div class="hidden items-center gap-2 sm:flex" title="XP: scroll to earn">
-        <span class="hud text-lime">LV <b data-level>1</b></span>
+      <div class="hidden items-center gap-2 lg:flex" title="XP: scroll to earn">
+        <span class="hud whitespace-nowrap text-lime">LV <b data-level>1</b></span>
         <div class="xp-bar" data-xp><i></i></div>
       </div>
+
+      <span class="sticker sleepy sticker-violet whitespace-nowrap !px-2 !py-1 !text-xs" style="--rot: 0deg" title="It's late. Go to sleep.">😴 go to sleep</span>
+
+      <button type="button" data-sound class="snd hud whitespace-nowrap text-lime" aria-pressed="false" aria-label="Toggle sound">
+        <span class="bars"><i style="--d:0s"></i><i style="--d:.15s"></i><i style="--d:.3s"></i><i style="--d:.45s"></i></span>
+        <span data-sound-label class="hidden sm:inline">SND OFF</span>
+      </button>
 
       <a href={site.resume} download data-magnetic="0.25" class="btn-yellow hidden !px-3 !py-1.5 !text-base sm:inline-flex">
         Résumé

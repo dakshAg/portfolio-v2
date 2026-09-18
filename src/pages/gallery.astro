@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/main.astro";
-import MisregImage from "../components/misreg-image.astro";
+import Multiverse from "../components/multiverse.astro";
 import { getCollection } from "astro:content";
 
 const items = (await getCollection("gallery"))
@@ -28,7 +28,7 @@ const tapes = ["var(--yellow)", "var(--pink)", "var(--cyan)", "var(--lime)"];
         <figure class="group panel p-3 pb-5" data-reveal data-tilt="4" style={`--r: ${rot[i % rot.length]}; --r0: ${i % 2 ? "6deg" : "-6deg"}`}>
           <span class="stripes absolute -top-3 left-1/2 z-10 h-6 w-28 -translate-x-1/2 rotate-[-5deg]" style={`--stripe-a: ${tapes[i % tapes.length]}; --stripe-b: var(--ink)`} aria-hidden="true"></span>
           <div class="border-[3px] border-ink">
-            <MisregImage src={item.data.image} alt={item.data.alt ?? item.data.caption} class="w-full" />
+            <Multiverse src={item.data.image} alt={item.data.alt ?? item.data.caption} class="w-full" />
           </div>
           <figcaption class="mt-4 flex items-baseline justify-between gap-4">
             <p class="font-display text-2xl">{item.data.caption}</p>

@@ -1,0 +1,70 @@
+---
+/** Per-company ambient scene rendered behind a panel's content. */
+interface Props {
+  kind: "water" | "ticker" | "peg" | "trucks" | "chalk" | "stars";
+}
+const { kind } = Astro.props;
+const bubbles = Array.from({ length: 9 }, (_, i) => ({ l: 6 + i * 11, s: 6 + (i % 4) * 4, d: (i * 0.7) % 4, dur: 3.5 + (i % 3), x: (i % 2 ? 1 : -1) * (8 + i * 3) }));
+const glyphs = ["def", "for i in", "O(n log n)", "return", "while", "λ", "if __name__", ":=", "print()", "yield", "class", "try:", "∀x", "%", "[::-1]"];
+const stars = Array.from({ length: 26 }, (_, i) => ({ x: (i * 37) % 100, y: (i * 53) % 100, d: (i * 0.37) % 2, dur: 1.5 + (i % 3) }));
+const quotes = ["YES 0.62 ▲", "NO 0.38 ▼", "BTC>100K 0.71 ▲", "FED CUT 0.55 ▲", "RAIN MELB 0.88 ▲", "LATENCY 4ms", "FILL 100%", "PNL +∞"];
+---
+<div class:list={["vibe", `vibe-${kind}`]} aria-hidden="true">
+  {kind === "water" && (
+    <>
+      <svg class="wave a" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 60 C150 0 300 120 450 60 C600 0 750 120 900 60 C1050 0 1200 120 1200 60 L1200 120 L0 120 Z" /></svg>
+      <svg class="wave b" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 70 C200 20 400 120 600 70 C800 20 1000 120 1200 70 L1200 120 L0 120 Z" /></svg>
+      {bubbles.map((b) => <i class="blob" style={`left:${b.l}%; --s:${b.s}px; --d:${b.d}s; --dur:${b.dur}s; --x:${b.x}px`}></i>)}
+    </>
+  )}
+  {kind === "ticker" && (
+    <>
+      <div class="quotes">{[...quotes, ...quotes].map((q) => <span class="mr-8">{q}</span>)}</div>
+      <svg viewBox="0 0 600 200" preserveAspectRatio="none" style="inset:0;width:100%;height:100%;opacity:0.55">
+        {Array.from({ length: 14 }, (_, i) => (
+          <rect class="candle" x={20 + i * 42} y={60 + ((i * 29) % 70)} width="10" height={30 + ((i * 17) % 50)} fill="var(--lime)" style={`--d:${(i * 0.23) % 1.8}s`} />
+        ))}
+        <polyline class="line" points="0,170 45,150 90,160 135,120 180,130 225,95 270,110 315,80 360,90 405,60 450,70 495,40 540,55 600,20" />
+      </svg>
+    </>
+  )}
+  {kind === "peg" && (
+    <svg viewBox="0 0 300 200" style="right:0;bottom:0;width:260px;height:180px;opacity:0.85">
+      <path class="curve" d="M10 190 C 80 190, 140 120, 290 20" />
+      <circle class="hole" cx="230" cy="140" r="34" />
+      <rect class="peg" x="206" y="116" width="48" height="48" />
+      <text class="fit" x="150" y="150" text-anchor="middle">FITS!</text>
+    </svg>
+  )}
+  {kind === "trucks" && (
+    <>
+      <div class="road"></div>
+      <div class="odometer">BOOKINGS <span data-odometer="8000">0</span>+</div>
+      {[0, 1, 2].map((i) => (
+        <svg class="truck" viewBox="0 0 120 50" width="120" height="50" style={`--dur:${9 + i * 3}s; --d:${-i * 4}s`}>
+          <rect x="2" y="8" width="70" height="30" fill={["var(--pink)", "var(--cyan)", "var(--yellow)"][i]} stroke="var(--ink)" stroke-width="3" />
+          <path d="M72 16 h26 l14 12 v10 h-40 z" fill="var(--paper)" stroke="var(--ink)" stroke-width="3" />
+          <rect x="80" y="20" width="14" height="9" fill="var(--cyan)" stroke="var(--ink)" stroke-width="2" />
+          <text x="10" y="29" font-family="Bangers" font-size="16" fill="var(--ink)">G7</text>
+          <g class="wheel"><circle cx="22" cy="40" r="8" fill="var(--ink)" /><circle cx="22" cy="40" r="3" fill="var(--paper)" /><path d="M22 32 v16 M14 40 h16" stroke="var(--paper)" stroke-width="1.5" /></g>
+          <g class="wheel"><circle cx="96" cy="40" r="8" fill="var(--ink)" /><circle cx="96" cy="40" r="3" fill="var(--paper)" /><path d="M96 32 v16 M88 40 h16" stroke="var(--paper)" stroke-width="1.5" /></g>
+        </svg>
+      ))}
+    </>
+  )}
+  {kind === "chalk" && (
+    <>
+      {glyphs.map((g, i) => (
+        <span class="glyph" style={`--x:${(i * 13) % 92}%; --fs:${10 + (i % 4) * 3}px; --d:${(i * 0.9) % 8}s; --dur:${7 + (i % 4) * 2}s; --r:${(i % 3) - 1}deg`}>{g}</span>
+      ))}
+      <svg class="cap" viewBox="0 0 64 64"><path d="M32 10 L60 24 L32 38 L4 24 Z" fill="var(--ink)" /><path d="M14 30 v12 c0 6 36 6 36 0 v-12" fill="none" stroke="var(--ink)" stroke-width="5" /><path d="M60 24 v16" stroke="var(--yellow)" stroke-width="3" /><circle cx="60" cy="42" r="4" fill="var(--yellow)" /></svg>
+    </>
+  )}
+  {kind === "stars" && (
+    <>
+      {stars.map((s) => <i class="star" style={`left:${s.x}%; top:${s.y}%; --d:${s.d}s; --dur:${s.dur}s`}></i>)}
+      <div class="comet"></div>
+      <div class="orbit"><span>🎓</span></div>
+    </>
+  )}
+</div>

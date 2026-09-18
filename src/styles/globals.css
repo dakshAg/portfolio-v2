@@ -115,6 +115,7 @@
   .sticker-yellow { @apply bg-yellow; }
   .sticker-lime { @apply bg-lime; }
   .sticker-paper { @apply bg-paper; }
+  .sticker-violet { @apply bg-violet text-paper; }
 
   /* Buttons */
   .btn {
@@ -683,4 +684,377 @@ dialog[open] { animation: slam 0.4s var(--ease-snap); }
   .grain, .glitch::before, .glitch::after { display: none; }
   [data-magnetic], [data-tilt] { transform: none !important; }
   .boot { display: none !important; }
+}
+
+/* ==================================================================
+   MULTIVERSE EDITION additions
+================================================================== */
+
+/* ------------------------------------------------------------------
+   Multiverse image: one photo, many universes. Base layer + two slice
+   layers that flash other styles during a "dimension flip".
+------------------------------------------------------------------- */
+.mv {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink);
+}
+.mv img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.mv > .mv-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.mv.is-flipping > .mv-layer { opacity: 1; }
+.mv-tag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 3px 6px;
+  background: var(--ink);
+  color: var(--lime);
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.2s ease, transform 0.3s var(--ease-boing);
+}
+.group:hover .mv-tag, .mv:hover .mv-tag, .mv.is-flipping .mv-tag { opacity: 1; transform: none; }
+
+/* Universes */
+.u-616 img { filter: none; }
+.u-comic img { filter: contrast(1.35) saturate(1.6); }
+.u-comic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--ink) 1px, transparent 1.6px);
+  background-size: 5px 5px;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
+.u-noir img { filter: grayscale(1) contrast(1.7) brightness(0.95); }
+.u-noir::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.25) 3px 4px);
+}
+.u-neon img { filter: url(#mv-neon); }
+.u-pixel img { filter: url(#mv-pixel); image-rendering: pixelated; }
+.u-poster img { filter: url(#mv-poster); }
+.u-thermal img { filter: url(#mv-thermal); }
+.u-print img { filter: url(#mv-print); }
+.u-sketch img { filter: grayscale(1) contrast(2.2) brightness(1.15) invert(1); mix-blend-mode: normal; }
+.u-sketch { background: var(--paper); }
+.u-vhs img { filter: saturate(1.8) contrast(1.1) hue-rotate(-12deg); }
+.u-vhs::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,46,151,0.25), transparent 30%, transparent 70%, rgba(29,233,255,0.25));
+  mix-blend-mode: screen;
+}
+
+/* ------------------------------------------------------------------
+   Vibes: per-company scene animations inside experience panels
+------------------------------------------------------------------- */
+.vibe {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.vibe svg { position: absolute; }
+.vibe ~ :not(.absolute) { position: relative; z-index: 1; }
+.panel, .panel-dark, .panel-void { isolation: isolate; }
+
+/* Water: two waves at the bottom, rising on hover, bubbles */
+.vibe-water .wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  width: 200%;
+  fill: var(--cyan);
+  opacity: 0.35;
+  animation: wave 7s linear infinite;
+  transition: transform 1.2s var(--ease-out-expo);
+}
+.vibe-water .wave.b { animation-duration: 11s; animation-direction: reverse; opacity: 0.22; fill: var(--violet); }
+.wobble:hover .vibe-water .wave { transform: translateY(-18%); }
+@keyframes wave { to { translate: -50% 0; } }
+.vibe-water .blob {
+  position: absolute;
+  bottom: -10px;
+  width: var(--s, 8px);
+  height: var(--s, 8px);
+  border: 2px solid var(--cyan);
+  border-radius: 999px;
+  opacity: 0;
+  animation: blob var(--dur, 4s) ease-in infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes blob {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  15% { opacity: 0.9; }
+  100% { opacity: 0; transform: translateY(-160px) translateX(var(--x, 10px)) scale(1.2); }
+}
+
+/* Ticker: chart line drawing + candlesticks + scrolling quotes */
+.vibe-ticker .line {
+  fill: none;
+  stroke: var(--lime);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: draw 5s var(--ease-out-expo) infinite;
+  filter: drop-shadow(0 0 6px var(--lime));
+}
+@keyframes draw { 0% { stroke-dashoffset: 1200; } 60%, 100% { stroke-dashoffset: 0; } }
+.vibe-ticker .candle { animation: candle 1.8s steps(2, end) infinite; animation-delay: var(--d, 0s); transform-origin: center; }
+@keyframes candle { 50% { fill: var(--red); transform: scaleY(0.6); } }
+.vibe-ticker .quotes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--lime);
+  opacity: 0.5;
+  animation: quotes 18s linear infinite;
+}
+@keyframes quotes { to { transform: translateX(-50%); } }
+
+/* Square peg → round hole */
+.vibe-peg .hole { fill: none; stroke: var(--ink); stroke-width: 3; stroke-dasharray: 6 5; }
+.vibe-peg .peg {
+  fill: var(--pink);
+  stroke: var(--ink);
+  stroke-width: 3;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: peg 4s var(--ease-boing) infinite;
+}
+@keyframes peg {
+  0% { transform: translateY(-90px) rotate(0); }
+  35% { transform: translateY(-4px) rotate(0); }
+  45% { transform: translateY(-22px) rotate(20deg); }
+  55% { transform: translateY(-4px) rotate(-14deg); }
+  65% { transform: translateY(-18px) rotate(45deg); }
+  75% { transform: translateY(0) rotate(45deg); rx: 0; }
+  85%, 100% { transform: translateY(0) rotate(45deg) scale(0.92); }
+}
+.vibe-peg .fit {
+  font-family: Bangers, Impact, sans-serif;
+  font-size: 22px;
+  fill: var(--ink);
+  opacity: 0;
+  animation: fit 4s steps(1, end) infinite;
+}
+@keyframes fit { 78%, 96% { opacity: 1; } }
+.vibe-peg .curve { fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 4 4; opacity: 0.4; }
+
+/* Trucks on a road */
+.vibe-trucks .road { position: absolute; left: 0; right: 0; bottom: 14px; height: 3px; background: repeating-linear-gradient(90deg, var(--ink) 0 18px, transparent 18px 30px); opacity: 0.5; animation: road 0.8s linear infinite; }
+@keyframes road { to { background-position: -30px 0; } }
+.vibe-trucks .truck {
+  position: absolute;
+  bottom: 16px;
+  left: -140px;
+  animation: truck var(--dur, 9s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes truck { to { transform: translateX(calc(100vw + 300px)); } }
+.vibe-trucks .truck .wheel { transform-box: fill-box; transform-origin: center; animation: spin 0.6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.vibe-trucks .odometer {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: var(--ink);
+  opacity: 0.7;
+}
+
+/* Chalkboard code rain (tutoring) */
+.vibe-chalk { background: linear-gradient(180deg, transparent, rgba(29,233,255,0.06)); }
+.vibe-chalk .glyph {
+  position: absolute;
+  bottom: -20px;
+  left: var(--x, 10%);
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--fs, 12px);
+  font-weight: 700;
+  color: var(--ink);
+  opacity: 0;
+  animation: rise-glyph var(--dur, 8s) linear infinite;
+  animation-delay: var(--d, 0s);
+  white-space: nowrap;
+}
+@keyframes rise-glyph {
+  0% { opacity: 0; transform: translateY(0) rotate(var(--r, 0deg)); }
+  10% { opacity: 0.35; }
+  90% { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(-260px) rotate(var(--r, 0deg)); }
+}
+.vibe-chalk .cap {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: 54px;
+  height: 54px;
+  animation: cap-bounce 2.4s var(--ease-boing) infinite;
+  transform-origin: bottom center;
+}
+@keyframes cap-bounce { 0%, 100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-14px) rotate(8deg); } }
+
+/* Stars + orbiting caps (origin story) */
+.vibe-stars .star { position: absolute; width: 3px; height: 3px; background: var(--paper); animation: twinkle var(--dur, 2s) ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes twinkle { 50% { opacity: 0.15; transform: scale(0.4); } }
+.vibe-stars .orbit {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  width: 140px;
+  height: 140px;
+  margin-top: -70px;
+  border: 1px dashed rgba(255,246,221,0.25);
+  border-radius: 999px;
+  animation: spin 14s linear infinite;
+}
+.vibe-stars .orbit > span {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  font-size: 22px;
+  margin-left: -11px;
+  animation: spin 14s linear infinite reverse;
+}
+.vibe-stars .comet {
+  position: absolute;
+  top: 20%;
+  left: -120px;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--yellow));
+  animation: comet 6s ease-in infinite;
+  animation-delay: 2s;
+}
+@keyframes comet { 0% { transform: translate(0, 0) rotate(12deg); opacity: 0; } 10% { opacity: 1; } 40%, 100% { transform: translate(140vw, 60px) rotate(12deg); opacity: 0; } }
+
+/* ------------------------------------------------------------------
+   Spider on a thread (drops from the HUD bar now and then)
+------------------------------------------------------------------- */
+.spider {
+  position: fixed;
+  top: 0;
+  left: 72%;
+  z-index: 62;
+  width: 34px;
+  height: 0;
+  transition: height 2.2s var(--ease-out-expo);
+  pointer-events: none;
+}
+.spider.is-down { height: 190px; }
+.spider:not(.is-down) > button { opacity: 0; pointer-events: none; transition: opacity 0.3s ease 1.6s; }
+.spider:not(.is-down)::before { opacity: 0; }
+.spider::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(255,246,221,0.6); }
+.spider > button {
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  pointer-events: auto;
+  animation: spider-sway 2s ease-in-out infinite;
+  transform-origin: top center;
+}
+.spider > button:hover svg { transform: scale(1.2); }
+.spider > button svg { transition: transform 0.2s var(--ease-boing); }
+@keyframes spider-sway { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+
+/* ------------------------------------------------------------------
+   Attract mode (arcade demo screen after idle)
+------------------------------------------------------------------- */
+.attract {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: none;
+  place-items: center;
+  background: rgba(7, 4, 13, 0.92);
+  color: var(--paper);
+  text-align: center;
+}
+.attract.is-on { display: grid; }
+.attract h2 { font-size: clamp(3rem, 12vw, 9rem); }
+.attract .insert { animation: blink 1s steps(2, start) infinite; }
+.attract .scores { font-family: "JetBrains Mono", monospace; font-size: 12px; }
+.attract .demo-tape { position: absolute; left: 0; right: 0; bottom: 8vh; rotate: -2deg; }
+
+/* ------------------------------------------------------------------
+   Sound toggle + cheat menu
+------------------------------------------------------------------- */
+.snd { display: inline-flex; align-items: center; gap: 6px; }
+.snd .bars { display: inline-flex; gap: 2px; align-items: flex-end; height: 12px; }
+.snd .bars i { width: 3px; background: var(--lime); height: 4px; }
+.snd.is-on .bars i { animation: eq 0.7s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.snd:not(.is-on) .bars i { background: var(--muted); }
+@keyframes eq { 50% { height: 12px; } }
+
+.cheat { width: min(94vw, 40rem); }
+.cheat li { display: grid; grid-template-columns: 2rem 1fr auto; gap: 0.75rem; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,246,221,0.15); }
+.cheat li.is-locked { opacity: 0.45; filter: grayscale(1); }
+
+/* ------------------------------------------------------------------
+   Player 2 (hidden romance section)
+------------------------------------------------------------------- */
+[data-p2] { display: none; }
+.p2-unlocked [data-p2] { display: block; }
+.heart-rain { position: fixed; inset: 0; pointer-events: none; z-index: 96; overflow: hidden; }
+.heart-rain span {
+  position: absolute;
+  top: -40px;
+  font-size: var(--s, 24px);
+  animation: heart-fall var(--dur, 3s) linear forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes heart-fall { to { transform: translateY(110vh) rotate(360deg); } }
+.combo { font-family: Bangers, Impact, sans-serif; letter-spacing: 0.04em; }
+.pulse-heart { display: inline-block; animation: heartbeat 1.2s ease-in-out infinite; }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.3); } 28% { transform: scale(1); } 42% { transform: scale(1.2); } }
+.polaroid-ph {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  background: repeating-linear-gradient(45deg, var(--bone) 0 12px, var(--paper) 12px 24px);
+  border: 3px dashed var(--ink);
+  color: var(--ink);
+  text-align: center;
+}
+
+/* Late-night sticker */
+.sleepy { display: none; }
+@media (min-width: 1024px) { .is-late .sleepy { display: inline-flex; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .vibe, .spider, .heart-rain { display: none !important; }
+  .mv > .mv-layer { display: none; }
 }

@@ -1,0 +1,29 @@
+---
+/**
+ * Multiverse image. Renders the base photo plus two slice layers the JS uses
+ * to "flip dimensions" between art styles. Styles are CSS/SVG-filter universes
+ * by default; pass `variants` (real generated images) and JS swaps sources instead.
+ */
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+  variants?: string[];
+  universe?: string;
+  ambient?: boolean;
+}
+const { src, alt = "", class: cls = "", loading = "lazy", variants = [], universe = "616", ambient = true } = Astro.props;
+---
+<div
+  class:list={["mv", `u-${universe}`, cls]}
+  data-mv
+  data-universe={universe}
+  data-ambient={ambient ? "1" : undefined}
+  data-variants={variants.length ? variants.join("|") : undefined}
+>
+  <img src={src} alt={alt} loading={loading} decoding="async" data-mv-base />
+  <div class="mv-layer u-comic" aria-hidden="true" data-mv-slice><img src={src} alt="" loading={loading} decoding="async" /></div>
+  <div class="mv-layer u-neon" aria-hidden="true" data-mv-slice><img src={src} alt="" loading={loading} decoding="async" /></div>
+  <span class="mv-tag" data-mv-tag>Earth-616</span>
+</div>

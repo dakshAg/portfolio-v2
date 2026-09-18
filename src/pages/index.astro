@@ -2,9 +2,11 @@
 import Layout from "../layouts/main.astro";
 import SectionHeading from "../components/section-heading.astro";
 import MisregImage from "../components/misreg-image.astro";
+import Multiverse from "../components/multiverse.astro";
+import Vibe from "../components/vibe.astro";
 import Burst from "../components/burst.astro";
 import { getCollection } from "astro:content";
-import { site, experience, education, projects, skills, values, referees } from "../data/site";
+import { site, experience, education, projects, skills, values, referees, player2 } from "../data/site";
 
 const gallery = (await getCollection("gallery"))
   .filter((i) => !i.data.draft)
@@ -35,6 +37,14 @@ const tape = [
   "Builds things that ship", "Dean's Honours", "10,000+ truckers served", "Quant pipelines", "Founder energy",
 ];
 const rot = ["-2deg", "1.5deg", "-1deg", "2deg", "-1.5deg", "1deg"];
+const vibeFor = (company: string): "water" | "ticker" | "peg" | "trucks" | "chalk" | "stars" | null => {
+  if (/taswater/i.test(company)) return "water";
+  if (/cruz/i.test(company)) return "ticker";
+  if (/square peg/i.test(company)) return "peg";
+  if (/g7/i.test(company)) return "trucks";
+  if (/melbourne/i.test(company)) return "chalk";
+  return null;
+};
 const stickerColors = ["sticker-pink", "sticker-cyan", "sticker-yellow", "sticker-lime", "sticker-paper"];
 const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path stroke-linecap="square" d="M7 17L17 7M8 7h9v9"/></svg>`;
 ---
@@ -86,7 +96,7 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
             <div class="halftone absolute inset-0 opacity-30" style="--ht-color: var(--pink); --ht-size: 2px; --ht-gap: 9px" aria-hidden="true"></div>
             <div class="group relative aspect-square overflow-hidden border-[3px] border-ink bg-yellow" data-avatar data-cursor-label="Poke">
               <div class="halftone absolute inset-0" style="--ht-color: var(--ink); --ht-size: 1.5px; --ht-gap: 8px; opacity: 0.25" aria-hidden="true"></div>
-              <MisregImage src="/images/hero-avatar.png" alt="Illustration of Daksh Agrawal" class="h-full w-full" loading="eager" benday={false} />
+              <Multiverse src="/images/hero-avatar.png" alt="Illustration of Daksh Agrawal" class="h-full w-full" loading="eager" />
             </div>
             <div class="mt-3 flex items-center justify-between">
               <span class="hud text-ink">HP ████████░░</span>
@@ -138,9 +148,11 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
         <li
           class:list={["panel wobble p-6 sm:p-7", i === 0 && "md:col-span-2"]}
           data-reveal
+          data-vibe={vibeFor(job.company)}
           style={`--r: ${rot[i % rot.length]}; --r0: ${i % 2 ? "3deg" : "-3deg"}`}
         >
           <div class="halftone pointer-events-none absolute inset-0 opacity-[0.12]" style="--ht-size: 1px; --ht-gap: 6px" aria-hidden="true"></div>
+          {vibeFor(job.company) && <Vibe kind={vibeFor(job.company)!} />}
           <div class="relative flex flex-wrap items-start justify-between gap-4">
             <span class="caption bg-pink">CH.{String(i + 1).padStart(2, "0")}</span>
             <span class="sticker sticker-cyan !text-xs" style={`--rot: ${i % 2 ? "3deg" : "-3deg"}`}>{job.period}</span>
@@ -160,12 +172,13 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
         </li>
       ))}
 
-      <li class="panel-dark wobble p-6 sm:p-7" data-reveal style="--r: 1deg; --r0: 4deg">
-        <div class="flex flex-wrap items-start justify-between gap-4">
+      <li class="panel-dark wobble overflow-hidden p-6 sm:p-7" data-reveal style="--r: 1deg; --r0: 4deg">
+        <Vibe kind="stars" />
+        <div class="relative flex flex-wrap items-start justify-between gap-4">
           <span class="caption bg-lime">ORIGIN</span>
           <span class="sticker sticker-yellow !text-xs" style="--rot: 4deg">H1 · Dean's Honours</span>
         </div>
-        <div class="mt-6 flex gap-5">
+        <div class="relative mt-6 flex gap-5">
           <img src={education.logo} alt="" width="56" height="56" class="h-14 w-14 flex-none border-[3px] border-paper bg-paper object-contain p-1" loading="lazy" />
           <div>
             <h3 class="font-display text-4xl leading-none sm:text-5xl">{education.school}</h3>
@@ -336,7 +349,7 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
                   <p class="hud mt-5 text-pink group-hover:text-ink">▸ Read full line</p>
                 </button>
                 <div class="mt-8 flex items-center gap-4 pl-2">
-                  <img src={r.image} alt="" width="56" height="56" class="h-14 w-14 border-[3px] border-paper object-cover shadow-[4px_4px_0_var(--pink)]" loading="lazy" />
+                  <Multiverse src={r.image} alt="" class="group h-14 w-14 flex-none border-[3px] border-paper shadow-[4px_4px_0_var(--pink)]" ambient={false} />
                   <div>
                     <p class="font-display text-2xl tracking-wide">{r.name}</p>
                     <p class="hud mt-1 text-muted">{r.position}</p>
@@ -375,7 +388,7 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
         <li>
           <a href={`/blog/${p.slug}`} data-cursor-label="Read" class="group panel tilted block p-3" style={`--r: ${rot[i % rot.length]}`}>
             <div class="relative aspect-[3/4] border-[3px] border-ink bg-cyan">
-              {p.data.heroImage && <MisregImage src={p.data.heroImage} alt="" class="h-full w-full" />}
+              {p.data.heroImage && <Multiverse src={p.data.heroImage} alt="" class="h-full w-full" />}
               <span class="absolute left-2 top-2 chip !bg-yellow">#{String(posts.length - i).padStart(3, "0")}</span>
               <span class="absolute bottom-2 right-2 chip">{fmtDate(p.data.pubDate)}</span>
             </div>
@@ -405,7 +418,7 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
         <a href="/gallery" class="group panel tilted w-[76vw] flex-none snap-start p-3 pb-5 sm:w-[22rem]" draggable="false" style={`--r: ${rot[i % rot.length]}`}>
           <span class="stripes absolute -top-3 left-1/2 h-6 w-24 -translate-x-1/2 rotate-[-4deg] opacity-90" style="--stripe-a: var(--yellow); --stripe-b: var(--pink)" aria-hidden="true"></span>
           <div class="aspect-[4/3] border-[3px] border-ink">
-            <MisregImage src={g.data.image} alt={g.data.alt ?? g.data.caption} class="h-full w-full" />
+            <Multiverse src={g.data.image} alt={g.data.alt ?? g.data.caption} class="h-full w-full" />
           </div>
           <p class="mt-3 font-display text-2xl">{g.data.caption}</p>
           <p class="hud mt-1 text-ink/60">{fmtDate(g.data.date)}</p>
@@ -422,6 +435,59 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
           loading="lazy"
           class="mt-4 border-0"
         ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLAYER 2 (hidden until you type "love") ============ -->
+  <section id="player2" data-p2 class="relative scroll-mt-24 border-y-[3px] border-paper bg-pink py-24 text-ink sm:py-32">
+    <div class="halftone pointer-events-none absolute inset-0 opacity-25" style="--ht-size: 2px; --ht-gap: 10px" aria-hidden="true"></div>
+    <div class="container-x relative">
+      <div class="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <div class="space-y-4">
+          <p class="caption bg-paper !rotate-[-2deg]"><span class="font-pixel text-[9px] mr-2 align-middle">P2</span>Co-op campaign</p>
+          <h2 class="display-lg glitch" data-text="Player 2 has joined" data-glitch-auto>Player 2 <span class="pulse-heart">♥</span> has joined</h2>
+          <p class="max-w-xl opacity-80">{player2.tagline}</p>
+        </div>
+        <div class="dialogue !border-ink !bg-ink !text-paper" style="box-shadow: 0 0 0 3px var(--ink), 0 0 0 6px var(--paper), 8px 8px 0 6px var(--yellow)">
+          <p class="hud text-yellow">▸ SINCE</p>
+          <p class="combo mt-1 text-4xl">{player2.since}</p>
+          <p class="hud mt-2 text-lime">COMBO ×∞</p>
+        </div>
+      </div>
+
+      <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+        <ul class="panel space-y-5 p-6 sm:p-8" data-reveal style="--r: -1deg">
+          <li class="hud text-pink">▸ PARTY STATS</li>
+          {player2.stats.map((s, i) => (
+            <li>
+              <div class="mb-2 flex items-center justify-between gap-3">
+                <span class="font-display text-2xl tracking-wide">{s.label}</span>
+                <span class="font-pixel text-[10px]">{Math.round(s.v * 100)}</span>
+              </div>
+              <div class="statbar" style={`--v: ${s.v}; --bar: ${s.bar}; --bar-delay: ${i * 120}ms`}><i></i></div>
+            </li>
+          ))}
+          <li class="bubble mt-4 !p-4 text-sm leading-relaxed">
+            <p class="hud mb-2 text-pink">▸ P1</p>
+            {player2.letter}
+          </li>
+        </ul>
+
+        <div class="grid grid-cols-2 gap-6 sm:grid-cols-3" data-reveal-stagger>
+          {player2.photos.map((ph, i) => (
+            <figure class="group panel tilted p-3 pb-4" style={`--r: ${rot[(i + 1) % rot.length]}`}>
+              <span class="stripes absolute -top-3 left-1/2 h-5 w-20 -translate-x-1/2 rotate-[-6deg]" style="--stripe-a: var(--yellow); --stripe-b: var(--pink)" aria-hidden="true"></span>
+              <div class="aspect-[4/5] border-[3px] border-ink">
+                <Multiverse src={ph.src} alt={ph.caption} class="h-full w-full" />
+              </div>
+              <figcaption class="mt-3">
+                <p class="font-display text-xl">{ph.caption}</p>
+                <p class="hud mt-1 opacity-60">{ph.date}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -451,7 +517,7 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
           </button>
           <a href={site.phoneHref} class="btn-ghost !text-base" data-magnetic="0.3">{site.phone}</a>
         </div>
-        <p class="mt-8 font-mono text-xs uppercase tracking-widest text-muted">Tip: <span class="text-pink">↑ ↑ ↓ ↓ ← → ← → B A</span></p>
+        <p class="mt-8 font-mono text-xs uppercase tracking-widest text-muted">Tip: <span class="text-pink">↑ ↑ ↓ ↓ ← → ← → B A</span> · press <span class="text-yellow">?</span> · <button type="button" data-love-trigger class="pulse-heart text-pink" aria-label="Secret">♥</button></p>
       </div>
     </div>
   </section>

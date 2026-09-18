@@ -3,6 +3,8 @@
  * Re-runs on every Astro page load and cleans up after itself.
  */
 
+import { initMultiverse, flipAll, sfx, setSound, loadSoundPref, soundEnabled, UNIVERSES } from "./multiverse";
+
 type Cleanup = () => void;
 let cleanups: Cleanup[] = [];
 
@@ -73,6 +75,29 @@ const ACHIEVEMENTS: Record<
 	stack: { title: "Tier snob", desc: "Judged the tech stack", icon: "🏆" },
 	issue: { title: "Reader", desc: "Opened an issue", icon: "📖" },
 };
+Object.assign(ACHIEVEMENTS, {
+	love: { title: "Player 2 joined", desc: "Said the magic word", icon: "💘" },
+	spider: { title: "Bitten", desc: "Caught the spider", icon: "🕷️" },
+	p1: { title: "Identity crisis", desc: "Poked the player tag", icon: "🎭" },
+	attract: { title: "AFK", desc: "Left the cabinet idle", icon: "💤" },
+	multiverse: { title: "Dimension hopper", desc: "Flipped 10 universes", icon: "🌀" },
+	cheat: { title: "Cheater", desc: "Opened the cheat menu", icon: "📟" },
+	sound: { title: "Turn it up", desc: "Enabled sound", icon: "🔊" },
+	late: { title: "Night owl", desc: "Visited after midnight", icon: "🦉" },
+});
+
+const HINTS: Record<string, string> = {
+	konami: "↑↑↓↓←→←→BA",
+	love: "type a four-letter word",
+	spider: "something drops from the ceiling",
+	avatar: "the face is clickable",
+	attract: "walk away",
+	multiverse: "hover the photos",
+	p1: "who's playing?",
+	late: "come back after midnight",
+	deep: "keep scrolling",
+	cheat: "?",
+};
 
 let got: Set<string> | null = null;
 function unlock(key: string) {
@@ -90,6 +115,19 @@ function unlock(key: string) {
 	store.set("ach", JSON.stringify([...got]));
 	toast(`${a.icon} ${a.title}`, a.desc);
 	glitchBurst();
+	sfx.achievement();
+	renderCheat();
+}
+
+function unlocked(): Set<string> {
+	if (!got) {
+		try {
+			got = new Set(JSON.parse(store.get("ach") ?? "[]"));
+		} catch {
+			got = new Set();
+		}
+	}
+	return got;
 }
 
 function toast(title: string, desc: string) {
@@ -139,9 +177,17 @@ function initBoot() {
 	];
 	let i = 0;
 	let done = false;
-	const finish = () => {
+	const finish = (e?: Event) => {
 		if (done) return;
 		done = true;
+		// A real gesture: start with sound on unless they muted before (Esc skips silently)
+		const k = (e as KeyboardEvent | undefined)?.key;
+		if (e && k !== "Escape" && store.get("snd") === null) {
+			setSound(true);
+			document.querySelector("[data-sound]")?.classList.add("is-on");
+			const l = document.querySelector("[data-sound-label]");
+			if (l) l.textContent = "SND ON";
+		}
 		try {
 			sessionStorage.setItem("booted", "1");
 		} catch {}
@@ -228,7 +274,10 @@ function initScroll() {
 			if (l !== level) {
 				level = l;
 				if (lvl) lvl.textContent = String(l);
-				if (l > 1) glitchBurst();
+				if (l > 1) {
+					glitchBurst();
+					sfx.levelup();
+				}
 			}
 		}
 		if (window.scrollY > 400) unlock("scroll");
@@ -677,6 +726,7 @@ function typewrite(el: HTMLElement) {
 	const step = () => {
 		if (token !== twToken) return;
 		i += 2;
+		if (i % 6 === 0) sfx.tick();
 		el.textContent = text.slice(0, i);
 		if (i < text.length) setTimeout(step, 12);
 		else el.classList.add("caret");
@@ -692,6 +742,7 @@ function initCopy() {
 			try {
 				await navigator.clipboard.writeText(btn.dataset.copy ?? "");
 				if (label) label.textContent = "Copied!";
+				sfx.coin();
 				unlock("copy");
 			} catch {
 				if (label) label.textContent = "Nope";
@@ -792,12 +843,242 @@ function initKonami() {
 		if (idx === KONAMI.length) {
 			idx = 0;
 			const ultra = document.documentElement.classList.toggle("ultra");
+			sfx.warp();
+			flipAll();
 			if (ultra) unlock("konami");
 			else glitchBurst();
 		}
 	});
 	if (store.get("ultra") === "1")
 		document.documentElement.classList.add("ultra");
+}
+
+/* ------------------------------------------------------------------ sound toggle + UI sfx */
+
+function initSound() {
+  const btn = document.querySelector<HTMLElement>("[data-sound]");
+  const label = document.querySelector<HTMLElement>("[data-sound-label]");
+  const render = () => {
+    const on = soundEnabled();
+    btn?.classList.toggle("is-on", on);
+    btn?.setAttribute("aria-pressed", String(on));
+    if (label) label.textContent = on ? "SND ON" : "SND OFF";
+  };
+  loadSoundPref();
+  render();
+  if (btn) on(btn, "click", () => {
+    setSound(!soundEnabled());
+    render();
+    if (soundEnabled()) { sfx.coin(); unlock("sound"); }
+  });
+  // UI blips: hover on interactive things, coin on primary buttons
+  on(document, "pointerover", (e: PointerEvent) => {
+    const t = e.target as Element | null;
+    if (!finePointer()) return;
+    if (t?.closest("[data-vibe='water']")) { sfx.bubble(); return; }
+    if (t?.closest("a, button, summary")) sfx.hover();
+  });
+  on(document, "click", (e: MouseEvent) => {
+    const t = e.target as Element | null;
+    if (t?.closest(".btn-pink, .btn-cyan, .btn-yellow, .btn-ghost")) sfx.coin();
+    else if (t?.closest("a, button, summary")) sfx.blip();
+  });
+}
+
+/* ------------------------------------------------------------------ cheat menu (?) */
+
+function renderCheat() {
+  const list = document.querySelector<HTMLElement>("[data-cheat-list]");
+  const count = document.querySelector<HTMLElement>("[data-cheat-count]");
+  if (!list) return;
+  const have = unlocked();
+  const keys = Object.keys(ACHIEVEMENTS);
+  if (count) count.textContent = `${have.size} / ${keys.length} unlocked`;
+  list.innerHTML = keys.map((k) => {
+    const a = ACHIEVEMENTS[k];
+    const ok = have.has(k);
+    return `<li class="${ok ? "" : "is-locked"}"><span class="text-xl">${ok ? a.icon : "🔒"}</span><span><b class="font-display text-lg tracking-wide">${ok ? a.title : "???"}</b><br><span class="text-xs opacity-70">${ok ? a.desc : HINTS[k] ?? "keep playing"}</span></span><span class="hud ${ok ? "text-lime" : "text-muted"}">${ok ? "GOT" : "LOCKED"}</span></li>`;
+  }).join("");
+  const scores = document.querySelector<HTMLElement>("[data-attract-scores]");
+  if (scores) {
+    scores.innerHTML = keys.filter((k) => have.has(k)).slice(0, 6).map((k, i) => `<li>${String(i + 1).padStart(2, "0")}. ${ACHIEVEMENTS[k].title.toUpperCase().padEnd(18, ".")} ${String(1000 - i * 120).padStart(5, "0")}</li>`).join("") || "<li>-- NO SCORES YET --</li>";
+  }
+}
+
+let cheatBound = false;
+function initCheat() {
+  renderCheat();
+  if (cheatBound) return;
+  cheatBound = true;
+  window.addEventListener("keydown", (e) => {
+    if (e.key !== "?" || (e.target as HTMLElement)?.matches("input, textarea")) return;
+    const d = document.querySelector<HTMLDialogElement>("[data-cheat]");
+    if (!d) return;
+    if (d.open) d.close();
+    else { d.showModal(); sfx.toggle(); unlock("cheat"); }
+  });
+}
+
+/* ------------------------------------------------------------------ "love" → Player 2 */
+
+let loveBound = false;
+function unlockP2(scroll = true) {
+  const first = !document.documentElement.classList.contains("p2-unlocked");
+  document.documentElement.classList.add("p2-unlocked");
+  store.set("p2", "1");
+  const label = document.querySelector<HTMLElement>("[data-p1-label]");
+  if (label) label.textContent = "P1+P2";
+  if (first) {
+    sfx.love();
+    heartRain();
+    unlock("love");
+    toast("💘 PLAYER 2 HAS JOINED", "co-op campaign unlocked");
+  }
+  const sec = document.getElementById("player2");
+  if (sec && scroll) setTimeout(() => sec.scrollIntoView({ behavior: "smooth", block: "start" }), first ? 900 : 0);
+  else if (!sec && scroll) location.href = "/#player2";
+}
+
+function heartRain() {
+  const host = document.querySelector<HTMLElement>("[data-heart-rain]");
+  if (!host || reducedMotion()) return;
+  const glyphs = ["💗", "💖", "💘", "♥", "💞", "🩷"];
+  for (let i = 0; i < 36; i++) {
+    const el = document.createElement("span");
+    el.textContent = glyphs[i % glyphs.length];
+    el.style.left = `${rand(0, 100)}%`;
+    el.style.setProperty("--s", `${rand(14, 38)}px`);
+    el.style.setProperty("--dur", `${rand(2.2, 4.5)}s`);
+    el.style.setProperty("--d", `${rand(0, 1.2)}s`);
+    host.appendChild(el);
+    setTimeout(() => el.remove(), 6000);
+  }
+}
+
+function initLove() {
+  if (store.get("p2") === "1") unlockP2(false);
+  document.querySelectorAll<HTMLElement>("[data-love-trigger]").forEach((el) => on(el, "click", () => unlockP2()));
+  if (loveBound) return;
+  loveBound = true;
+  let buf = "";
+  window.addEventListener("keydown", (e) => {
+    if (e.key.length !== 1 || (e.target as HTMLElement)?.matches("input, textarea")) return;
+    buf = (buf + e.key.toLowerCase()).slice(-8);
+    if (buf.endsWith("love")) { buf = ""; unlockP2(); }
+  });
+}
+
+/* ------------------------------------------------------------------ spider on a thread */
+
+function initSpider() {
+  const spider = document.querySelector<HTMLElement>("[data-spider]");
+  const btn = spider?.querySelector<HTMLElement>("[data-spider-btn]");
+  if (!spider || !btn || reducedMotion()) return;
+  const drop = () => {
+    spider.style.left = `${rand(20, 85)}%`;
+    spider.classList.add("is-down");
+    sfx.spider();
+    timer(() => spider.classList.remove("is-down"), rand(5000, 9000));
+    timer(drop, rand(25000, 60000));
+  };
+  timer(drop, rand(9000, 20000));
+  on(btn, "click", () => {
+    spider.classList.remove("is-down");
+    sfx.bite();
+    unlock("spider");
+    document.documentElement.classList.add("ultra");
+    timer(() => document.documentElement.classList.remove("ultra"), 2500);
+  });
+}
+
+/* ------------------------------------------------------------------ attract mode after idle */
+
+let attractBound = false;
+function initAttract() {
+  const el = document.querySelector<HTMLElement>("[data-attract]");
+  if (!el || reducedMotion()) return;
+  let t = 0;
+  const IDLE = 60_000;
+  const arm = () => { clearTimeout(t); t = window.setTimeout(show, IDLE); };
+  const show = () => {
+    if (document.hidden || document.querySelector("dialog[open]")) { arm(); return; }
+    renderCheat();
+    el.classList.add("is-on");
+    sfx.insert();
+    unlock("attract");
+  };
+  const hide = () => { if (el.classList.contains("is-on")) { el.classList.remove("is-on"); sfx.coin(); } arm(); };
+  cleanups.push(() => clearTimeout(t));
+  if (!attractBound) {
+    attractBound = true;
+    ["pointermove", "keydown", "pointerdown", "touchstart", "scroll"].forEach((ev) => window.addEventListener(ev, hide, { passive: true }));
+  }
+  arm();
+}
+
+/* ------------------------------------------------------------------ P1 tag, late night, odometers, console */
+
+let flips = 0;
+function countFlip() {
+  flips++;
+  if (flips === 10) unlock("multiverse");
+}
+
+function initMisc() {
+  document.querySelectorAll<HTMLElement>("[data-mv]").forEach((el) => {
+    const host = el.closest<HTMLElement>(".group") ?? el;
+    on(host, "pointerenter", countFlip);
+  });
+  const tag = document.querySelector<HTMLElement>("[data-p1-tag]");
+  const label = document.querySelector<HTMLElement>("[data-p1-label]");
+  if (tag && label) {
+    let n = 0;
+    const names = ["P1", "P2?", "NPC", "BOSS", "P1"];
+    on(tag, "click", (e: MouseEvent) => {
+      if (location.pathname !== "/") return;
+      e.preventDefault();
+      n++;
+      label.textContent = names[n % names.length];
+      sfx.blip();
+      if (n === 3) unlock("p1");
+    });
+  }
+
+  const hour = new Date().getHours();
+  if (hour >= 0 && hour < 5) {
+    document.documentElement.classList.add("is-late");
+    if (!unlocked().has("late")) timer(() => { unlock("late"); sfx.sleepy(); }, 4000);
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-odometer]").forEach((el) => {
+    const target = Number(el.dataset.odometer) || 0;
+    const io = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return;
+      io.disconnect();
+      const t0 = performance.now();
+      const step = (now: number) => {
+        const t = clamp((now - t0) / 2200, 0, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3))).toLocaleString();
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+    io.observe(el);
+    cleanups.push(() => io.disconnect());
+  });
+
+  document.querySelectorAll<HTMLElement>("[data-vibe='water']").forEach((el) => {
+    on(el, "pointerenter", () => sfx.bubble());
+  });
+}
+
+let consoled = false;
+function initConsole() {
+  if (consoled) return;
+  consoled = true;
+  const css = "background:#07040d;color:#ff2e97;font-family:monospace;font-size:14px;padding:8px 12px;border:3px solid #ffe93b";
+  console.log("%cDAKSH.EXE v2.616 — you found the console.", css);
+  console.log("%cpsst: ↑↑↓↓←→←→BA · press ? · type love · catch the spider · " + UNIVERSES.length + " universes loaded", "color:#1de9ff;font-family:monospace");
 }
 
 /* ------------------------------------------------------------------ boot */
@@ -826,6 +1107,14 @@ function init() {
 	initAvatarPoke();
 	initSectionAchievements();
 	initKonami();
+	initSound();
+	initMultiverse(on, timer);
+	initCheat();
+	initLove();
+	initSpider();
+	initAttract();
+	initMisc();
+	initConsole();
 }
 
 document.addEventListener("astro:page-load", init);

@@ -311,3 +311,23 @@ export const tiers: Tier[] = [
     ],
   },
 ];
+
+/* Player 2 — hidden co-op campaign. Unlock by typing "love" anywhere on the site. */
+export const player2 = {
+  name: "Player 2",
+  since: "??.??.????",
+  tagline: "Co-op mode unlocked. Every good run needs a second controller.",
+  stats: [
+    { label: "Patience with my side quests", v: 1, bar: "var(--pink)" },
+    { label: "Snacks shared", v: 0.99, bar: "var(--yellow)" },
+    { label: "Debugging me", v: 0.97, bar: "var(--cyan)" },
+    { label: "Winning arguments", v: 1, bar: "var(--lime)" },
+  ],
+  photos: [
+    { src: "/images/p2/p2-01.svg", caption: "Add a pic here", date: "soon" },
+    { src: "/images/p2/p2-02.svg", caption: "And here", date: "soon" },
+    { src: "/images/p2/p2-03.svg", caption: "This one too", date: "soon" },
+  ],
+  letter:
+    "Placeholder for the actual words. Something about how the best part of every dimension is the person in it. Replace me before shipping, or don't, and let the glitch be the message.",
+};

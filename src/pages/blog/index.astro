@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/main.astro";
-import MisregImage from "../../components/misreg-image.astro";
+import Multiverse from "../../components/multiverse.astro";
 import { getCollection } from "astro:content";
 import { site } from "../../data/site";
 
@@ -32,7 +32,7 @@ const rot = ["-2deg", "1.5deg", "-1deg", "2deg", "-1.5deg"];
         <li>
           <a href={`/blog/${p.slug}`} data-cursor-label="Read" class="group panel tilted block p-3" style={`--r: ${rot[i % rot.length]}`}>
             <div class="relative aspect-[3/4] border-[3px] border-ink bg-cyan">
-              {p.data.heroImage && <MisregImage src={p.data.heroImage} alt="" class="h-full w-full" />}
+              {p.data.heroImage && <Multiverse src={p.data.heroImage} alt="" class="h-full w-full" />}
               <span class="absolute left-2 top-2 chip !bg-yellow">#{String(posts.length - i).padStart(3, "0")}</span>
               <span class="absolute bottom-2 right-2 chip">{fmt(p.data.pubDate)}</span>
             </div>
