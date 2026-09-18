@@ -1,68 +1,47 @@
 ---
 import Layout from "../layouts/main.astro";
-import "../styles/globals.css";
 import { getCollection } from "astro:content";
 
-const galleryItems = (await getCollection("gallery"))
-  .filter((item) => !item.data.draft)
+const items = (await getCollection("gallery"))
+  .filter((i) => !i.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d: Date) => d.toLocaleDateString("en-AU", { year: "numeric", month: "long", day: "numeric" });
 ---
 
-<Layout title="Gallery | Daksh Agrawal">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-12">
-    <!-- Header -->
-    <header class="space-y-4">
-      <div class="flex items-center justify-between gap-4 flex-wrap">
-        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Gallery</h1>
-        <a href="/" class="text-sm text-primary hover:text-primary/80 font-medium transition-colors">
-          ← Home
-        </a>
-      </div>
-      <p class="text-lg text-muted-foreground max-w-2xl">
-        A small log of moments, screenshots, and things I’ve built.
-      </p>
-    </header>
+<Layout title="Gallery — Daksh Agrawal" description="A small log of moments, screenshots, and things I've built.">
+  <section class="container-x pt-16 pb-12 sm:pt-24">
+    <p class="eyebrow fade-up mb-6" style="--d: 60ms">Gallery · {items.length} moments</p>
+    <h1 class="font-display text-6xl leading-[0.95] sm:text-8xl">
+      <span class="mask-line"><span style="--d: 120ms">A small log of</span></span>
+      <span class="mask-line"><span style="--d: 240ms" class="text-muted-foreground">moments that mattered.</span></span>
+    </h1>
+  </section>
 
-    <div class="border-b border-border"></div>
-
-    <!-- Gallery List -->
-    <section class="space-y-12">
-      {galleryItems.map((item) => (
-        <figure class="space-y-4">
-          <div class="rounded-xl border border-border bg-secondary/30 overflow-hidden">
+  <section class="container-x pb-24">
+    <div class="columns-1 gap-6 sm:columns-2 lg:columns-3 [&>*]:mb-6 [&>*]:break-inside-avoid">
+      {items.map((item) => (
+        <figure class="group card overflow-hidden" data-reveal>
+          <div class="overflow-hidden">
             <img
               src={item.data.image}
               alt={item.data.alt ?? item.data.caption}
-              class="w-full h-[60vh] sm:h-[65vh] lg:h-[70vh] object-cover object-center"
+              class="img-zoom w-full object-cover"
               loading="lazy"
             />
           </div>
-
-          <figcaption class="space-y-1">
-            <div class="flex items-baseline justify-between gap-4 flex-wrap">
-              <p class="text-base font-medium">{item.data.caption}</p>
-              <time class="text-sm text-muted-foreground" datetime={item.data.date.toISOString()}>
-                {item.data.date.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </time>
-            </div>
+          <figcaption class="flex items-baseline justify-between gap-4 p-4">
+            <p class="font-medium">{item.data.caption}</p>
+            <time class="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground" datetime={item.data.date.toISOString()}>
+              {fmt(item.data.date)}
+            </time>
           </figcaption>
         </figure>
       ))}
+    </div>
 
-      {galleryItems.length === 0 && (
-        <div class="text-center py-16">
-          <div class="text-6xl mb-4">📷</div>
-          <h2 class="text-2xl font-semibold mb-2">No images yet</h2>
-          <p class="text-muted-foreground">I’ll start adding to this soon.</p>
-        </div>
-      )}
-    </section>
-
-    <!-- Footer spacing -->
-    <div class="py-8"></div>
-  </div>
+    {items.length === 0 && (
+      <p class="py-16 text-center text-muted-foreground">Nothing here yet.</p>
+    )}
+  </section>
 </Layout>

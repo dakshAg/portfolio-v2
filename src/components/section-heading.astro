@@ -1,0 +1,32 @@
+---
+interface Props {
+  index: string;
+  label: string;
+  title: string;
+  description?: string;
+  linkHref?: string;
+  linkLabel?: string;
+  linkExternal?: boolean;
+}
+const { index, label, title, description, linkHref, linkLabel, linkExternal } = Astro.props;
+---
+
+<div class="mb-10 flex flex-wrap items-end justify-between gap-4" data-reveal>
+  <div class="space-y-3">
+    <p class="eyebrow">
+      <span class="text-accent">{index}</span> — {label}
+    </p>
+    <h2 class="font-display text-4xl leading-none sm:text-5xl">{title}</h2>
+    {description && <p class="max-w-xl text-muted-foreground">{description}</p>}
+  </div>
+  {linkHref && (
+    <a
+      href={linkHref}
+      target={linkExternal ? "_blank" : undefined}
+      rel={linkExternal ? "noopener noreferrer" : undefined}
+      class="link-underline font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground"
+    >
+      {linkLabel ?? "View all"} {linkExternal ? "↗" : "→"}
+    </a>
+  )}
+</div>

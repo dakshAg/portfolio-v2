@@ -1,12 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	darkMode: ["class"],
-	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"
-	],
+	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
 	prefix: "",
 	theme: {
 		container: {
@@ -58,8 +53,34 @@ export default {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
-				quicksand: ['Quicksand', 'sans-serif'],
+				sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+				display: ["Instrument Serif", "Iowan Old Style", "Georgia", "serif"],
+				mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
 			},
+			typography: ({ theme }) => ({
+				DEFAULT: {
+					css: {
+						"--tw-prose-body": "hsl(var(--foreground) / 0.85)",
+						"--tw-prose-headings": "hsl(var(--foreground))",
+						"--tw-prose-links": "hsl(var(--accent))",
+						"--tw-prose-bold": "hsl(var(--foreground))",
+						"--tw-prose-quotes": "hsl(var(--muted-foreground))",
+						"--tw-prose-quote-borders": "hsl(var(--accent))",
+						"--tw-prose-code": "hsl(var(--foreground))",
+						"--tw-prose-pre-bg": "hsl(var(--secondary))",
+						"--tw-prose-pre-code": "hsl(var(--foreground))",
+						"--tw-prose-hr": "hsl(var(--border))",
+						"--tw-prose-th-borders": "hsl(var(--border))",
+						"--tw-prose-td-borders": "hsl(var(--border))",
+						"--tw-prose-counters": "hsl(var(--muted-foreground))",
+						"--tw-prose-bullets": "hsl(var(--muted-foreground))",
+						maxWidth: "none",
+						"h1, h2, h3": { fontFamily: theme("fontFamily.display").join(", "), fontWeight: "400" },
+						a: { textDecoration: "none", borderBottom: "1px solid hsl(var(--accent) / 0.4)" },
+						"a:hover": { borderBottomColor: "hsl(var(--accent))" },
+					},
+				},
+			}),
 			keyframes: {
 				"accordion-down": {
 					from: { height: "0" },

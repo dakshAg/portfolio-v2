@@ -1,95 +1,53 @@
 ---
 import Layout from "../../layouts/main.astro";
 import { getCollection } from "astro:content";
-import "../../styles/globals.css";
+import { site } from "../../data/site";
 
-// Get all blog posts, sorted by publication date (newest first)
-const blogPosts = (await getCollection('blog'))
-  .filter(post => !post.data.draft)
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const fmt = (d: Date) => d.toLocaleDateString("en-AU", { year: "numeric", month: "short", day: "numeric" });
 ---
 
-<Layout title="Blog | Daksh Agrawal">
-  <div class="max-w-6xl mx-auto px-6 py-16">
-    <!-- Header -->
-    <header class="mb-16 text-center">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
-        Blog
-      </h1>
-      <p class="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-        Thoughts on technology, entrepreneurship, and the intersection of data and business.
-      </p>
-    </header>
+<Layout title="Writing — Daksh Agrawal" description="Thoughts on technology, entrepreneurship, and the intersection of data and business.">
+  <section class="container-x pt-16 pb-12 sm:pt-24">
+    <p class="eyebrow fade-up mb-6" style="--d: 60ms">Writing · {posts.length} posts</p>
+    <h1 class="font-display text-6xl leading-[0.95] sm:text-8xl">
+      <span class="mask-line"><span style="--d: 120ms">Notes on data,</span></span>
+      <span class="mask-line"><span style="--d: 240ms" class="text-muted-foreground">products & people.</span></span>
+    </h1>
+    <p class="fade-up mt-8 text-muted-foreground" style="--d: 400ms">
+      Longer essays live on
+      <a href={site.substack} target="_blank" rel="noopener noreferrer" class="link-underline text-foreground">Substack ↗</a>.
+    </p>
+  </section>
 
-    <!-- Blog Posts Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {blogPosts.map((post) => (
-        <article class="group rounded-xl border border-border bg-secondary/30 overflow-hidden hover:bg-secondary/40 transition-colors">
-          <a href={`/blog/${post.slug}`} class="block">
-            <div class="relative">
-              {post.data.heroImage ? (
-                <img
-                  src={post.data.heroImage}
-                  alt={post.data.title}
-                  class="w-full h-48 sm:h-52 object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                <div class="w-full h-48 sm:h-52 bg-gradient-to-br from-secondary to-background" aria-hidden="true" />
+  <section class="container-x pb-24">
+    <ol class="divide-y divide-border border-y border-border" data-reveal-stagger>
+      {posts.map((p) => (
+        <li>
+          <a href={`/blog/${p.slug}`} class="group grid gap-4 py-8 sm:grid-cols-[8rem_1fr_12rem] sm:gap-8">
+            <time class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground" datetime={p.data.pubDate.toISOString()}>
+              {fmt(p.data.pubDate)}
+            </time>
+            <div>
+              <h2 class="font-display text-3xl leading-tight transition-colors group-hover:text-accent sm:text-4xl">{p.data.title}</h2>
+              <p class="mt-2 max-w-xl text-muted-foreground">{p.data.description}</p>
+              {p.data.tags && (
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {p.data.tags.map((t: string) => <span class="chip !py-0.5 text-[11px]">{t}</span>)}
+                </div>
               )}
-              <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </div>
-
-            <div class="p-4 sm:p-5 space-y-2">
-              <h2 class="font-semibold text-base sm:text-lg leading-snug group-hover:text-primary transition-colors">
-                {post.data.title}
-              </h2>
-              <p class="text-muted-foreground text-sm leading-snug line-clamp-3">
-                {post.data.description}
-              </p>
-
-              <div class="flex items-center justify-between gap-2 text-xs text-muted-foreground">
-                <time datetime={post.data.pubDate.toISOString()}>
-                  {post.data.pubDate.toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                  })}
-                </time>
-
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="flex items-center gap-1 justify-end flex-wrap">
-                    {post.data.tags.slice(0, 2).map((tag: string) => (
-                      <span class="px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded text-xs">
-                        {tag}
-                      </span>
-                    ))}
-                    {post.data.tags.length > 2 && (
-                      <span class="text-muted-foreground">+{post.data.tags.length - 2}</span>
-                    )}
-                  </div>
-                )}
+            {p.data.heroImage && (
+              <div class="card aspect-[4/3] overflow-hidden sm:aspect-auto sm:h-28">
+                <img src={p.data.heroImage} alt="" class="img-zoom h-full w-full object-cover" loading="lazy" />
               </div>
-
-              <div>
-                <span class="inline-flex items-center gap-2 text-xs font-medium text-primary">
-                  Read →
-                </span>
-              </div>
-            </div>
+            )}
           </a>
-        </article>
+        </li>
       ))}
-
-      {blogPosts.length === 0 && (
-        <div class="col-span-full text-center py-16">
-          <div class="text-6xl mb-4">📝</div>
-          <h2 class="text-2xl font-semibold mb-2">No posts yet</h2>
-          <p class="text-muted-foreground">
-            I'm working on some great content. Check back soon!
-          </p>
-        </div>
-      )}
-    </div>
-  </div>
+    </ol>
+  </section>
 </Layout>
