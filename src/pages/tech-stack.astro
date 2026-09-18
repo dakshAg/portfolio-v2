@@ -29,7 +29,7 @@ import { tiers } from "../data/site";
 
         <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
           {tier.tools.map((tool) => (
-            <li class="card group p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md">
+            <li class="card group p-4" data-tilt="6">
               <div class="flex items-center gap-3">
                 <span class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-secondary">
                   <img src={tool.icon} alt="" width="28" height="28" class="h-7 w-7 object-contain" loading="lazy" />

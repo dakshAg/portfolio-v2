@@ -36,19 +36,3 @@ const year = new Date().getFullYear();
     </div>
   </div>
 </footer>
-
-<script is:inline>
-  (() => {
-    const el = document.querySelector("[data-local-time]");
-    if (!el) return;
-    const fmt = new Intl.DateTimeFormat("en-AU", {
-      timeZone: "Australia/Melbourne",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
-    const tick = () => { el.textContent = fmt.format(new Date()) + " AEST"; };
-    tick();
-    setInterval(tick, 30000);
-  })();
-</script>

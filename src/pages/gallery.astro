@@ -21,7 +21,7 @@ const fmt = (d: Date) => d.toLocaleDateString("en-AU", { year: "numeric", month:
   <section class="container-x pb-24">
     <div class="columns-1 gap-6 sm:columns-2 lg:columns-3 [&>*]:mb-6 [&>*]:break-inside-avoid">
       {items.map((item) => (
-        <figure class="group card overflow-hidden" data-reveal>
+        <figure class="group card overflow-hidden" data-reveal data-tilt="4">
           <div class="overflow-hidden">
             <img
               src={item.data.image}

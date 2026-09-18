@@ -27,7 +27,7 @@ const fmt = (d: Date) => d.toLocaleDateString("en-AU", { year: "numeric", month:
     <ol class="divide-y divide-border border-y border-border" data-reveal-stagger>
       {posts.map((p) => (
         <li>
-          <a href={`/blog/${p.slug}`} class="group grid gap-4 py-8 sm:grid-cols-[8rem_1fr_12rem] sm:gap-8">
+          <a href={`/blog/${p.slug}`} data-cursor-label="Read" class="group grid gap-4 py-8 sm:grid-cols-[8rem_1fr_12rem] sm:gap-8">
             <time class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground" datetime={p.data.pubDate.toISOString()}>
               {fmt(p.data.pubDate)}
             </time>
