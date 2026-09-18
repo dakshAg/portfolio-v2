@@ -3,36 +3,39 @@ import { nav, site } from "../data/site";
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-24 border-t border-border">
-  <div class="container-x py-12">
+<footer class="relative mt-24 border-t-[3px] border-paper bg-ink">
+  <div class="stripes h-4" style="--stripe-a: var(--pink); --stripe-b: var(--ink)" aria-hidden="true"></div>
+
+  <div class="container-x py-14">
     <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
-      <div class="space-y-3">
-        <a href="/" class="font-display text-2xl">{site.name}</a>
-        <p class="max-w-sm text-sm text-muted-foreground">{site.tagline}</p>
-        <p class="eyebrow pt-2">
+      <div class="space-y-4">
+        <a href="/" class="font-display text-5xl tracking-wider chroma">{site.name}</a>
+        <p class="max-w-sm text-sm text-muted">{site.tagline}</p>
+        <p class="hud text-lime">
           {site.location} · <span data-local-time>--:--</span>
         </p>
       </div>
 
-      <nav class="flex flex-col gap-2 text-sm" aria-label="Footer">
-        <span class="eyebrow mb-1">Pages</span>
+      <nav class="flex flex-col gap-2" aria-label="Footer">
+        <span class="hud mb-2 text-pink">Warp to</span>
         {nav.map((item) => (
-          <a href={item.href} class="link-underline w-fit text-muted-foreground hover:text-foreground">{item.label}</a>
+          <a href={item.href} class="w-fit font-display text-2xl tracking-wider text-paper transition-colors hover:text-yellow">▸ {item.label}</a>
         ))}
       </nav>
 
-      <div class="flex flex-col gap-2 text-sm">
-        <span class="eyebrow mb-1">Elsewhere</span>
-        <a href={site.github} target="_blank" rel="noopener noreferrer" class="link-underline w-fit text-muted-foreground hover:text-foreground">GitHub ↗</a>
-        <a href={site.linkedin} target="_blank" rel="noopener noreferrer" class="link-underline w-fit text-muted-foreground hover:text-foreground">LinkedIn ↗</a>
-        <a href={site.substack} target="_blank" rel="noopener noreferrer" class="link-underline w-fit text-muted-foreground hover:text-foreground">Substack ↗</a>
-        <a href={`mailto:${site.email}`} class="link-underline w-fit text-muted-foreground hover:text-foreground">{site.email}</a>
+      <div class="flex flex-col gap-2">
+        <span class="hud mb-2 text-cyan">Elsewhere</span>
+        <a href={site.github} target="_blank" rel="noopener noreferrer" class="w-fit font-display text-2xl tracking-wider text-paper transition-colors hover:text-yellow">GitHub ↗</a>
+        <a href={site.linkedin} target="_blank" rel="noopener noreferrer" class="w-fit font-display text-2xl tracking-wider text-paper transition-colors hover:text-yellow">LinkedIn ↗</a>
+        <a href={site.substack} target="_blank" rel="noopener noreferrer" class="w-fit font-display text-2xl tracking-wider text-paper transition-colors hover:text-yellow">Substack ↗</a>
+        <a href={`mailto:${site.email}`} class="w-fit font-mono text-xs text-muted hover:text-yellow">{site.email}</a>
       </div>
     </div>
 
-    <div class="mt-12 flex items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground">
-      <span>© {year} {site.name}</span>
-      <a href="#" class="link-underline font-mono uppercase tracking-[0.14em]">Back to top ↑</a>
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t-2 border-paper/20 pt-6">
+      <span class="hud text-muted">© {year} {site.name} · Earth-616 build</span>
+      <span class="font-mono text-xs tracking-widest text-muted">↑ ↑ ↓ ↓ ← → ← → B A</span>
+      <a href="#" class="hud text-yellow">▲ Back to top</a>
     </div>
   </div>
 </footer>

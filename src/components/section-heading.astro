@@ -7,24 +7,27 @@ interface Props {
   linkHref?: string;
   linkLabel?: string;
   linkExternal?: boolean;
+  color?: "pink" | "cyan" | "yellow" | "lime";
 }
-const { index, label, title, description, linkHref, linkLabel, linkExternal } = Astro.props;
+const { index, label, title, description, linkHref, linkLabel, linkExternal, color = "yellow" } = Astro.props;
+const bg = { pink: "bg-pink", cyan: "bg-cyan", yellow: "bg-yellow", lime: "bg-lime" }[color];
 ---
 
-<div class="mb-10 flex flex-wrap items-end justify-between gap-4" data-reveal>
-  <div class="space-y-3">
-    <p class="eyebrow">
-      <span class="text-accent">{index}</span> — {label}
+<div class="mb-12 flex flex-wrap items-end justify-between gap-6" data-reveal>
+  <div class="space-y-4">
+    <p class:list={["caption !rotate-[-2deg]", bg]}>
+      <span class="font-pixel text-[9px] mr-2 align-middle">{index}</span>{label}
     </p>
-    <h2 class="font-display text-4xl leading-none sm:text-5xl">{title}</h2>
-    {description && <p class="max-w-xl text-muted-foreground">{description}</p>}
+    <h2 class="display-lg glitch" data-text={title}>{title}</h2>
+    {description && <p class="max-w-xl opacity-70">{description}</p>}
   </div>
   {linkHref && (
     <a
       href={linkHref}
       target={linkExternal ? "_blank" : undefined}
       rel={linkExternal ? "noopener noreferrer" : undefined}
-      class="link-underline font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground"
+      class="btn-ghost !text-base"
+      data-magnetic="0.3"
     >
       {linkLabel ?? "View all"} {linkExternal ? "↗" : "→"}
     </a>

@@ -1,42 +1,53 @@
 ---
 import Layout from "../layouts/main.astro";
 import { tiers } from "../data/site";
+
+const band: Record<string, { bg: string; text: string; label: string }> = {
+  S: { bg: "bg-pink", text: "text-ink", label: "GOD TIER" },
+  A: { bg: "bg-yellow", text: "text-ink", label: "MAIN PARTY" },
+  B: { bg: "bg-cyan", text: "text-ink", label: "SITUATIONAL" },
+  C: { bg: "bg-muted", text: "text-ink", label: "BENCHED" },
+};
+const rot = ["-1.5deg", "1deg", "-0.5deg", "1.5deg", "-1deg"];
 ---
 
-<Layout title="Tech Stack — Daksh Agrawal" description="My personal tier list of technologies and tools.">
-  <section class="container-x pt-16 pb-12 sm:pt-24">
-    <p class="eyebrow fade-up mb-6" style="--d: 60ms">Tech stack · tier list</p>
-    <h1 class="font-display text-5xl leading-[1] sm:text-7xl">
-      <span class="mask-line"><span style="--d: 120ms">Tools I reach for,</span></span>
-      <span class="mask-line"><span style="--d: 240ms" class="text-muted-foreground">ranked honestly.</span></span>
+<Layout title="Tech Stack — Daksh Agrawal" description="My personal tier list of technologies and tools." page="stack">
+  <section class="container-x relative pt-14 pb-12 sm:pt-20">
+    <div class="halftone halftone-fade pointer-events-none absolute inset-x-0 top-0 h-72 opacity-40" style="--ht-color: var(--yellow); --ht-size: 1.5px; --ht-gap: 9px" aria-hidden="true"></div>
+    <p class="caption fade-up mb-6 bg-cyan" style="--d: 40ms">Tech stack · tier list</p>
+    <h1 class="display-xl leading-[0.85]">
+      <span class="slam block chroma-lg glitch" data-text="TIER LIST" data-glitch-auto style="--d: 80ms">TIER LIST</span>
+      <span class="slam block outline-text text-[0.55em]" style="--d: 220ms">Ranked honestly. No sponsors.</span>
     </h1>
-    <p class="fade-up mt-8 max-w-2xl text-lg text-muted-foreground" style="--d: 400ms">
+    <p class="fade-up mt-8 max-w-2xl text-lg text-paper/80" style="--d: 400ms">
       S-tier are absolute favourites, A-tier are battle-tested, B-tier are situational, and C-tier are
       ones I avoid when possible. All of these have shipped real projects, from startups to side builds.
     </p>
   </section>
 
-  <div class="container-x space-y-6 pb-24">
-    {tiers.map((tier) => (
-      <section class="grid gap-6 border-t border-border py-10 md:grid-cols-[12rem_1fr]" data-reveal>
-        <div class="flex items-center gap-4 md:flex-col md:items-start">
-          <img src={tier.badge} alt={`${tier.key} tier`} width="64" height="64" class="h-16 w-16" loading="lazy" />
+  <div class="container-x space-y-10 pb-24">
+    {tiers.map((tier, ti) => (
+      <section class="panel p-0" data-reveal style={`--r: ${rot[ti % rot.length]}`}>
+        <div class:list={["flex items-center gap-5 border-b-[3px] border-ink px-5 py-4 sm:px-7", band[tier.key].bg, band[tier.key].text]}>
+          <img src={tier.badge} alt={`${tier.key} tier`} width="64" height="64" class="h-14 w-14 border-[3px] border-ink bg-paper object-contain shadow-hard-sm" loading="lazy" />
           <div>
-            <h2 class="font-display text-4xl leading-none">{tier.key}-Tier</h2>
-            <p class="mt-2 text-sm text-muted-foreground">{tier.blurb}</p>
+            <h2 class="font-display text-5xl leading-none sm:text-6xl">{tier.key}-Tier <span class="hud ml-3 align-middle">{band[tier.key].label}</span></h2>
+            <p class="mt-2 text-sm font-medium opacity-80">{tier.blurb}</p>
           </div>
+          <span class="ml-auto hidden font-pixel text-xs sm:block">{tier.tools.length} ITEMS</span>
         </div>
 
-        <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-          {tier.tools.map((tool) => (
-            <li class="card group p-4" data-tilt="6">
-              <div class="flex items-center gap-3">
-                <span class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-secondary">
+        <ul class="grid gap-0 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+          {tier.tools.map((tool, i) => (
+            <li class="group relative border-ink p-5 transition-colors hover:bg-yellow sm:border-r-[3px] sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r-[3px] lg:[&:nth-child(3n)]:border-r-0 border-b-[3px]" data-tilt="4">
+              <div class="flex items-center gap-4">
+                <span class="grid h-12 w-12 flex-none place-items-center border-[3px] border-ink bg-paper shadow-hard-sm transition-transform group-hover:-rotate-6">
                   <img src={tool.icon} alt="" width="28" height="28" class="h-7 w-7 object-contain" loading="lazy" />
                 </span>
-                <h3 class="font-medium">{tool.name}</h3>
+                <h3 class="font-display text-3xl tracking-wide">{tool.name}</h3>
+                <span class="ml-auto font-pixel text-[9px] text-ink/40">#{String(i + 1).padStart(2, "0")}</span>
               </div>
-              <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{tool.note}</p>
+              <p class="mt-4 text-sm leading-relaxed text-ink/80">{tool.note}</p>
             </li>
           ))}
         </ul>

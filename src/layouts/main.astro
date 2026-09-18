@@ -8,9 +8,10 @@ import { site } from "../data/site";
 interface Props {
   title: string;
   description?: string;
+  page?: string;
 }
 
-const { title, description = site.tagline } = Astro.props;
+const { title, description = site.tagline, page } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,42 +24,43 @@ const { title, description = site.tagline } = Astro.props;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#f6f3ee" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#100f0d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0a0514" />
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
 
     <ViewTransitions />
-
-    <!-- Theme: apply before first paint to avoid a flash -->
-    <script is:inline>
-      (() => {
-        try {
-          const stored = localStorage.getItem("theme");
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          if (stored === "dark" || (!stored && prefersDark)) {
-            document.documentElement.classList.add("dark");
-          }
-        } catch {}
-      })();
-    </script>
-
     <Fragment set:html={import.meta.env.HEADER_INJECT} />
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col" data-page={page}>
+    <!-- Boot screen: shown once per session, skippable -->
+    <div class="boot" data-boot aria-hidden="true">
+      <div class="flex flex-col items-center gap-5 px-6 text-center">
+        <p class="font-pixel text-[10px] tracking-widest sm:text-xs">DAKSH.EXE <span class="opacity-60">v2.616</span></p>
+        <p class="font-display text-5xl text-paper chroma sm:text-7xl">LOADING</p>
+        <div class="boot__bar"><i data-boot-bar></i></div>
+        <p class="boot__log" data-boot-log>booting…</p>
+        <p class="hud mt-2 opacity-60">press any key to skip</p>
+      </div>
+    </div>
+
     <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
 
     <div class="cursor" data-cursor aria-hidden="true">
-      <div class="cursor-ring"><span class="cursor-label"></span></div>
-      <div class="cursor-dot"></div>
+      <div class="cursor-ghost c"></div>
+      <div class="cursor-ghost m"></div>
+      <div class="cursor-x"><span class="cursor-label"></span></div>
     </div>
+
+    <div class="toast-stack" data-toasts aria-live="polite"></div>
 
     <TopBar />
     <main id="main-content" class="flex-1">

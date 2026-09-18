@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/main.astro";
+import MisregImage from "../components/misreg-image.astro";
 import { getCollection } from "astro:content";
 
 const items = (await getCollection("gallery"))
@@ -7,41 +8,36 @@ const items = (await getCollection("gallery"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const fmt = (d: Date) => d.toLocaleDateString("en-AU", { year: "numeric", month: "long", day: "numeric" });
+const rot = ["-3deg", "2deg", "-1.5deg", "3deg", "-2deg", "1deg", "-2.5deg"];
+const tapes = ["var(--yellow)", "var(--pink)", "var(--cyan)", "var(--lime)"];
 ---
 
 <Layout title="Gallery — Daksh Agrawal" description="A small log of moments, screenshots, and things I've built.">
-  <section class="container-x pt-16 pb-12 sm:pt-24">
-    <p class="eyebrow fade-up mb-6" style="--d: 60ms">Gallery · {items.length} moments</p>
-    <h1 class="font-display text-5xl leading-[1] sm:text-7xl">
-      <span class="mask-line"><span style="--d: 120ms">A small log of</span></span>
-      <span class="mask-line"><span style="--d: 240ms" class="text-muted-foreground">moments that mattered.</span></span>
+  <section class="container-x relative pt-14 pb-12 sm:pt-20">
+    <div class="halftone halftone-fade pointer-events-none absolute inset-x-0 top-0 h-72 opacity-40" style="--ht-color: var(--pink); --ht-size: 1.5px; --ht-gap: 9px" aria-hidden="true"></div>
+    <p class="caption fade-up mb-6 bg-lime" style="--d: 40ms">Loot · {items.length} items collected</p>
+    <h1 class="display-xl leading-[0.85]">
+      <span class="slam block chroma-lg glitch" data-text="MOMENTS" data-glitch-auto style="--d: 80ms">MOMENTS</span>
+      <span class="slam block outline-text text-[0.55em]" style="--d: 220ms">that mattered.</span>
     </h1>
   </section>
 
   <section class="container-x pb-24">
-    <div class="columns-1 gap-6 sm:columns-2 lg:columns-3 [&>*]:mb-6 [&>*]:break-inside-avoid">
-      {items.map((item) => (
-        <figure class="group card overflow-hidden" data-reveal data-tilt="4">
-          <div class="overflow-hidden">
-            <img
-              src={item.data.image}
-              alt={item.data.alt ?? item.data.caption}
-              class="img-zoom w-full object-cover"
-              loading="lazy"
-            />
+    <div class="columns-1 gap-10 sm:columns-2 lg:columns-3 [&>*]:mb-10 [&>*]:break-inside-avoid">
+      {items.map((item, i) => (
+        <figure class="group panel p-3 pb-5" data-reveal data-tilt="4" style={`--r: ${rot[i % rot.length]}; --r0: ${i % 2 ? "6deg" : "-6deg"}`}>
+          <span class="stripes absolute -top-3 left-1/2 z-10 h-6 w-28 -translate-x-1/2 rotate-[-5deg]" style={`--stripe-a: ${tapes[i % tapes.length]}; --stripe-b: var(--ink)`} aria-hidden="true"></span>
+          <div class="border-[3px] border-ink">
+            <MisregImage src={item.data.image} alt={item.data.alt ?? item.data.caption} class="w-full" />
           </div>
-          <figcaption class="flex items-baseline justify-between gap-4 p-4">
-            <p class="font-medium">{item.data.caption}</p>
-            <time class="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground" datetime={item.data.date.toISOString()}>
-              {fmt(item.data.date)}
-            </time>
+          <figcaption class="mt-4 flex items-baseline justify-between gap-4">
+            <p class="font-display text-2xl">{item.data.caption}</p>
+            <time class="hud text-ink/60" datetime={item.data.date.toISOString()}>{fmt(item.data.date)}</time>
           </figcaption>
         </figure>
       ))}
     </div>
 
-    {items.length === 0 && (
-      <p class="py-16 text-center text-muted-foreground">Nothing here yet.</p>
-    )}
+    {items.length === 0 && <p class="py-16 text-center text-muted">Nothing here yet.</p>}
   </section>
 </Layout>

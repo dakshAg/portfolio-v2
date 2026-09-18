@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/main.astro";
+import MisregImage from "../../components/misreg-image.astro";
 import { getCollection } from "astro:content";
 import { site } from "../../data/site";
 
@@ -8,41 +9,38 @@ const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
 const fmt = (d: Date) => d.toLocaleDateString("en-AU", { year: "numeric", month: "short", day: "numeric" });
+const rot = ["-2deg", "1.5deg", "-1deg", "2deg", "-1.5deg"];
 ---
 
 <Layout title="Writing — Daksh Agrawal" description="Thoughts on technology, entrepreneurship, and the intersection of data and business.">
-  <section class="container-x pt-16 pb-12 sm:pt-24">
-    <p class="eyebrow fade-up mb-6" style="--d: 60ms">Writing · {posts.length} posts</p>
-    <h1 class="font-display text-5xl leading-[1] sm:text-7xl">
-      <span class="mask-line"><span style="--d: 120ms">Notes on data,</span></span>
-      <span class="mask-line"><span style="--d: 240ms" class="text-muted-foreground">products & people.</span></span>
+  <section class="container-x relative pt-14 pb-12 sm:pt-20">
+    <div class="halftone halftone-fade pointer-events-none absolute inset-x-0 top-0 h-72 opacity-40" style="--ht-color: var(--cyan); --ht-size: 1.5px; --ht-gap: 9px" aria-hidden="true"></div>
+    <p class="caption fade-up mb-6 bg-pink" style="--d: 40ms">Back issues · {posts.length} published</p>
+    <h1 class="display-xl leading-[0.85]">
+      <span class="slam block chroma-lg glitch" data-text="WRITING" data-glitch-auto style="--d: 80ms">WRITING</span>
+      <span class="slam block outline-text text-[0.55em]" style="--d: 220ms">on data, products & people.</span>
     </h1>
-    <p class="fade-up mt-8 text-muted-foreground" style="--d: 400ms">
+    <p class="fade-up mt-8 text-paper/80" style="--d: 400ms">
       Longer essays live on
-      <a href={site.substack} target="_blank" rel="noopener noreferrer" class="link-underline text-foreground">Substack ↗</a>.
+      <a href={site.substack} target="_blank" rel="noopener noreferrer" class="sticker sticker-yellow !text-sm">Substack ↗</a>
     </p>
   </section>
 
   <section class="container-x pb-24">
-    <ol class="divide-y divide-border border-y border-border" data-reveal-stagger>
-      {posts.map((p) => (
+    <ol class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+      {posts.map((p, i) => (
         <li>
-          <a href={`/blog/${p.slug}`} data-cursor-label="Read" class="group grid gap-4 py-8 sm:grid-cols-[8rem_1fr_12rem] sm:gap-8">
-            <time class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground" datetime={p.data.pubDate.toISOString()}>
-              {fmt(p.data.pubDate)}
-            </time>
-            <div>
-              <h2 class="font-display text-3xl leading-tight transition-colors group-hover:text-accent sm:text-4xl">{p.data.title}</h2>
-              <p class="mt-2 max-w-xl text-muted-foreground">{p.data.description}</p>
-              {p.data.tags && (
-                <div class="mt-4 flex flex-wrap gap-2">
-                  {p.data.tags.map((t: string) => <span class="chip !py-0.5 text-[11px]">{t}</span>)}
-                </div>
-              )}
+          <a href={`/blog/${p.slug}`} data-cursor-label="Read" class="group panel tilted block p-3" style={`--r: ${rot[i % rot.length]}`}>
+            <div class="relative aspect-[3/4] border-[3px] border-ink bg-cyan">
+              {p.data.heroImage && <MisregImage src={p.data.heroImage} alt="" class="h-full w-full" />}
+              <span class="absolute left-2 top-2 chip !bg-yellow">#{String(posts.length - i).padStart(3, "0")}</span>
+              <span class="absolute bottom-2 right-2 chip">{fmt(p.data.pubDate)}</span>
             </div>
-            {p.data.heroImage && (
-              <div class="card aspect-[4/3] overflow-hidden sm:aspect-auto sm:h-28">
-                <img src={p.data.heroImage} alt="" class="img-zoom h-full w-full object-cover" loading="lazy" />
+            <h2 class="mt-4 font-display text-4xl leading-none">{p.data.title}</h2>
+            <p class="mt-2 text-sm text-ink/75">{p.data.description}</p>
+            {p.data.tags && (
+              <div class="mt-4 flex flex-wrap gap-1.5">
+                {p.data.tags.map((t: string) => <span class="chip !text-[9px]">{t}</span>)}
               </div>
             )}
           </a>

@@ -1,0 +1,16 @@
+---
+/** Image with cyan/magenta plates that slip on hover (inside a .group) or when `.is-on`. */
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+  benday?: boolean;
+}
+const { src, alt = "", class: cls = "", loading = "lazy", benday = true } = Astro.props;
+---
+<div class:list={["misreg", benday && "benday", cls]}>
+  <img src={src} alt={alt} loading={loading} decoding="async" />
+  <div class="plate plate-c" aria-hidden="true"><img src={src} alt="" loading={loading} decoding="async" /></div>
+  <div class="plate plate-m" aria-hidden="true"><img src={src} alt="" loading={loading} decoding="async" /></div>
+</div>
