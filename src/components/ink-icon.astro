@@ -3,12 +3,13 @@
 interface Props { name: string; class?: string }
 const { name, class: cls = "" } = Astro.props;
 const key = name.toLowerCase();
-const S = { fill: "none", stroke: "var(--ink)", "stroke-width": "3", "stroke-linecap": "round", "stroke-linejoin": "round" } as const;
+const INK = { stroke: "var(--ink)", "stroke-width": "3", "stroke-linecap": "round", "stroke-linejoin": "round" } as const;
+const S = { fill: "none", ...INK } as const;
 ---
 <svg class:list={["ink-icon", `ink-${key.split(" ")[0]}`, cls]} viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
   {key.startsWith("software") && (
     <>
-      <rect x="4" y="8" width="40" height="32" rx="3" fill="var(--ink)" {...S} />
+      <rect x="4" y="8" width="40" height="32" rx="3" fill="var(--ink)" {...INK} />
       <rect x="7" y="11" width="34" height="26" fill="var(--void)" />
       <path d="M13 18 l6 5 -6 5" stroke="var(--lime)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
       <rect class="cursor" x="23" y="26" width="10" height="3" fill="var(--lime)" />
@@ -18,16 +19,16 @@ const S = { fill: "none", stroke: "var(--ink)", "stroke-width": "3", "stroke-lin
   {key.startsWith("data") && (
     <>
       <path d="M6 42 H42 M6 42 V6" {...S} />
-      <rect class="bar b1" x="12" y="24" width="7" height="18" fill="var(--pink)" {...S} />
-      <rect class="bar b2" x="22" y="14" width="7" height="28" fill="var(--cyan)" {...S} />
-      <rect class="bar b3" x="32" y="20" width="7" height="22" fill="var(--yellow)" {...S} />
+      <rect class="bar b1" x="12" y="24" width="7" height="18" fill="var(--pink)" {...INK} />
+      <rect class="bar b2" x="22" y="14" width="7" height="28" fill="var(--cyan)" {...INK} />
+      <rect class="bar b3" x="32" y="20" width="7" height="22" fill="var(--yellow)" {...INK} />
       <circle class="dot" cx="38" cy="10" r="3" fill="var(--lime)" stroke="var(--ink)" stroke-width="2.5" />
     </>
   )}
   {key.startsWith("finance") && (
     <>
       <g class="coin">
-        <ellipse cx="24" cy="24" rx="16" ry="16" fill="var(--yellow)" {...S} />
+        <ellipse cx="24" cy="24" rx="16" ry="16" fill="var(--yellow)" {...INK} />
         <ellipse cx="24" cy="24" rx="10" ry="16" fill="none" stroke="var(--ink)" stroke-width="2.5" />
         <text x="24" y="30" text-anchor="middle" font-family="Bangers, Impact" font-size="18" fill="var(--ink)">$</text>
       </g>
@@ -36,7 +37,7 @@ const S = { fill: "none", stroke: "var(--ink)", "stroke-width": "3", "stroke-lin
   )}
   {key.startsWith("teach") && (
     <>
-      <rect x="5" y="8" width="38" height="26" rx="2" fill="#0f4c3a" {...S} />
+      <rect x="5" y="8" width="38" height="26" rx="2" fill="#0f4c3a" {...INK} />
       <path class="chalk" d="M12 18 h14 M12 24 h20 M12 30 h9" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="40" />
       <path d="M18 34 v8 M30 34 v8 M12 42 h24" {...S} />
       <path class="cap" d="M32 4 l8 4 -8 4 -8 -4 z" fill="var(--ink)" />
@@ -45,7 +46,7 @@ const S = { fill: "none", stroke: "var(--ink)", "stroke-width": "3", "stroke-lin
   {key.startsWith("product") && (
     <>
       <g class="glow"><circle cx="24" cy="18" r="10" fill="var(--yellow)" opacity="0.35" /></g>
-      <path d="M24 6 a12 12 0 0 0 -7 21.5 V32 h14 v-4.5 A12 12 0 0 0 24 6 z" fill="var(--yellow)" {...S} />
+      <path d="M24 6 a12 12 0 0 0 -7 21.5 V32 h14 v-4.5 A12 12 0 0 0 24 6 z" fill="var(--yellow)" {...INK} />
       <path d="M18 36 h12 M20 41 h8" {...S} />
       <path class="ray r1" d="M6 12 l4 2 M42 12 l-4 2 M24 0 v3" {...S} />
       <path d="M21 26 l3 -6 3 6" stroke="var(--ink)" stroke-width="2.5" fill="none" />
@@ -53,14 +54,14 @@ const S = { fill: "none", stroke: "var(--ink)", "stroke-width": "3", "stroke-lin
   )}
   {key.startsWith("excellence") && (
     <>
-      <path class="star" d="M24 4 l6 12 13 2 -9.5 9 2.5 13 -12 -6.5 -12 6.5 2.5 -13 -9.5 -9 13 -2 z" fill="var(--yellow)" {...S} />
+      <path class="star" d="M24 4 l6 12 13 2 -9.5 9 2.5 13 -12 -6.5 -12 6.5 2.5 -13 -9.5 -9 13 -2 z" fill="var(--yellow)" {...INK} />
       <path class="shine" d="M4 6 l3 3 M44 6 l-3 3" {...S} />
     </>
   )}
   {key.startsWith("build") && (
     <>
       <g class="hammer">
-        <rect x="8" y="8" width="20" height="12" rx="2" fill="var(--pink)" {...S} />
+        <rect x="8" y="8" width="20" height="12" rx="2" fill="var(--pink)" {...INK} />
         <path d="M18 20 l14 22" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" />
         <path d="M18 20 l14 22" stroke="var(--paper)" stroke-width="3" stroke-linecap="round" />
       </g>
@@ -69,22 +70,22 @@ const S = { fill: "none", stroke: "var(--ink)", "stroke-width": "3", "stroke-lin
   )}
   {key.startsWith("courage") && (
     <>
-      <path class="flame" d="M24 44 C10 36 12 24 20 16 C20 24 26 26 26 20 C32 26 36 30 34 38 C33 42 28 44 24 44 z" fill="#ff5a1f" {...S} />
+      <path class="flame" d="M24 44 C10 36 12 24 20 16 C20 24 26 26 26 20 C32 26 36 30 34 38 C33 42 28 44 24 44 z" fill="#ff5a1f" {...INK} />
       <path d="M24 44 C18 40 18 34 22 28 C24 33 28 34 28 38 C28 42 26 44 24 44 z" fill="var(--yellow)" />
       <path d="M24 4 v6 M14 8 l3 4 M34 8 l-3 4" {...S} />
     </>
   )}
   {key.startsWith("learn") && (
     <>
-      <path d="M6 10 C14 6 20 8 24 12 V42 C20 38 14 36 6 40 z" fill="var(--cyan)" {...S} />
-      <path d="M42 10 C34 6 28 8 24 12 V42 C28 38 34 36 42 40 z" fill="var(--paper)" {...S} />
+      <path d="M6 10 C14 6 20 8 24 12 V42 C20 38 14 36 6 40 z" fill="var(--cyan)" {...INK} />
+      <path d="M42 10 C34 6 28 8 24 12 V42 C28 38 34 36 42 40 z" fill="var(--paper)" {...INK} />
       <path class="lines" d="M11 18 h8 M11 24 h8 M29 18 h8 M29 24 h8" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
       <circle class="bulb" cx="38" cy="8" r="4" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2.5" />
     </>
   )}
   {key.startsWith("discipline") && (
     <>
-      <circle cx="24" cy="26" r="17" fill="var(--paper)" {...S} />
+      <circle cx="24" cy="26" r="17" fill="var(--paper)" {...INK} />
       <path d="M18 5 h12 M24 5 v4" {...S} />
       <path class="hand h" d="M24 26 V15" {...S} />
       <path class="hand m" d="M24 26 h9" {...S} />
