@@ -312,7 +312,7 @@ export const tiers: Tier[] = [
   },
 ];
 
-/* Player 2 — hidden co-op campaign. Unlock by typing "love" anywhere on the site. */
+/* Player 2 — hidden co-op campaign. Unlock by typing "chiya" anywhere on the site. */
 export const player2 = {
   name: "Player 2",
   since: "??.??.????",

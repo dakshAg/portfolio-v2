@@ -88,7 +88,7 @@ Object.assign(ACHIEVEMENTS, {
 
 const HINTS: Record<string, string> = {
 	konami: "↑↑↓↓←→←→BA",
-	love: "type a four-letter word",
+	love: "type a five-letter word",
 	spider: "something drops from the ceiling",
 	avatar: "the face is clickable",
 	attract: "walk away",
@@ -919,7 +919,7 @@ function initCheat() {
   });
 }
 
-/* ------------------------------------------------------------------ "love" → Player 2 */
+/* ------------------------------------------------------------------ "chiya" → Player 2 */
 
 let loveBound = false;
 function unlockP2(scroll = true) {
@@ -964,7 +964,7 @@ function initLove() {
   window.addEventListener("keydown", (e) => {
     if (e.key.length !== 1 || (e.target as HTMLElement)?.matches("input, textarea")) return;
     buf = (buf + e.key.toLowerCase()).slice(-8);
-    if (buf.endsWith("love")) { buf = ""; unlockP2(); }
+    if (buf.endsWith("chiya")) { buf = ""; unlockP2(); }
   });
 }
 
@@ -1078,7 +1078,7 @@ function initConsole() {
   consoled = true;
   const css = "background:#07040d;color:#ff2e97;font-family:monospace;font-size:14px;padding:8px 12px;border:3px solid #ffe93b";
   console.log("%cDAKSH.EXE v2.616 — you found the console.", css);
-  console.log("%cpsst: ↑↑↓↓←→←→BA · press ? · type love · catch the spider · " + UNIVERSES.length + " universes loaded", "color:#1de9ff;font-family:monospace");
+  console.log("%cpsst: ↑↑↓↓←→←→BA · press ? · type chiya · catch the spider · " + UNIVERSES.length + " universes loaded", "color:#1de9ff;font-family:monospace");
 }
 
 /* ------------------------------------------------------------------ boot */
