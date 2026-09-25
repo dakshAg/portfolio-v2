@@ -314,20 +314,26 @@ export const tiers: Tier[] = [
 
 /* Player 2 — hidden co-op campaign. Unlock by typing "chiya" anywhere on the site. */
 export const player2 = {
-  name: "Player 2",
-  since: "??.??.????",
-  tagline: "Co-op mode unlocked. Every good run needs a second controller.",
+  name: "Chiya",
+  since: "25.05.2026",
+  tagline: "Co-op mode unlocked. My favourite little pink bird joined the run, and every level got better.",
   stats: [
-    { label: "Patience with my side quests", v: 1, bar: "var(--pink)" },
-    { label: "Snacks shared", v: 0.99, bar: "var(--yellow)" },
-    { label: "Debugging me", v: 0.97, bar: "var(--cyan)" },
-    { label: "Winning arguments", v: 1, bar: "var(--lime)" },
+    { label: "Best baby", v: 1, bar: "var(--pink)" },
+    { label: "Best potty", v: 1, bar: "var(--yellow)" },
+    { label: "Cutest person ever", v: 1, bar: "var(--cyan)" },
+    { label: "Understanding me", v: 1, bar: "var(--lime)" },
+    { label: "Standing with me", v: 1, bar: "var(--pink)" },
   ],
   photos: [
-    { src: "/images/p2/p2-01.svg", caption: "Add a pic here", date: "soon" },
-    { src: "/images/p2/p2-02.svg", caption: "And here", date: "soon" },
-    { src: "/images/p2/p2-03.svg", caption: "This one too", date: "soon" },
+    { src: "/images/p2/p2-01.webp", level: "LVL 1", caption: "An unexpected date", note: "A Melbourne trip that turned into the best surprise of my life." },
+    { src: "/images/p2/p2-02.webp", level: "LVL 2", caption: "A secret trip", note: "Planned quietly, just for her." },
+    { src: "/images/p2/p2-03.webp", level: "LVL 3", caption: "10 days of heaven", note: "Every minute counted, right before the long-distance level." },
   ],
-  letter:
-    "Placeholder for the actual words. Something about how the best part of every dimension is the person in it. Replace me before shipping, or don't, and let the glitch be the message.",
+  letter: [
+    "Chiya,",
+    "Thank you for being the best baby, the best potty and the cutest person in every universe I've ever loaded. Thank you for understanding me on the days I don't even understand myself, for loving me the way you do, and for standing right next to me through everything, every single time.",
+    "It started with a date neither of us saw coming, on a Melbourne trip. Then came a secret trip I planned just for you. Then ten days that felt like heaven, before the distance had to begin. The distance is the hardest level we've played so far, but it has only made me more sure of one thing: you're the only Player 2 I ever want.",
+    "Every city looks better with you in the frame. Every day since 25.05.2026 has been my favourite side quest. Until I get to hold your hand again, I'm counting down the days, and I'm all yours.",
+    "Your P1, always. 🩷",
+  ],
 };

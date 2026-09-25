@@ -1,0 +1,26 @@
+---
+/**
+ * Chubby pink bird, inked like the rest of the site. Purely decorative.
+ * `pose="fly"` flaps its wing, `pose="perch"` hops and blinks.
+ */
+interface Props {
+  class?: string;
+  style?: string;
+  pose?: "perch" | "fly";
+  flip?: boolean;
+}
+const { class: cls = "", style, pose = "perch", flip = false } = Astro.props;
+---
+<span class:list={["pbird", `pbird-${pose}`, { "pbird-flip": flip }, cls]} style={style} aria-hidden="true">
+  <svg viewBox="0 0 64 56" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path class="pbird-tail" d="M11 28 L2 21 L3 30 L1 36 L11 34 Z" fill="#ff7fbf" />
+    <ellipse cx="31" cy="30" rx="21" ry="18" fill="#ffc4e1" />
+    <path d="M15 37 Q31 50 47 38 Q40 47 31 47 Q21 47 15 37 Z" stroke="none" fill="#fff0f7" />
+    <path class="pbird-wing" d="M38 29 Q30 21 15 27 Q21 40 38 33 Z" fill="#ff5fa8" />
+    <path d="M51 25 L61 28.5 L51 32 Z" fill="var(--yellow)" />
+    <g class="pbird-eye"><circle cx="43" cy="22" r="3.6" fill="var(--ink)" stroke="none" /><circle cx="44.2" cy="20.8" r="1.3" fill="#fff" stroke="none" /></g>
+    <ellipse cx="45" cy="31" rx="3.6" ry="2.2" fill="#ff4f98" stroke="none" opacity="0.75" />
+    <path d="M29 12.5 Q30 5 35 9 M33 12.5 Q37 6 39.5 11" />
+    <path d="M26 48 v5 M35 48 v5" />
+  </svg>
+</span>

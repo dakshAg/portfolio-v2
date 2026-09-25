@@ -932,7 +932,7 @@ function unlockP2(scroll = true) {
     sfx.love();
     heartRain();
     unlock("love");
-    toast("💘 PLAYER 2 HAS JOINED", "co-op campaign unlocked");
+    toast("💘 CHIYA HAS JOINED", "co-op campaign unlocked 🩷🐦");
   }
   const sec = document.getElementById("player2");
   if (sec && scroll) setTimeout(() => sec.scrollIntoView({ behavior: "smooth", block: "start" }), first ? 900 : 0);

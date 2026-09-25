@@ -2,6 +2,7 @@
 import Layout from "../layouts/main.astro";
 import SectionHeading from "../components/section-heading.astro";
 import MisregImage from "../components/misreg-image.astro";
+import PinkBird from "../components/pink-bird.astro";
 import Multiverse from "../components/multiverse.astro";
 import Vibe from "../components/vibe.astro";
 import InkIcon from "../components/ink-icon.astro";
@@ -440,54 +441,72 @@ const arrow = `<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="curr
   </section>
 
   <!-- ============ PLAYER 2 (hidden until you type "chiya") ============ -->
-  <section id="player2" data-p2 class="relative scroll-mt-24 border-y-[3px] border-paper bg-pink py-24 text-ink sm:py-32">
+  <section id="player2" data-p2 class="relative scroll-mt-24 overflow-hidden border-y-[3px] border-paper bg-pink py-24 text-ink sm:py-32">
     <div class="halftone pointer-events-none absolute inset-0 opacity-25" style="--ht-size: 2px; --ht-gap: 10px" aria-hidden="true"></div>
+    <PinkBird pose="fly" class="pbird-flyer top-16" style="--bw: 58px; --dur: 22s" />
+    <PinkBird pose="fly" class="pbird-flyer top-1/2" style="--bw: 44px; --dur: 28s; --bd: -12s" />
     <div class="container-x relative">
       <div class="mb-12 flex flex-wrap items-end justify-between gap-6">
         <div class="space-y-4">
           <p class="caption bg-paper !rotate-[-2deg]"><span class="font-pixel text-[9px] mr-2 align-middle">P2</span>Co-op campaign</p>
-          <h2 class="display-lg glitch" data-text="Player 2 has joined" data-glitch-auto>Player 2 <span class="pulse-heart">♥</span> has joined</h2>
+          <h2 class="display-lg glitch" data-text={`${player2.name} has joined`} data-glitch-auto>{player2.name} <span class="pulse-heart">♥</span> has joined</h2>
           <p class="max-w-xl opacity-80">{player2.tagline}</p>
         </div>
-        <div class="dialogue !border-ink !bg-ink !text-paper" style="box-shadow: 0 0 0 3px var(--ink), 0 0 0 6px var(--paper), 8px 8px 0 6px var(--yellow)">
-          <p class="hud text-yellow">▸ SINCE</p>
-          <p class="combo mt-1 text-4xl">{player2.since}</p>
-          <p class="hud mt-2 text-lime">COMBO ×∞</p>
+        <div class="relative mt-12 lg:mt-0">
+          <PinkBird class="absolute -top-14 right-4 z-10" style="--bw: 72px" />
+          <PinkBird class="absolute -top-10 right-24 z-10" style="--bw: 52px; --bd: 0.6s" flip />
+          <div class="dialogue !border-ink !bg-ink !text-paper" style="box-shadow: 0 0 0 3px var(--ink), 0 0 0 6px var(--paper), 8px 8px 0 6px var(--yellow)">
+            <p class="hud text-yellow">▸ SINCE</p>
+            <p class="combo mt-1 text-4xl">{player2.since}</p>
+            <p class="hud mt-2 text-lime">COMBO ×∞</p>
+          </div>
         </div>
       </div>
 
       <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
-        <ul class="panel space-y-5 p-6 sm:p-8" data-reveal style="--r: -1deg">
-          <li class="hud text-pink">▸ PARTY STATS</li>
-          {player2.stats.map((s, i) => (
-            <li>
-              <div class="mb-2 flex items-center justify-between gap-3">
-                <span class="font-display text-2xl tracking-wide">{s.label}</span>
-                <span class="font-pixel text-[10px]">{Math.round(s.v * 100)}</span>
-              </div>
-              <div class="statbar" style={`--v: ${s.v}; --bar: ${s.bar}; --bar-delay: ${i * 120}ms`}><i></i></div>
+        <div>
+          <ul class="panel space-y-5 p-6 sm:p-8" data-reveal style="--r: -1deg">
+            <li class="hud flex items-center justify-between text-pink">▸ PARTY STATS <PinkBird style="--bw: 48px" /></li>
+            {player2.stats.map((s, i) => (
+              <li>
+                <div class="mb-2 flex items-center justify-between gap-3">
+                  <span class="font-display text-2xl tracking-wide">{s.label}</span>
+                  <span class="font-pixel text-[10px]">MAX</span>
+                </div>
+                <div class="statbar" style={`--v: ${s.v}; --bar: ${s.bar}; --bar-delay: ${i * 120}ms`}><i></i></div>
+              </li>
+            ))}
+          </ul>
+
+          <div class="relative mt-14" data-reveal>
+            <PinkBird class="absolute -top-12 left-6 z-10" style="--bw: 64px; --bd: 0.3s" />
+            <PinkBird class="absolute -top-8 left-24 z-10" style="--bw: 46px; --bd: 0.9s" flip />
+            <div class="bubble p2-letter !p-6 leading-relaxed sm:!p-8">
+              <p class="hud mb-4 text-pink">▸ P1 → P2 · A LETTER</p>
+              {player2.letter.map((line) => <p>{line}</p>)}
+            </div>
+          </div>
+        </div>
+
+        <ol class="p2-trail space-y-10" data-reveal-stagger>
+          {player2.photos.map((ph, i) => (
+            <li class="relative pl-12">
+              <span class="absolute left-0 top-4 grid h-9 w-9 place-items-center border-[3px] border-ink bg-paper font-pixel text-[9px]">{i + 1}</span>
+              <figure class="group panel tilted p-3 pb-4" style={`--r: ${rot[(i + 1) % rot.length]}`}>
+                <span class="stripes absolute -top-3 left-1/2 h-5 w-20 -translate-x-1/2 rotate-[-6deg]" style="--stripe-a: var(--yellow); --stripe-b: var(--pink)" aria-hidden="true"></span>
+                {i === 1 && <PinkBird class="absolute -right-3 -top-12 z-10" style="--bw: 62px; --bd: 1.2s" flip />}
+                <div class="aspect-[4/3] border-[3px] border-ink">
+                  <Multiverse src={ph.src} alt={`Daksh and Chiya: ${ph.caption}`} class="h-full w-full" />
+                </div>
+                <figcaption class="mt-3">
+                  <p class="hud text-pink">▸ {ph.level}</p>
+                  <p class="font-display text-2xl">{ph.caption}</p>
+                  <p class="mt-1 text-sm opacity-70">{ph.note}</p>
+                </figcaption>
+              </figure>
             </li>
           ))}
-          <li class="bubble mt-4 !p-4 text-sm leading-relaxed">
-            <p class="hud mb-2 text-pink">▸ P1</p>
-            {player2.letter}
-          </li>
-        </ul>
-
-        <div class="grid grid-cols-2 gap-6 sm:grid-cols-3" data-reveal-stagger>
-          {player2.photos.map((ph, i) => (
-            <figure class="group panel tilted p-3 pb-4" style={`--r: ${rot[(i + 1) % rot.length]}`}>
-              <span class="stripes absolute -top-3 left-1/2 h-5 w-20 -translate-x-1/2 rotate-[-6deg]" style="--stripe-a: var(--yellow); --stripe-b: var(--pink)" aria-hidden="true"></span>
-              <div class="aspect-[4/5] border-[3px] border-ink">
-                <Multiverse src={ph.src} alt={ph.caption} class="h-full w-full" />
-              </div>
-              <figcaption class="mt-3">
-                <p class="font-display text-xl">{ph.caption}</p>
-                <p class="hud mt-1 opacity-60">{ph.date}</p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        </ol>
       </div>
     </div>
   </section>
