@@ -77,9 +77,9 @@ const experience: Job[] = [
     summary:
       "Sole data engineer at a three-person sports prediction-market trading firm. Built the data platform end to end: an Iceberg lakehouse fed live from the trading bot, the PnL ledger and the internal analytics dashboard.",
     stats: [
-      { value: "~36 GB/day", label: "streamed into 16 Iceberg tables, with no added latency on the trading hot path" },
-      { value: "11.7%", label: "undercount in traded shares, caught by auditing all 32 warehouse tables" },
-      { value: "<$1", label: "for a month of dashboard queries scanning 159 GB" },
+      { value: "~36 GB/day", label: "into 16 Iceberg tables" },
+      { value: "11.7%", label: "share undercount caught in audit" },
+      { value: "<$1", label: "for a month of queries (159 GB)" },
     ],
   },
   {
@@ -92,9 +92,9 @@ const experience: Job[] = [
     summary:
       "Built LLM-enriched pipelines, ML valuation models and AI analytics tools for the investment team of a public-market tech equities fund.",
     stats: [
-      { value: "500k+", label: "data points on listed tech companies enriched by an LLM pipeline in Snowflake" },
-      { value: "3,000 hrs", label: "of unstructured content behind a RAG agent that cites its sources" },
-      { value: "~20 hrs/wk", label: "saved by a Slack and Notion analytics agent answering ~110 queries a day" },
+      { value: "500k+", label: "data points enriched by LLMs" },
+      { value: "3,000 hrs", label: "of content behind a RAG agent" },
+      { value: "~20 hrs/wk", label: "saved by an analytics agent" },
     ],
   },
   {
@@ -108,8 +108,8 @@ const experience: Job[] = [
       "Joined as a summer data analyst and earned a graduate offer. Built the SQL Server and Azure pipelines behind executive Power BI dashboards for Tasmania's state water utility.",
     stats: [
       { value: "15+ hrs/wk", label: "of manual reporting automated" },
-      { value: "50%", label: "lower latency from SQL and warehouse index tuning" },
-      { value: "20%", label: "better forecasting accuracy from remodelled business KPIs" },
+      { value: "50%", label: "lower query latency" },
+      { value: "20%", label: "better forecast accuracy" },
     ],
   },
   {
@@ -124,7 +124,7 @@ const experience: Job[] = [
     stats: [
       { value: "270k+", label: "app installs" },
       { value: "6,800+", label: "service partners onboarded" },
-      { value: "~10k/day", label: "free-text WhatsApp loads turned into structured records" },
+      { value: "~10k", label: "WhatsApp loads parsed daily" },
     ],
   },
   {
@@ -520,26 +520,28 @@ const projects: Project[] = [
                 class="w-20 h-20 rounded-lg"
               />
             </div>
-            <div class="space-y-3 flex-1">
-              <div class="space-y-1">
-                <h3 class="font-semibold text-lg">
-                  {job.href ? (
-                    <a href={job.href} target="_blank" rel="noopener noreferrer" class="hover:underline">
-                      {job.company} — {job.role}
-                    </a>
-                  ) : (
-                    <Fragment>{job.company} — {job.role}</Fragment>
-                  )}
-                </h3>
-                <p class="text-sm text-muted-foreground">{job.dates} · {job.location}</p>
+            <div class="flex-1 grid gap-4 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-8">
+              <div class="space-y-3">
+                <div class="space-y-1">
+                  <h3 class="font-semibold text-lg">
+                    {job.href ? (
+                      <a href={job.href} target="_blank" rel="noopener noreferrer" class="hover:underline">
+                        {job.company} — {job.role}
+                      </a>
+                    ) : (
+                      <Fragment>{job.company} — {job.role}</Fragment>
+                    )}
+                  </h3>
+                  <p class="text-sm text-muted-foreground">{job.dates} · {job.location}</p>
+                </div>
+                <p class="text-muted-foreground">{job.summary}</p>
               </div>
-              <p class="text-muted-foreground">{job.summary}</p>
               {job.stats.length > 0 && (
-                <dl class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pt-1">
+                <dl class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-2 self-start">
                   {job.stats.map((stat) => (
-                    <div class="flex flex-col-reverse justify-end gap-0.5 border-l-2 border-foreground/15 pl-3">
+                    <div class="flex flex-row-reverse items-baseline justify-end gap-2.5 rounded-lg border border-border bg-background/80 px-3.5 py-2 shadow-sm">
                       <dt class="text-xs text-muted-foreground leading-snug">{stat.label}</dt>
-                      <dd class="text-xl font-semibold tabular-nums tracking-tight">{stat.value}</dd>
+                      <dd class="shrink-0 text-base font-semibold tabular-nums tracking-tight">{stat.value}</dd>
                     </div>
                   ))}
                 </dl>

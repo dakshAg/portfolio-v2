@@ -3,19 +3,6 @@ import ProofLinks, { type ProofLink } from "./proof-links.astro";
 
 // Each skill gets its own visual; the proof links are the only shared part.
 
-const pipeline = [
-  { name: "Live trading bot", detail: "decisions · quotes · fills · orders" },
-  { name: "Cloudflare Pipelines", detail: "streamed off the hot path" },
-  { name: "Iceberg on R2", detail: "the warehouse" },
-  { name: "R2 SQL", detail: "behind a caching proxy" },
-  { name: "Analytics dashboard", detail: "TypeScript on Workers" },
-];
-
-const pipelineSide = [
-  { name: "PnL ledger Worker", detail: "cron · fills, resolutions, position snapshots" },
-  { name: "Completeness check", detail: "sequence-based audit of every stream" },
-];
-
 const figures = [
   {
     src: "/images/skills/data/nyc-surges.webp",
@@ -47,21 +34,68 @@ const figures = [
   },
 ];
 
-const shelfYears = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+type ContributionDay = { date: string; level: number; label: string };
 
-const apps = [
-  { name: "My Share", year: 2016, icon: "/images/projects/my_share_logo.png" },
-  { name: "Share Books", year: 2017, icon: "/images/projects/share_books_logo.png" },
-  { name: "My Share Plus", year: 2017, icon: "/images/projects/my_share_plus_logo.png" },
-  { name: "Society", year: 2018, icon: "/images/projects/society_logo.png" },
-  { name: "EMI Calculator", year: 2018, icon: "/images/projects/emi_calculator_logo.png" },
-  { name: "Agrawal Samaj", year: 2018, icon: "/images/projects/agrawal_samaj_logo.png" },
-  { name: "Samarpan", year: 2019, icon: "/images/projects/samarpan_logo.png" },
-  { name: "G7 Smart Logistics", year: 2019, icon: "/images/work/g7.jpg" },
-  { name: "NYC Taxi Demand Forecasting", year: 2024, icon: "/images/projects/nyc-taxi.png" },
-  { name: "Rental Market Forecasting", year: 2024, icon: "/images/projects/rental-market.png" },
-  { name: "Panelogy", year: 2025, icon: "/images/projects/panelogy_logo.png" },
-  { name: "Puddle", year: 2026, icon: "/images/projects/puddle-icon.png" },
+// Read the public contribution calendar at build time, so the heatmap is as fresh as the last deploy.
+// If GitHub is unreachable the build still passes and the section falls back to a plain link.
+async function loadContributions(user: string) {
+  try {
+    const res = await fetch(`https://github.com/users/${user}/contributions`, {
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+
+    const labels = new Map<string, string>();
+    for (const m of html.matchAll(/<tool-tip[^>]*\bfor="([^"]+)"[^>]*>([^<]*)<\/tool-tip>/g)) {
+      labels.set(m[1], m[2].trim());
+    }
+
+    const days: ContributionDay[] = [];
+    for (const m of html.matchAll(/<td[^>]*ContributionCalendar-day[^>]*>/g)) {
+      const attr = (name: string) => m[0].match(new RegExp(`${name}="([^"]*)"`))?.[1];
+      const date = attr("data-date");
+      const level = Number(attr("data-level"));
+      const id = attr("id");
+      if (date && !Number.isNaN(level)) days.push({ date, level, label: (id && labels.get(id)) || date });
+    }
+    if (days.length === 0) return null;
+    days.sort((a, b) => a.date.localeCompare(b.date));
+
+    const total = html.match(/([\d,]+)\s+contributions?\s+in the last year/)?.[1] ?? null;
+    // Pad the first week so each column runs Sunday to Saturday, like GitHub's own graph.
+    const lead = new Date(`${days[0].date}T00:00:00Z`).getUTCDay();
+    return { days, total, lead, weeks: Math.ceil((lead + days.length) / 7) };
+  } catch {
+    return null;
+  }
+}
+
+const contributions = await loadContributions("dakshAg");
+
+const levelColors = ["bg-foreground/[0.07]", "bg-emerald-200", "bg-emerald-400", "bg-emerald-600", "bg-emerald-800"];
+
+const builds = [
+  {
+    kind: "Live",
+    title: "Puddle",
+    blurb: "Visualise heaps of anything, from money to monsters, to get a feel for scale.",
+    image: "/images/projects/puddle.png",
+    href: "https://puddle-lime.vercel.app/",
+  },
+  {
+    kind: "Essay",
+    title: "The Lean Architect's Guide to Shipping",
+    blurb: "Stop writing code and start building products. How I keep stacks small and momentum high.",
+    image: "/images/software-guide.png",
+    href: "/blog/the-lean-architects-guide-to-shipping/",
+  },
+  {
+    kind: "Repo",
+    title: "HTTP proxy server in Rust",
+    blurb: "A proxy that forwards HTTP requests and caches responses, honouring expiry headers. Built for COMP30023 Computer Systems.",
+    href: "https://github.com/dakshAg/http-proxy-server",
+  },
 ];
 
 const blotter = [
@@ -132,11 +166,25 @@ const slides = [
   { src: "/images/skills/teaching/paper-programming.webp", alt: "Paper programming exercise solved by hand" },
 ];
 
+// One entry per tutorial-feedback response, in order: how clear the explanations were, out of 5.
+// Every one of the 22 also answered "Yes" to whether the tutorials helped them succeed.
+const clarityScores = [5, 4, 2, 5, 5, 4, 5, 5, 4, 5, 4, 5, 5, 5, 5, 4, 4, 4, 5, 4, 4, 5];
+const clarityAverage = (clarityScores.reduce((sum, s) => sum + s, 0) / clarityScores.length).toFixed(1);
+const clarityShade: Record<number, string> = {
+  5: "bg-emerald-700",
+  4: "bg-emerald-400",
+  3: "bg-emerald-200",
+  2: "bg-emerald-100 ring-1 ring-emerald-300",
+  1: "bg-neutral-200",
+};
+
 const quotes = [
-  { text: "The tutor explains every single step very well", tilt: "-rotate-2" },
-  { text: "More helpful than a standard lecture", tilt: "rotate-1" },
-  { text: "Patient", tilt: "rotate-3" },
-  { text: "Very helpful and tries their best to help with my doubts", tilt: "-rotate-1" },
+  { text: "The teacher is the goat.", tilt: "-rotate-2" },
+  { text: "Can u clone him", tilt: "rotate-1" },
+  { text: "The tutor explains every single step very well", tilt: "rotate-2" },
+  { text: "Best tutor I've had so far (in my 4 weeks of experience)", tilt: "-rotate-1" },
+  { text: "Teacher is very patient", tilt: "rotate-1" },
+  { text: "More helpful than a standard lecture", tilt: "-rotate-2" },
 ];
 
 const proof: Record<string, ProofLink[]> = {
@@ -149,12 +197,6 @@ const proof: Record<string, ProofLink[]> = {
     { kind: "Repo", label: "Rental forecasting", href: "https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-3" },
     { kind: "Repo", label: "Melbourne public art + LLMs", href: "https://github.com/dakshAg/Melbourne-Public-Art-Analysis" },
   ],
-  software: [
-    { kind: "Live", label: "Puddle", href: "https://puddle-lime.vercel.app/" },
-    { kind: "Repo", label: "HTTP proxy in Rust", href: "https://github.com/dakshAg/http-proxy-server" },
-    { kind: "Essay", label: "The Lean Architect's Guide to Shipping", href: "/blog/the-lean-architects-guide-to-shipping/" },
-    { kind: "Profile", label: "GitHub", href: "https://github.com/dakshAg" },
-  ],
   finance: [
     { kind: "Repo", label: "Coffee markets", href: "https://github.com/dakshAg/coffee" },
     { kind: "Profile", label: "Square Peg Global Tech Fund", href: "https://www.squarepeg.vc/global-tech-fund" },
@@ -165,7 +207,8 @@ const proof: Record<string, ProofLink[]> = {
   ],
   teaching: [
     { kind: "Repo", label: "Slides and code", href: "https://github.com/dakshAg/comp10001" },
-    { kind: "PDF", label: "Student feedback", href: "https://github.com/dakshAg/comp10001/blob/5de191e5a96d02ba04ff07fce6ce4b5977033e6e/student_feedback.pdf" },
+    { kind: "PDF", label: "All 22 feedback responses", href: "/docs/tutorial-feedback.pdf" },
+    { kind: "PDF", label: "University survey", href: "https://github.com/dakshAg/comp10001/blob/5de191e5a96d02ba04ff07fce6ce4b5977033e6e/student_feedback.pdf" },
     { kind: "Guide", label: "Data Science @ Unimelb", href: "/blog/data-science-unimelb/" },
     { kind: "Referral", label: "From a student", href: "#referrals" },
   ],
@@ -178,7 +221,7 @@ const proof: Record<string, ProofLink[]> = {
     <p class="text-muted-foreground text-sm">Less telling, more showing.</p>
   </div>
 
-  <!-- 01 Data Engineering: a blueprint of the Cruz lakehouse -->
+  <!-- 01 Data Engineering: the Cruz platform, drawn in Eraser -->
   <article class="space-y-6">
     <div class="grid gap-4 lg:grid-cols-12 lg:items-end">
       <div class="space-y-3 lg:col-span-7">
@@ -193,42 +236,18 @@ const proof: Record<string, ProofLink[]> = {
       </div>
     </div>
 
-    <figure class="relative overflow-hidden rounded-xl border border-[#1e4a7a] bg-[#0f2c4f] p-5 sm:p-8 font-mono text-sky-50 bg-[linear-gradient(rgba(186,230,253,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(186,230,253,0.07)_1px,transparent_1px)] bg-[size:24px_24px]">
-      <ol class="flex flex-col lg:flex-row lg:items-stretch gap-2 lg:gap-0" aria-label="Main data flow">
-        {pipeline.map((node, i) => (
-          <Fragment>
-            {i > 0 && (
-              <li aria-hidden="true" class="flex items-center justify-center text-sky-300/80 lg:px-1.5">
-                <span class="lg:hidden">↓</span>
-                <span class="hidden lg:inline">→</span>
-              </li>
-            )}
-            <li class={`flex-1 rounded-md border px-3 py-3 ${i === 2 ? "border-sky-200 bg-sky-200/10" : "border-sky-200/50"}`}>
-              <p class="text-sm font-semibold">{node.name}</p>
-              <p class="mt-1 text-[0.7rem] leading-snug text-sky-200/70">{node.detail}</p>
-            </li>
-          </Fragment>
-        ))}
-      </ol>
-
-      <!-- Side services that write into and audit the warehouse -->
-      <div class="flex flex-col items-center">
-        <span aria-hidden="true" class="hidden lg:block h-6 border-l border-dashed border-sky-300/60"></span>
-        <span aria-hidden="true" class="lg:hidden py-1 text-sky-300/80">↕</span>
-        <ul class="flex w-full flex-col sm:flex-row gap-2 lg:w-3/5 lg:border-t lg:border-dashed lg:border-sky-300/60 lg:pt-3" aria-label="Services around the warehouse">
-          {pipelineSide.map((node) => (
-            <li class="flex-1 rounded-md border border-dashed border-sky-200/50 px-3 py-2.5">
-              <p class="text-sm font-semibold">{node.name}</p>
-              <p class="mt-1 text-[0.7rem] leading-snug text-sky-200/70">{node.detail}</p>
-            </li>
-          ))}
-        </ul>
+    <figure class="space-y-3">
+      <div class="-mx-6 overflow-x-auto px-6 sm:mx-0 sm:px-0">
+        <img
+          src="/images/skills/data/cruz-platform.webp"
+          alt="Architecture diagram: the live trading bot streams events through Cloudflare Pipelines into Iceberg tables on R2. A cron PnL ledger Worker writes fills, resolutions and snapshots into the same tables, and a completeness check audits every stream. The trading desk reads it through an analytics dashboard, a caching proxy Worker and R2 SQL."
+          width="1800"
+          height="543"
+          loading="lazy"
+          class="min-w-[44rem] w-full h-auto"
+        />
       </div>
-
-      <figcaption class="mt-6 flex flex-wrap items-end justify-between gap-3 border-t border-sky-200/20 pt-3 text-[0.65rem] uppercase tracking-[0.18em] text-sky-200/60">
-        <span>Cruz Trading · data platform</span>
-        <span>Drawn by D. Agrawal · 2026</span>
-      </figcaption>
+      <figcaption class="text-xs text-muted-foreground">Cruz Trading data platform, drawn in Eraser.</figcaption>
     </figure>
   </article>
 
@@ -265,7 +284,7 @@ const proof: Record<string, ProofLink[]> = {
     </div>
   </article>
 
-  <!-- 03 Software Engineering: a shelf of the apps I've shipped, by year -->
+  <!-- 03 Software Engineering: live GitHub activity, then the builds themselves -->
   <article class="space-y-6">
     <div class="grid gap-4 lg:grid-cols-12 lg:items-end">
       <div class="space-y-3 lg:col-span-7">
@@ -275,51 +294,76 @@ const proof: Record<string, ProofLink[]> = {
           I wrote my first app at 13 and co-founded G7 at 15, building its Android apps, APIs and web apps myself. These days I ship on TypeScript, Next.js and Cloudflare Workers.
         </p>
       </div>
-      <div class="lg:col-span-5 lg:justify-self-end">
-        <ProofLinks links={proof.software} />
-      </div>
     </div>
 
-    <figure class="rounded-xl border border-border bg-secondary/40 px-3 pt-6 pb-4 sm:px-6">
-      <div class="grid grid-cols-11 items-end gap-1 sm:gap-2">
-        {shelfYears.map((year) => (
-          <ul class="flex flex-col-reverse items-center gap-1.5 sm:gap-2" aria-label={`Shipped in ${year}`}>
-            {apps.filter((app) => app.year === year).map((app) => (
-              <li>
-                <img
-                  src={app.icon}
-                  alt={app.name}
-                  title={`${app.name} (${app.year})`}
-                  width="56"
-                  height="56"
-                  loading="lazy"
-                  class="size-7 sm:size-11 lg:size-14 rounded-[22%] object-cover bg-white shadow-sm ring-1 ring-black/5"
-                />
-              </li>
+    <a
+      href="https://github.com/dakshAg"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block rounded-xl border border-border bg-background/80 p-4 sm:p-6 hover:bg-secondary/40 transition-colors"
+    >
+      <div class="flex flex-wrap items-baseline justify-between gap-2">
+        <p class="font-semibold">
+          <span class="text-muted-foreground font-normal">github.com/</span>dakshAg
+        </p>
+        {contributions?.total && (
+          <p class="text-sm text-muted-foreground"><span class="font-semibold text-foreground tabular-nums">{contributions.total}</span> contributions in the last year</p>
+        )}
+      </div>
+      {contributions && (
+        <!-- rtl so a narrow screen opens on the latest weeks; the graph itself stays ltr -->
+        <div class="mt-4 overflow-x-auto" dir="rtl">
+          <div
+            dir="ltr"
+            class="grid grid-flow-col grid-rows-7 gap-[3px] min-w-[36rem]"
+            style={`grid-template-columns: repeat(${contributions.weeks}, minmax(0, 1fr))`}
+            role="img"
+            aria-label={`GitHub contribution graph${contributions.total ? `: ${contributions.total} contributions in the last year` : ""}`}
+          >
+            {Array.from({ length: contributions.lead }).map(() => <span></span>)}
+            {contributions.days.map((day) => (
+              <span title={day.label} class={`aspect-square rounded-[2px] ${levelColors[day.level] ?? levelColors[0]}`}></span>
             ))}
-          </ul>
-        ))}
-      </div>
-
-      <!-- The shelf itself, plus G7 running from 2019 to today -->
-      <div class="mt-2 h-1.5 rounded-full bg-foreground/80" aria-hidden="true"></div>
-      <div class="grid grid-cols-11 gap-1 sm:gap-2 pt-2 text-center text-[0.6rem] sm:text-xs tabular-nums text-muted-foreground">
-        {shelfYears.map((year) => (
-          <span>
-            <span class="sm:hidden">’{String(year).slice(2)}</span>
-            <span class="hidden sm:inline">{year}</span>
-          </span>
-        ))}
-      </div>
-      <div class="grid grid-cols-11 gap-1 sm:gap-2 pt-3">
-        <div class="col-start-4 col-span-8 rounded-full border border-border bg-background px-3 py-1 text-[0.65rem] sm:text-xs font-medium truncate">
-          G7 Smart Logistics, still running →
+          </div>
+          <div dir="ltr" class="mt-2 flex items-center justify-end gap-1 text-[0.65rem] text-muted-foreground" aria-hidden="true">
+            Less
+            {levelColors.map((color) => <span class={`size-2.5 rounded-[2px] ${color}`}></span>)}
+            More
+          </div>
         </div>
-      </div>
-      <figcaption class="mt-4 font-hand text-lg sm:text-xl text-muted-foreground">
-        First app at 13. Still shipping.
-      </figcaption>
-    </figure>
+      )}
+    </a>
+
+    <ul class="grid gap-5 md:grid-cols-3">
+      {builds.map((build) => {
+        const external = build.href.startsWith("http");
+        return (
+          <li>
+            <a
+              href={build.href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              class="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-background/80 hover:bg-secondary/40 transition-colors"
+            >
+              {build.image ? (
+                <img src={build.image} alt="" loading="lazy" class="h-44 w-full object-cover object-top border-b border-border" />
+              ) : (
+                <pre class="h-44 overflow-hidden border-b border-border bg-[#0b0e11] p-4 font-mono text-xs leading-relaxed text-neutral-300" aria-hidden="true"><span class="text-emerald-400">$</span> make
+<span class="text-emerald-400">$</span> ./htproxy myproxy 8080 -c
+<span class="text-neutral-500"># forward requests to origin servers</span>
+<span class="text-neutral-500"># -c: cache responses, honour expiry</span>
+<span class="text-neutral-500">#     headers, evict when full</span></pre>
+              )}
+              <div class="flex flex-1 flex-col gap-2 p-4">
+                <p class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{build.kind}</p>
+                <p class="font-semibold leading-snug group-hover:underline">{build.title}</p>
+                <p class="text-sm text-muted-foreground leading-snug">{build.blurb}</p>
+              </div>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
   </article>
 
   <!-- 04 Finance: a trade blotter of the money I've modelled -->
@@ -419,14 +463,16 @@ const proof: Record<string, ProofLink[]> = {
         Two years tutoring Python and algorithms at the University of Melbourne. My slides are mostly a whiteboard: I work every problem live, by hand.
       </p>
 
-      <div class="space-y-2 pt-2">
-        <div class="flex gap-1.5" aria-hidden="true">
-          {Array.from({ length: 6 }).map(() => (
-            <span class="size-4 rounded-full bg-emerald-600"></span>
+      <figure class="space-y-2 pt-2">
+        <ul class="flex flex-wrap gap-1.5 max-w-[16rem]" aria-label="Clarity rating from each student">
+          {clarityScores.map((score) => (
+            <li class={`size-4 rounded-full ${clarityShade[score]}`} title={`Clarity ${score}/5`}><span class="sr-only">{score} out of 5</span></li>
           ))}
-        </div>
-        <p class="text-sm text-muted-foreground">6 of 6 students surveyed said the tutorials helped them succeed in the subject.</p>
-      </div>
+        </ul>
+        <figcaption class="text-sm text-muted-foreground">
+          All {clarityScores.length} students who filled in my feedback form said the tutorials helped them succeed. Each dot is one of them, shaded by how clear they found my explanations: <span class="font-semibold text-foreground">{clarityAverage}/5</span> on average.
+        </figcaption>
+      </figure>
 
       <ProofLinks links={proof.teaching} />
     </div>
@@ -454,7 +500,7 @@ const proof: Record<string, ProofLink[]> = {
         </figcaption>
       </figure>
 
-      <ul class="grid grid-cols-2 md:grid-cols-4 items-start gap-4" aria-label="Student feedback">
+      <ul class="grid grid-cols-2 md:grid-cols-3 items-start gap-4" aria-label="Student feedback">
         {quotes.map((quote) => (
           <li class={`bg-amber-100 px-4 py-3 shadow-sm ${quote.tilt}`}>
             <blockquote class="font-hand text-xl leading-tight text-neutral-800">“{quote.text}”</blockquote>
