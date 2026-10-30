@@ -610,13 +610,26 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     <div class="border-b border-border"></div>
 
     <!-- Education Section -->
-    <section class="space-y-6">
-      <h2 class="text-2xl font-semibold">Education</h2>
-      <div class="space-y-4">
+    <section class="relative space-y-6">
+      <!-- Graphite Nike statue, hovering (decorative) -->
+      <div class="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 -right-20 w-60 sm:-right-8 sm:w-72 lg:right-0 lg:w-[22rem]" aria-hidden="true">
+        <img
+          src="/images/graphite/nike.webp"
+          alt=""
+          width="1200"
+          height="1789"
+          loading="lazy"
+          class="nike-float w-full h-auto opacity-[0.2] lg:opacity-[0.32]"
+        />
+        <div class="nike-shadow mx-auto -mt-7 h-3 w-2/5 rounded-full bg-foreground/[0.06] blur-md lg:bg-foreground/[0.09]"></div>
+      </div>
+
+      <h2 class="relative text-2xl font-semibold">Education</h2>
+      <div class="relative space-y-4">
         <div class="flex items-start gap-6">
           <div class="flex-shrink-0">
-            <img 
-              src="/images/graduation-hat.png" 
+            <img
+              src="/images/graduation-hat.png"
               alt="Education" 
               class="w-20 h-20 rounded-lg"
             />
@@ -1056,6 +1069,19 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     .substack-embeds :global(iframe) {
       width: 100% !important;
       max-width: 100% !important;
+    }
+
+    @keyframes nike-hover {
+      0%, 100% { transform: translateY(0) rotate(-0.6deg); }
+      50% { transform: translateY(-16px) rotate(0.6deg); }
+    }
+    @keyframes nike-shadow {
+      0%, 100% { transform: scaleX(1); opacity: 1; }
+      50% { transform: scaleX(0.75); opacity: 0.5; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .nike-float { animation: nike-hover 7s ease-in-out infinite; }
+      .nike-shadow { animation: nike-shadow 7s ease-in-out infinite; }
     }
   </style>
 
