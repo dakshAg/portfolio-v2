@@ -265,7 +265,19 @@ const projects: Project[] = [
 ---
 
 <Layout title="Daksh Agrawal | Portfolio">
-  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+  <div class="relative overflow-x-clip">
+  <!-- Graphite sketches (decorative background layer) -->
+  <div class="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
+    <img
+      src="/images/graphite/f1.webp"
+      alt=""
+      width="2000"
+      height="1116"
+      class="absolute top-[22rem] -right-[40%] w-[150%] max-w-none opacity-[0.14] -rotate-6 sm:top-40 sm:-right-[22%] sm:w-[85%] lg:top-24 lg:-right-[12%] lg:w-[64rem] lg:opacity-[0.18]"
+    />
+  </div>
+
+  <div class="relative max-w-6xl mx-auto px-6 py-16 space-y-16">
     <!-- Hero Section -->
     <section class="space-y-6">
       <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center lg:items-center">
@@ -1022,6 +1034,7 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
         </div>
       </div>
     </section>
+  </div>
   </div>
 
   <!-- Full-width Mewar Banner (decorative) -->
