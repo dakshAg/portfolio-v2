@@ -3,6 +3,7 @@ import Layout from "../layouts/main.astro";
 import "../styles/globals.css";
 import { getCollection } from "astro:content";
 import { SITE_URL, personRef } from "../lib/seo";
+import CoreSkills from "../components/core-skills.astro";
 
 const pageTitle = "Daksh Agrawal | AI Engineer & Data Engineer in Melbourne & Udaipur";
 const pageDescription =
@@ -52,6 +53,93 @@ type Project = {
   actions: ProjectAction[];
 };
 
+type Stat = { value: string; label: string };
+
+type Job = {
+  company: string;
+  role: string;
+  href?: string;
+  logo: string;
+  dates: string;
+  location: string;
+  summary: string;
+  stats: Stat[];
+};
+
+// Numbers come from the resume; keep the two in sync.
+const experience: Job[] = [
+  {
+    company: "Cruz Trading",
+    role: "Head of Data",
+    logo: "/images/work/cruz_trading.jpeg",
+    dates: "Jul 2026 – Present",
+    location: "Remote, Australia",
+    summary:
+      "Sole data engineer at a three-person sports prediction-market trading firm. Built the data platform end to end: an Iceberg lakehouse fed live from the trading bot, the PnL ledger and the internal analytics dashboard.",
+    stats: [
+      { value: "~36 GB/day", label: "streamed into 16 Iceberg tables, with no added latency on the trading hot path" },
+      { value: "11.7%", label: "undercount in traded shares, caught by auditing all 32 warehouse tables" },
+      { value: "<$1", label: "for a month of dashboard queries scanning 159 GB" },
+    ],
+  },
+  {
+    company: "Square Peg (Global Tech Fund)",
+    role: "Data Scientist",
+    href: "https://www.squarepeg.vc/global-tech-fund",
+    logo: "/images/work/square-peg.jpeg",
+    dates: "Mar 2025 – Jan 2026",
+    location: "Melbourne",
+    summary:
+      "Built LLM-enriched pipelines, ML valuation models and AI analytics tools for the investment team of a public-market tech equities fund.",
+    stats: [
+      { value: "500k+", label: "data points on listed tech companies enriched by an LLM pipeline in Snowflake" },
+      { value: "3,000 hrs", label: "of unstructured content behind a RAG agent that cites its sources" },
+      { value: "~20 hrs/wk", label: "saved by a Slack and Notion analytics agent answering ~110 queries a day" },
+    ],
+  },
+  {
+    company: "TasWater",
+    role: "Data Scientist (Graduate Program)",
+    href: "https://www.taswater.com.au/about-us/careers/summer-placement-program",
+    logo: "/images/work/taswater.jpeg",
+    dates: "Nov 2024 – Jul 2026",
+    location: "Launceston & Hobart",
+    summary:
+      "Joined as a summer data analyst and earned a graduate offer. Built the SQL Server and Azure pipelines behind executive Power BI dashboards for Tasmania's state water utility.",
+    stats: [
+      { value: "15+ hrs/wk", label: "of manual reporting automated" },
+      { value: "50%", label: "lower latency from SQL and warehouse index tuning" },
+      { value: "20%", label: "better forecasting accuracy from remodelled business KPIs" },
+    ],
+  },
+  {
+    company: "G7 Smart Logistics",
+    role: "Co-Founder & CTO",
+    href: "https://g7smartlogistics.com/",
+    logo: "/images/work/g7.jpg",
+    dates: "Jul 2019 – Present",
+    location: "Udaipur",
+    summary:
+      "Built the truck-booking platform from scratch at 15: native Android apps, APIs and web apps. Won India's #1 Start-up Award at IIM Udaipur as the only teenage founder, and received a funding offer on national TV.",
+    stats: [
+      { value: "270k+", label: "app installs" },
+      { value: "6,800+", label: "service partners onboarded" },
+      { value: "~10k/day", label: "free-text WhatsApp loads turned into structured records" },
+    ],
+  },
+  {
+    company: "University of Melbourne",
+    role: "Academic Tutor & Demonstrator",
+    href: "https://github.com/dakshAg/comp10001",
+    logo: "/images/work/unimelb.png",
+    dates: "Feb 2024 – Nov 2025",
+    location: "Melbourne",
+    summary:
+      "Taught Python and algorithms in COMP10001 Foundations of Computing (tutor and demonstrator) and COMP10002 Foundations of Algorithms (demonstrator).",
+    stats: [],
+  },
+];
+
 type Referee = {
   name: string;
   position: string;
@@ -85,6 +173,7 @@ const books: Book[] = [
   { title: "The McKinsey Way", author: "Ethan M. Rasiel", cover: "/images/books/the-mckinsey-way.jpg" },
   { title: "Atomic Habits", author: "James Clear", cover: "/images/books/atomic-habits.jpg" },
   { title: "Project Hail Mary", author: "Andy Weir", cover: "/images/books/project-hail-mary.jpg" },
+  { title: "Inspired", author: "Marty Cagan", cover: "/images/books/inspired.jpg" },
 ];
 
 function makePreview(text: string, maxChars = 180) {
@@ -354,7 +443,7 @@ const projects: Project[] = [
             </div>
             
             <!-- Download CV Button -->
-            <a href="/Daksh_Agrawal_Resume.pdf" download
+            <a href="/Daksh_Agrawal_Data_Engineer_Resume.pdf" download
                class="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium text-sm sm:text-base">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -421,120 +510,43 @@ const projects: Project[] = [
     <!-- Work Experience Section -->
     <section class="space-y-6">
       <h2 class="text-2xl font-semibold">Work Experience</h2>
-      <div class="space-y-8">
-        <div class="space-y-4">
+      <div class="space-y-10">
+        {experience.map((job) => (
           <div class="flex items-start gap-6">
             <div class="flex-shrink-0">
-              <img 
-                src="/images/work/cruz_trading.jpeg" 
-                alt="Cruz Trading" 
+              <img
+                src={job.logo}
+                alt={job.company}
                 class="w-20 h-20 rounded-lg"
               />
             </div>
-            <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">
-                Cruz Trading — Head of Data
-              </h3>
-              <p class="text-muted-foreground">
-                Engineered low-latency data pipelines for financial markets, powering quant trading strategies on prediction markets.
-              </p>
+            <div class="space-y-3 flex-1">
+              <div class="space-y-1">
+                <h3 class="font-semibold text-lg">
+                  {job.href ? (
+                    <a href={job.href} target="_blank" rel="noopener noreferrer" class="hover:underline">
+                      {job.company} — {job.role}
+                    </a>
+                  ) : (
+                    <Fragment>{job.company} — {job.role}</Fragment>
+                  )}
+                </h3>
+                <p class="text-sm text-muted-foreground">{job.dates} · {job.location}</p>
+              </div>
+              <p class="text-muted-foreground">{job.summary}</p>
+              {job.stats.length > 0 && (
+                <dl class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pt-1">
+                  {job.stats.map((stat) => (
+                    <div class="flex flex-col-reverse justify-end gap-0.5 border-l-2 border-foreground/15 pl-3">
+                      <dt class="text-xs text-muted-foreground leading-snug">{stat.label}</dt>
+                      <dd class="text-xl font-semibold tabular-nums tracking-tight">{stat.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
             </div>
           </div>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/work/square-peg.jpeg" 
-                alt="Square Peg Capital" 
-                class="w-20 h-20 rounded-lg"
-              />
-            </div>
-            <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">
-                <a href="https://www.squarepeg.vc/global-tech-fund" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                  Square Peg (Global Tech Fund) — Data Scientist
-                </a>
-              </h3>
-              <p class="text-muted-foreground">
-                Driven high-conviction investment decisions by engineering ML valuation models and alternative data pipelines (Talent Density) that directly informed Investment Committee strategy.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/work/g7.jpg" 
-                alt="G7 Smart Logistics" 
-                class="w-20 h-20 rounded-lg"
-              />
-            </div>
-            <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">
-                <a href="https://g7smartlogistics.com/" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                  G7 Smart Logistics — Chief Technology Officer
-                </a>
-              </h3>
-              <p class="text-muted-foreground">
-                Built the end-to-end architecture (Hono, Supabase, Android, NextJS) to successfully digitize offline workflows for a network of 10,000+ truckers.
-
-Scaled the platform to 8,000+ daily bookings and secured seed funding.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/work/unimelb.png" 
-                alt="University of Melbourne" 
-                class="w-20 h-20 rounded-lg"
-              />
-            </div>
-            <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">
-                <a href="https://github.com/dakshAg/comp10001" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                  University of Melbourne — Academic Tutor
-                </a>
-              </h3>
-              <p class="text-muted-foreground">
-                Boosted pass rates by 18% for cohorts of 200+ students by engineering gamified Python and algorithm learning modules.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <img 
-                src="/images/work/taswater.jpeg" 
-                alt="TasWater" 
-                class="w-20 h-20 rounded-lg"
-              />
-            </div>
-            <div class="space-y-2 flex-1">
-              <h3 class="font-semibold text-lg">
-                <a href="https://www.taswater.com.au/about-us/careers/summer-placement-program" target="_blank" rel="noopener noreferrer" class="hover:underline">
-                  TasWater — Data Analyst Intern
-                </a>
-              </h3>
-              <p class="text-muted-foreground">
-                Secured a Graduate Data Science return offer by engineering Power BI solutions that reduced reporting overhead by 70% and optimized insights for a $1B+ asset portfolio.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        
-
-
+        ))}
       </div>
     </section>
 
@@ -713,86 +725,13 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     <div class="border-b border-border"></div>
 
     <!-- Core Skills Section -->
-    <section class="space-y-6">
-      <h2 class="text-2xl font-semibold">Core Skills</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        <!-- Software Engineering -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/skills/software.png"
-              alt="Software Engineering"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Software Engineering</h3>
-          </div>
-        </div>
-
-        <!-- Data Science -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/skills/data.png"
-              alt="Data Science"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Data Science</h3>
-          </div>
-        </div>
-
-        <!-- Finance -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/skills/finance.png"
-              alt="Finance"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Finance</h3>
-          </div>
-        </div>
-
-        <!-- Teaching -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/skills/education.png"
-              alt="Teaching"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Teaching</h3>
-          </div>
-        </div>
-
-        <!-- Product Thinking -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/skills/product.png"
-              alt="Product Thinking"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Product Thinking</h3>
-          </div>
-        </div>
-      </div>
-    </section>
+    <CoreSkills />
 
     <!-- Separator -->
     <div class="border-b border-border"></div>
 
     <!-- Books Section -->
-    <section class="space-y-6">
+    <section id="books" class="space-y-6 scroll-mt-24">
       <h2 class="text-2xl font-semibold">Books I've Read</h2>
       <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-6">
         {books.map((book) => (
@@ -817,7 +756,7 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     <div class="border-b border-border"></div>
 
     <!-- Referrals Section -->
-    <section class="space-y-6" aria-label="Referrals">
+    <section id="referrals" class="space-y-6 scroll-mt-24" aria-label="Referrals">
       <div class="space-y-2">
         <h2 class="text-2xl font-semibold">Referrals</h2>
         <p class="text-muted-foreground text-sm">

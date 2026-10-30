@@ -1,0 +1,466 @@
+---
+import ProofLinks, { type ProofLink } from "./proof-links.astro";
+
+// Each skill gets its own visual; the proof links are the only shared part.
+
+const pipeline = [
+  { name: "Live trading bot", detail: "decisions · quotes · fills · orders" },
+  { name: "Cloudflare Pipelines", detail: "streamed off the hot path" },
+  { name: "Iceberg on R2", detail: "the warehouse" },
+  { name: "R2 SQL", detail: "behind a caching proxy" },
+  { name: "Analytics dashboard", detail: "TypeScript on Workers" },
+];
+
+const pipelineSide = [
+  { name: "PnL ledger Worker", detail: "cron · fills, resolutions, position snapshots" },
+  { name: "Completeness check", detail: "sequence-based audit of every stream" },
+];
+
+const figures = [
+  {
+    src: "/images/skills/data/nyc-surges.webp",
+    width: 1002,
+    height: 998,
+    caption: "Taxi demand surges by zone, New York City.",
+    project: "NYC taxi demand",
+  },
+  {
+    src: "/images/skills/data/nyc-trips-by-hour.webp",
+    width: 764,
+    height: 440,
+    caption: "Trips by hour of day, one line per weekday.",
+    project: "NYC taxi demand",
+  },
+  {
+    src: "/images/skills/data/melbourne-liveability.webp",
+    width: 1200,
+    height: 655,
+    caption: "Liveability and affordability index by Melbourne suburb.",
+    project: "Rental forecasting capstone",
+  },
+  {
+    src: "/images/skills/data/rent-growth.webp",
+    width: 1200,
+    height: 505,
+    caption: "Median rent since 2000 for the ten top growth suburbs.",
+    project: "Rental forecasting capstone",
+  },
+];
+
+const shelfYears = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+
+const apps = [
+  { name: "My Share", year: 2016, icon: "/images/projects/my_share_logo.png" },
+  { name: "Share Books", year: 2017, icon: "/images/projects/share_books_logo.png" },
+  { name: "My Share Plus", year: 2017, icon: "/images/projects/my_share_plus_logo.png" },
+  { name: "Society", year: 2018, icon: "/images/projects/society_logo.png" },
+  { name: "EMI Calculator", year: 2018, icon: "/images/projects/emi_calculator_logo.png" },
+  { name: "Agrawal Samaj", year: 2018, icon: "/images/projects/agrawal_samaj_logo.png" },
+  { name: "Samarpan", year: 2019, icon: "/images/projects/samarpan_logo.png" },
+  { name: "G7 Smart Logistics", year: 2019, icon: "/images/work/g7.jpg" },
+  { name: "NYC Taxi Demand Forecasting", year: 2024, icon: "/images/projects/nyc-taxi.png" },
+  { name: "Rental Market Forecasting", year: 2024, icon: "/images/projects/rental-market.png" },
+  { name: "Panelogy", year: 2025, icon: "/images/projects/panelogy_logo.png" },
+  { name: "Puddle", year: 2026, icon: "/images/projects/puddle-icon.png" },
+];
+
+const blotter = [
+  {
+    ticker: "SQPG",
+    market: "Listed tech equities",
+    work: "ML models predicting valuation multiples; automated capital forecasting and budgeting",
+  },
+  {
+    ticker: "CRUZ",
+    market: "Sports prediction markets",
+    work: "The desk's first automated PnL ledger: fills, resolutions, 5-minute position snapshots",
+  },
+  {
+    ticker: "G7",
+    market: "Venture funding",
+    work: "Pitched on national TV (Horses Stable, Season 4) and walked away with a funding offer",
+  },
+  {
+    ticker: "COFFEE",
+    market: "Commodities",
+    work: "Coffee futures against weather and producer stocks",
+    href: "https://github.com/dakshAg/coffee",
+  },
+  {
+    ticker: "EMI",
+    market: "Consumer credit",
+    work: "An EMI and amortisation calculator app, built at 15",
+  },
+];
+
+const decisions = [
+  {
+    where: "Cruz Trading · 2026",
+    question: "Rebuild the pipeline to cut costs?",
+    answer:
+      "I reconciled the cost model against the actual bill first. The platform ran at about $57 a month, so the rebuild would have saved nothing.",
+    stamp: "Not built",
+    tone: "red",
+    tilt: "lg:-rotate-1",
+  },
+  {
+    where: "G7 Smart Logistics · 2026",
+    question: "How do we know load matching works?",
+    answer:
+      "One number: calls per load. If ranking gets better, transporters pick up the phone more often, so that's what the ranker is judged on.",
+    stamp: "Adopted",
+    tone: "green",
+    tilt: "lg:rotate-1",
+  },
+  {
+    where: "G7 Smart Logistics · 2025",
+    question: "Who checks hundreds of partner applications a day?",
+    answer:
+      "An AI agent on WhatsApp collects documents and runs the first checks. People only see fraud signals and edge cases.",
+    stamp: "Shipped",
+    tone: "green",
+    tilt: "lg:-rotate-[0.5deg]",
+  },
+];
+
+const slides = [
+  { src: "/images/skills/teaching/iteration.webp", alt: "Slide tracing a while loop, annotated by hand with the iteration variable and output" },
+  { src: "/images/skills/teaching/nested-loops.webp", alt: "Slide with a nested loop over split strings, intermediate values written in by hand" },
+  { src: "/images/skills/teaching/dict-by-hand.webp", alt: "Evaluate-by-hand grid for dictionary operations, filled in during the tutorial" },
+  { src: "/images/skills/teaching/set-union.webp", alt: "Set union explained with two baskets of fruit" },
+  { src: "/images/skills/teaching/venn.webp", alt: "Grid of Venn diagrams for set operations" },
+  { src: "/images/skills/teaching/paper-programming.webp", alt: "Paper programming exercise solved by hand" },
+];
+
+const quotes = [
+  { text: "The tutor explains every single step very well", tilt: "-rotate-2" },
+  { text: "More helpful than a standard lecture", tilt: "rotate-1" },
+  { text: "Patient", tilt: "rotate-3" },
+  { text: "Very helpful and tries their best to help with my doubts", tilt: "-rotate-1" },
+];
+
+const proof: Record<string, ProofLink[]> = {
+  dataEngineering: [
+    { kind: "Essay", label: "Automating partner onboarding", href: "/blog/automating-partner-onboarding-at-scale/" },
+    { kind: "Repo", label: "NYC taxi pipeline", href: "https://github.com/dakshAg/strategic-taxi-distribution-nyc" },
+  ],
+  dataScience: [
+    { kind: "Repo", label: "NYC taxi demand", href: "https://github.com/dakshAg/strategic-taxi-distribution-nyc" },
+    { kind: "Repo", label: "Rental forecasting", href: "https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-3" },
+    { kind: "Repo", label: "Melbourne public art + LLMs", href: "https://github.com/dakshAg/Melbourne-Public-Art-Analysis" },
+  ],
+  software: [
+    { kind: "Live", label: "Puddle", href: "https://puddle-lime.vercel.app/" },
+    { kind: "Repo", label: "HTTP proxy in Rust", href: "https://github.com/dakshAg/http-proxy-server" },
+    { kind: "Essay", label: "The Lean Architect's Guide to Shipping", href: "/blog/the-lean-architects-guide-to-shipping/" },
+    { kind: "Profile", label: "GitHub", href: "https://github.com/dakshAg" },
+  ],
+  finance: [
+    { kind: "Repo", label: "Coffee markets", href: "https://github.com/dakshAg/coffee" },
+    { kind: "Profile", label: "Square Peg Global Tech Fund", href: "https://www.squarepeg.vc/global-tech-fund" },
+  ],
+  product: [
+    { kind: "Essay", label: "The Lean Architect's Guide to Shipping", href: "/blog/the-lean-architects-guide-to-shipping/" },
+    { kind: "Essay", label: "Automating partner onboarding", href: "/blog/automating-partner-onboarding-at-scale/" },
+  ],
+  teaching: [
+    { kind: "Repo", label: "Slides and code", href: "https://github.com/dakshAg/comp10001" },
+    { kind: "PDF", label: "Student feedback", href: "https://github.com/dakshAg/comp10001/blob/5de191e5a96d02ba04ff07fce6ce4b5977033e6e/student_feedback.pdf" },
+    { kind: "Guide", label: "Data Science @ Unimelb", href: "/blog/data-science-unimelb/" },
+    { kind: "Referral", label: "From a student", href: "#referrals" },
+  ],
+};
+---
+
+<section class="space-y-16" aria-labelledby="core-skills-heading">
+  <div class="space-y-2">
+    <h2 id="core-skills-heading" class="text-2xl font-semibold">Core Skills</h2>
+    <p class="text-muted-foreground text-sm">Less telling, more showing.</p>
+  </div>
+
+  <!-- 01 Data Engineering: a blueprint of the Cruz lakehouse -->
+  <article class="space-y-6">
+    <div class="grid gap-4 lg:grid-cols-12 lg:items-end">
+      <div class="space-y-3 lg:col-span-7">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">01 · Data Engineering</p>
+        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight">Build the pipes before the dashboards</h3>
+        <p class="text-muted-foreground max-w-2xl">
+          The data platform I designed for a sports prediction-market trading desk. Every decision, quote and fill flows from the live bot into an Iceberg lakehouse without slowing the trades down.
+        </p>
+      </div>
+      <div class="lg:col-span-5 lg:justify-self-end">
+        <ProofLinks links={proof.dataEngineering} />
+      </div>
+    </div>
+
+    <figure class="relative overflow-hidden rounded-xl border border-[#1e4a7a] bg-[#0f2c4f] p-5 sm:p-8 font-mono text-sky-50 bg-[linear-gradient(rgba(186,230,253,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(186,230,253,0.07)_1px,transparent_1px)] bg-[size:24px_24px]">
+      <ol class="flex flex-col lg:flex-row lg:items-stretch gap-2 lg:gap-0" aria-label="Main data flow">
+        {pipeline.map((node, i) => (
+          <Fragment>
+            {i > 0 && (
+              <li aria-hidden="true" class="flex items-center justify-center text-sky-300/80 lg:px-1.5">
+                <span class="lg:hidden">↓</span>
+                <span class="hidden lg:inline">→</span>
+              </li>
+            )}
+            <li class={`flex-1 rounded-md border px-3 py-3 ${i === 2 ? "border-sky-200 bg-sky-200/10" : "border-sky-200/50"}`}>
+              <p class="text-sm font-semibold">{node.name}</p>
+              <p class="mt-1 text-[0.7rem] leading-snug text-sky-200/70">{node.detail}</p>
+            </li>
+          </Fragment>
+        ))}
+      </ol>
+
+      <!-- Side services that write into and audit the warehouse -->
+      <div class="flex flex-col items-center">
+        <span aria-hidden="true" class="hidden lg:block h-6 border-l border-dashed border-sky-300/60"></span>
+        <span aria-hidden="true" class="lg:hidden py-1 text-sky-300/80">↕</span>
+        <ul class="flex w-full flex-col sm:flex-row gap-2 lg:w-3/5 lg:border-t lg:border-dashed lg:border-sky-300/60 lg:pt-3" aria-label="Services around the warehouse">
+          {pipelineSide.map((node) => (
+            <li class="flex-1 rounded-md border border-dashed border-sky-200/50 px-3 py-2.5">
+              <p class="text-sm font-semibold">{node.name}</p>
+              <p class="mt-1 text-[0.7rem] leading-snug text-sky-200/70">{node.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <figcaption class="mt-6 flex flex-wrap items-end justify-between gap-3 border-t border-sky-200/20 pt-3 text-[0.65rem] uppercase tracking-[0.18em] text-sky-200/60">
+        <span>Cruz Trading · data platform</span>
+        <span>Drawn by D. Agrawal · 2026</span>
+      </figcaption>
+    </figure>
+  </article>
+
+  <!-- 02 Data Science: a plate of figures, like the back of a paper -->
+  <article class="grid gap-8 lg:grid-cols-12">
+    <div class="space-y-4 lg:col-span-4 lg:order-2 lg:pt-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">02 · Data Science</p>
+      <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight">Find the signal, then draw it</h3>
+      <p class="text-muted-foreground">
+        Forecasting, geospatial analysis and ML models, from taxi demand in New York to rents in Melbourne. At Square Peg I built models predicting valuation multiples for listed tech companies.
+      </p>
+      <ProofLinks links={proof.dataScience} />
+    </div>
+
+    <div class="lg:col-span-8 lg:order-1 rounded-sm border border-border bg-white p-4 sm:p-6 shadow-sm">
+      <div class="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+        {figures.map((fig, i) => (
+          <figure class={i === 0 ? "sm:row-span-2" : i === 3 ? "sm:col-span-2" : ""}>
+            <img
+              src={fig.src}
+              alt={fig.caption}
+              width={fig.width}
+              height={fig.height}
+              loading="lazy"
+              class="w-full h-auto"
+            />
+            <figcaption class="mt-2 font-serif text-sm leading-snug text-neutral-700">
+              <span class="font-semibold">Fig. {i + 1}.</span> {fig.caption}
+              <span class="italic text-neutral-500"> {fig.project}.</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </article>
+
+  <!-- 03 Software Engineering: a shelf of the apps I've shipped, by year -->
+  <article class="space-y-6">
+    <div class="grid gap-4 lg:grid-cols-12 lg:items-end">
+      <div class="space-y-3 lg:col-span-7">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">03 · Software Engineering</p>
+        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight">Take a product from zero to shipped</h3>
+        <p class="text-muted-foreground max-w-2xl">
+          I wrote my first app at 13 and co-founded G7 at 15, building its Android apps, APIs and web apps myself. These days I ship on TypeScript, Next.js and Cloudflare Workers.
+        </p>
+      </div>
+      <div class="lg:col-span-5 lg:justify-self-end">
+        <ProofLinks links={proof.software} />
+      </div>
+    </div>
+
+    <figure class="rounded-xl border border-border bg-secondary/40 px-3 pt-6 pb-4 sm:px-6">
+      <div class="grid grid-cols-11 items-end gap-1 sm:gap-2">
+        {shelfYears.map((year) => (
+          <ul class="flex flex-col-reverse items-center gap-1.5 sm:gap-2" aria-label={`Shipped in ${year}`}>
+            {apps.filter((app) => app.year === year).map((app) => (
+              <li>
+                <img
+                  src={app.icon}
+                  alt={app.name}
+                  title={`${app.name} (${app.year})`}
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  class="size-7 sm:size-11 lg:size-14 rounded-[22%] object-cover bg-white shadow-sm ring-1 ring-black/5"
+                />
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+
+      <!-- The shelf itself, plus G7 running from 2019 to today -->
+      <div class="mt-2 h-1.5 rounded-full bg-foreground/80" aria-hidden="true"></div>
+      <div class="grid grid-cols-11 gap-1 sm:gap-2 pt-2 text-center text-[0.6rem] sm:text-xs tabular-nums text-muted-foreground">
+        {shelfYears.map((year) => (
+          <span>
+            <span class="sm:hidden">’{String(year).slice(2)}</span>
+            <span class="hidden sm:inline">{year}</span>
+          </span>
+        ))}
+      </div>
+      <div class="grid grid-cols-11 gap-1 sm:gap-2 pt-3">
+        <div class="col-start-4 col-span-8 rounded-full border border-border bg-background px-3 py-1 text-[0.65rem] sm:text-xs font-medium truncate">
+          G7 Smart Logistics, still running →
+        </div>
+      </div>
+      <figcaption class="mt-4 font-hand text-lg sm:text-xl text-muted-foreground">
+        First app at 13. Still shipping.
+      </figcaption>
+    </figure>
+  </article>
+
+  <!-- 04 Finance: a trade blotter of the money I've modelled -->
+  <article class="grid gap-8 lg:grid-cols-12 lg:items-center">
+    <div class="space-y-4 lg:col-span-4">
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">04 · Finance</p>
+      <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight">Read the market, model the money</h3>
+      <p class="text-muted-foreground">
+        A public-equities fund, a prediction-market trading desk and my own startup's fundraise. I'm usually the one wiring the numbers together.
+      </p>
+      <ProofLinks links={proof.finance} />
+    </div>
+
+    <figure class="lg:col-span-8 overflow-hidden rounded-lg border border-neutral-800 bg-[#0b0e11] font-mono text-[0.8rem] text-neutral-300 shadow-lg">
+      <div class="flex items-center justify-between border-b border-neutral-800 px-4 py-2 text-[0.65rem] uppercase tracking-[0.18em]">
+        <span class="text-amber-400">Blotter · D. Agrawal</span>
+        <span class="text-neutral-500">5 positions</span>
+      </div>
+      <table class="w-full border-collapse text-left">
+        <thead class="text-[0.65rem] uppercase tracking-[0.14em] text-neutral-500">
+          <tr class="border-b border-neutral-800">
+            <th scope="col" class="px-4 py-2 font-medium">Ticker</th>
+            <th scope="col" class="hidden sm:table-cell px-4 py-2 font-medium">Market</th>
+            <th scope="col" class="px-4 py-2 font-medium">What I built</th>
+          </tr>
+        </thead>
+        <tbody>
+          {blotter.map((row, i) => (
+            <tr class={`align-top border-b border-neutral-800/70 last:border-0 ${i % 2 ? "bg-white/[0.02]" : ""}`}>
+              <th scope="row" class="px-4 py-3 font-semibold text-amber-300 whitespace-nowrap">
+                <span class="text-emerald-400" aria-hidden="true">▲ </span>{row.ticker}
+              </th>
+              <td class="hidden sm:table-cell px-4 py-3 text-neutral-400 whitespace-nowrap">{row.market}</td>
+              <td class="px-4 py-3 leading-snug">
+                {row.href ? (
+                  <a href={row.href} target="_blank" rel="noopener noreferrer" class="underline decoration-neutral-600 underline-offset-4 hover:text-white">{row.work}</a>
+                ) : row.work}
+                <span class="block sm:hidden mt-1 text-[0.7rem] text-neutral-500">{row.market}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </figure>
+  </article>
+
+  <!-- 05 Product Thinking: decision memos, stamped -->
+  <article class="space-y-6">
+    <div class="grid gap-4 lg:grid-cols-12 lg:items-end">
+      <div class="space-y-3 lg:col-span-7">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">05 · Product Thinking</p>
+        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight">Decide what not to build</h3>
+        <p class="text-muted-foreground max-w-2xl">
+          Most product work is choosing. Here are three calls I made, and why.
+        </p>
+      </div>
+      <div class="lg:col-span-5 lg:justify-self-end">
+        <ProofLinks links={proof.product} />
+      </div>
+    </div>
+
+    <ul class="grid gap-5 md:grid-cols-3">
+      {decisions.map((d) => (
+        <li class={`relative overflow-hidden rounded-sm border border-border bg-white p-5 pb-16 shadow-sm ${d.tilt}`}>
+          <p class="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted-foreground">Decision · {d.where}</p>
+          <p class="mt-3 font-semibold leading-snug">{d.question}</p>
+          <p class="mt-2 text-sm text-muted-foreground leading-relaxed">{d.answer}</p>
+          <span
+            class={`absolute bottom-4 right-4 -rotate-[8deg] rounded-sm border-[3px] px-2.5 py-0.5 font-mono text-sm font-bold uppercase tracking-[0.18em] opacity-80 ${
+              d.tone === "red" ? "border-red-600 text-red-600" : "border-emerald-700 text-emerald-700"
+            }`}
+          >
+            {d.stamp}
+          </span>
+        </li>
+      ))}
+    </ul>
+
+    <a href="#books" class="group inline-flex items-center gap-4 rounded-lg pr-3 hover:bg-secondary/60 transition-colors">
+      <span class="flex -space-x-3">
+        <img src="/images/books/inspired.jpg" alt="" width="48" height="72" loading="lazy" class="h-[72px] w-12 rounded-sm object-cover shadow ring-1 ring-black/10 -rotate-3" />
+        <img src="/images/books/zero-to-one.jpg" alt="" width="48" height="72" loading="lazy" class="h-[72px] w-12 rounded-sm object-cover shadow ring-1 ring-black/10 rotate-2" />
+      </span>
+      <span class="text-sm">
+        <span class="block font-medium">Shaped by <em>Inspired</em> and <em>Zero to One</em></span>
+        <span class="text-muted-foreground group-hover:underline">See everything I've read ↓</span>
+      </span>
+    </a>
+  </article>
+
+  <!-- 06 Teaching: the slides themselves, and what students said -->
+  <article class="grid gap-8 lg:grid-cols-12">
+    <div class="space-y-4 lg:col-span-4 lg:order-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">06 · Teaching</p>
+      <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight">Explain hard things simply</h3>
+      <p class="text-muted-foreground">
+        Two years tutoring Python and algorithms at the University of Melbourne. My slides are mostly a whiteboard: I work every problem live, by hand.
+      </p>
+
+      <div class="space-y-2 pt-2">
+        <div class="flex gap-1.5" aria-hidden="true">
+          {Array.from({ length: 6 }).map(() => (
+            <span class="size-4 rounded-full bg-emerald-600"></span>
+          ))}
+        </div>
+        <p class="text-sm text-muted-foreground">6 of 6 students surveyed said the tutorials helped them succeed in the subject.</p>
+      </div>
+
+      <ProofLinks links={proof.teaching} />
+    </div>
+
+    <div class="lg:col-span-8 lg:order-1 space-y-6">
+      <figure class="space-y-3">
+        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {slides.map((slide) => (
+            <li>
+              <a href="https://github.com/dakshAg/comp10001" target="_blank" rel="noopener noreferrer" class="block">
+                <img
+                  src={slide.src}
+                  alt={slide.alt}
+                  width="960"
+                  height="540"
+                  loading="lazy"
+                  class="w-full h-auto rounded-sm border border-border bg-white shadow-sm"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <figcaption class="text-xs text-muted-foreground">
+          COMP10001 Foundations of Computing, Week 5 of Semester 2, 2024: loops, dictionaries and sets, annotated during the tutorial.
+        </figcaption>
+      </figure>
+
+      <ul class="grid grid-cols-2 md:grid-cols-4 items-start gap-4" aria-label="Student feedback">
+        {quotes.map((quote) => (
+          <li class={`bg-amber-100 px-4 py-3 shadow-sm ${quote.tilt}`}>
+            <blockquote class="font-hand text-xl leading-tight text-neutral-800">“{quote.text}”</blockquote>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </article>
+</section>

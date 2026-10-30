@@ -59,6 +59,7 @@ export default {
 			},
 			fontFamily: {
 				quicksand: ['Quicksand', 'sans-serif'],
+				hand: ['Caveat', 'cursive'],
 			},
 			keyframes: {
 				"accordion-down": {
