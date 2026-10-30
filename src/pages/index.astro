@@ -35,6 +35,33 @@ type Referee = {
   content: string;
 };
 
+type Book = {
+  title: string;
+  author: string;
+  cover: string;
+  takeaway?: string;
+};
+
+// In reading order. Add a one-line `takeaway` to show it under the cover.
+const books: Book[] = [
+  { title: "Steve Jobs", author: "Walter Isaacson", cover: "/images/books/steve-jobs.jpg" },
+  { title: "The Alchemist", author: "Paulo Coelho", cover: "/images/books/the-alchemist.jpg" },
+  { title: "A Tale of Two Cities", author: "Charles Dickens", cover: "/images/books/a-tale-of-two-cities.jpg" },
+  { title: "Zero to One", author: "Peter Thiel", cover: "/images/books/zero-to-one.jpg" },
+  { title: "Three Men in a Boat", author: "Jerome K. Jerome", cover: "/images/books/three-men-in-a-boat.jpg" },
+  { title: "The Diary of a Young Girl", author: "Anne Frank", cover: "/images/books/diary-of-a-young-girl.jpg" },
+  { title: "King Arthur and His Knights of the Round Table", author: "Roger Lancelyn Green", cover: "/images/books/king-arthur.jpg" },
+  { title: "The Three Musketeers", author: "Alexandre Dumas", cover: "/images/books/the-three-musketeers.jpg" },
+  { title: "Rich Dad Poor Dad", author: "Robert T. Kiyosaki", cover: "/images/books/rich-dad-poor-dad.jpg" },
+  { title: "Reignited", author: "A.P.J. Abdul Kalam & Srijan Pal Singh", cover: "/images/books/reignited.jpg" },
+  { title: "The Rosie Project", author: "Graeme Simsion", cover: "/images/books/the-rosie-project.jpg" },
+  { title: "Fahrenheit 451", author: "Ray Bradbury", cover: "/images/books/fahrenheit-451.jpg" },
+  { title: "The Knife of Never Letting Go", author: "Patrick Ness", cover: "/images/books/the-knife-of-never-letting-go.jpg" },
+  { title: "The McKinsey Way", author: "Ethan M. Rasiel", cover: "/images/books/the-mckinsey-way.jpg" },
+  { title: "Atomic Habits", author: "James Clear", cover: "/images/books/atomic-habits.jpg" },
+  { title: "Project Hail Mary", author: "Andy Weir", cover: "/images/books/project-hail-mary.jpg" },
+];
+
 function makePreview(text: string, maxChars = 180) {
   const trimmed = text.trim().replace(/\s+/g, " ");
   if (trimmed.length <= maxChars) return trimmed;
@@ -675,79 +702,25 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     <!-- Separator -->
     <div class="border-b border-border"></div>
 
-    <!-- Core Values Section -->
+    <!-- Books Section -->
     <section class="space-y-6">
-      <h2 class="text-2xl font-semibold">Core Values</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        <!-- Excellence -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/excellence.png"
-              alt="Excellence"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
+      <h2 class="text-2xl font-semibold">Books I've Read</h2>
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-6">
+        {books.map((book) => (
           <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Excellence</h3>
-          </div>
-        </div>
-
-        <!-- Build -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
             <img
-              src="/images/values/build.png"
-              alt="Build"
-              class="w-24 h-24 md:w-28 md:h-28"
+              src={book.cover}
+              alt={`Cover of ${book.title} by ${book.author}`}
+              class="w-full aspect-[2/3] object-cover rounded-md border border-border shadow-sm"
+              loading="lazy"
             />
+            <div class="space-y-0.5">
+              <h3 class="font-medium text-sm leading-snug">{book.title}</h3>
+              <p class="text-xs text-muted-foreground">{book.author}</p>
+              {book.takeaway && <p class="text-xs text-muted-foreground italic pt-1">{book.takeaway}</p>}
+            </div>
           </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Build</h3>
-          </div>
-        </div>
-
-        <!-- Courage -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/courage.png"
-              alt="Courage"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Courage</h3>
-          </div>
-        </div>
-
-        <!-- Learn -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/learn.png"
-              alt="Learn"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Learn</h3>
-          </div>
-        </div>
-
-        <!-- Discipline -->
-        <div class="flex flex-col items-center text-center space-y-4 p-4">
-          <div class="flex-shrink-0">
-            <img
-              src="/images/values/discipline.png"
-              alt="Discipline"
-              class="w-24 h-24 md:w-28 md:h-28"
-            />
-          </div>
-          <div class="space-y-2">
-            <h3 class="font-semibold text-lg">Discipline</h3>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
 
