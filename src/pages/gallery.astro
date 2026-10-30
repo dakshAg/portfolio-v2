@@ -1,43 +1,68 @@
 ---
 import Layout from "../layouts/main.astro";
-import Multiverse from "../components/multiverse.astro";
+import "../styles/globals.css";
 import { getCollection } from "astro:content";
 
-const items = (await getCollection("gallery"))
-  .filter((i) => !i.data.draft)
+const galleryItems = (await getCollection("gallery"))
+  .filter((item) => !item.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-const fmt = (d: Date) => d.toLocaleDateString("en-AU", { year: "numeric", month: "long", day: "numeric" });
-const rot = ["-3deg", "2deg", "-1.5deg", "3deg", "-2deg", "1deg", "-2.5deg"];
-const tapes = ["var(--yellow)", "var(--pink)", "var(--cyan)", "var(--lime)"];
 ---
 
-<Layout title="Gallery — Daksh Agrawal" description="A small log of moments, screenshots, and things I've built.">
-  <section class="container-x relative pt-14 pb-12 sm:pt-20">
-    <div class="halftone halftone-fade pointer-events-none absolute inset-x-0 top-0 h-72 opacity-40" style="--ht-color: var(--pink); --ht-size: 1.5px; --ht-gap: 9px" aria-hidden="true"></div>
-    <p class="caption fade-up mb-6 bg-lime" style="--d: 40ms">Loot · {items.length} items collected</p>
-    <h1 class="display-xl leading-[0.85]">
-      <span class="slam block chroma-lg glitch" data-text="MOMENTS" data-glitch-auto style="--d: 80ms">MOMENTS</span>
-      <span class="slam block outline-text text-[0.55em]" style="--d: 220ms">that mattered.</span>
-    </h1>
-  </section>
+<Layout title="Gallery | Daksh Agrawal">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-12">
+    <!-- Header -->
+    <header class="space-y-4">
+      <div class="flex items-center justify-between gap-4 flex-wrap">
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Gallery</h1>
+        <a href="/" class="text-sm text-primary hover:text-primary/80 font-medium transition-colors">
+          ← Home
+        </a>
+      </div>
+      <p class="text-lg text-muted-foreground max-w-2xl">
+        A small log of moments, screenshots, and things I’ve built.
+      </p>
+    </header>
 
-  <section class="container-x pb-24">
-    <div class="columns-1 gap-10 sm:columns-2 lg:columns-3 [&>*]:mb-10 [&>*]:break-inside-avoid">
-      {items.map((item, i) => (
-        <figure class="group panel p-3 pb-5" data-reveal data-tilt="4" style={`--r: ${rot[i % rot.length]}; --r0: ${i % 2 ? "6deg" : "-6deg"}`}>
-          <span class="stripes absolute -top-3 left-1/2 z-10 h-6 w-28 -translate-x-1/2 rotate-[-5deg]" style={`--stripe-a: ${tapes[i % tapes.length]}; --stripe-b: var(--ink)`} aria-hidden="true"></span>
-          <div class="border-[3px] border-ink">
-            <Multiverse src={item.data.image} alt={item.data.alt ?? item.data.caption} class="w-full" />
+    <div class="border-b border-border"></div>
+
+    <!-- Gallery List -->
+    <section class="space-y-12">
+      {galleryItems.map((item) => (
+        <figure class="space-y-4">
+          <div class="rounded-xl border border-border bg-secondary/30 overflow-hidden">
+            <img
+              src={item.data.image}
+              alt={item.data.alt ?? item.data.caption}
+              class="w-full h-[60vh] sm:h-[65vh] lg:h-[70vh] object-cover object-center"
+              loading="lazy"
+            />
           </div>
-          <figcaption class="mt-4 flex items-baseline justify-between gap-4">
-            <p class="font-display text-2xl">{item.data.caption}</p>
-            <time class="hud text-ink/60" datetime={item.data.date.toISOString()}>{fmt(item.data.date)}</time>
+
+          <figcaption class="space-y-1">
+            <div class="flex items-baseline justify-between gap-4 flex-wrap">
+              <p class="text-base font-medium">{item.data.caption}</p>
+              <time class="text-sm text-muted-foreground" datetime={item.data.date.toISOString()}>
+                {item.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+            </div>
           </figcaption>
         </figure>
       ))}
-    </div>
 
-    {items.length === 0 && <p class="py-16 text-center text-muted">Nothing here yet.</p>}
-  </section>
+      {galleryItems.length === 0 && (
+        <div class="text-center py-16">
+          <div class="text-6xl mb-4">📷</div>
+          <h2 class="text-2xl font-semibold mb-2">No images yet</h2>
+          <p class="text-muted-foreground">I’ll start adding to this soon.</p>
+        </div>
+      )}
+    </section>
+
+    <!-- Footer spacing -->
+    <div class="py-8"></div>
+  </div>
 </Layout>

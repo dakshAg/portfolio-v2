@@ -1,91 +1,126 @@
 ---
-import { nav, site } from "../data/site";
-
 const pathname = Astro.url?.pathname ?? "/";
+import Icon from "./icon.astro";
+
+type NavItem = { href: string; label: string; icon: "home" | "pen" | "image" | "stack" };
+
+const navItems: NavItem[] = [
+  { href: "/", label: "Home", icon: "home" },
+  { href: "https://dakshagrawal.substack.com/", label: "Writing", icon: "pen" },
+  { href: "/gallery", label: "Gallery", icon: "image" },
+  { href: "/tech-stack", label: "Tech Stack", icon: "stack" },
+];
+
+const isExternal = (href: string) => href.startsWith("http");
+
 const isActive = (href: string) => {
-  const path = href.split("#")[0];
-  if (!path || path === "/") return false;
-  return pathname === path || pathname.startsWith(`${path}/`);
+  if (isExternal(href)) return false;
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
 };
 ---
 
 <a
   href="#main-content"
-  class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:border-[3px] focus:border-ink focus:bg-yellow focus:px-3 focus:py-2 focus:text-ink"
+  class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-3 focus:py-2 focus:rounded-md focus:bg-background focus:text-foreground focus:border focus:border-border"
 >
   Skip to content
 </a>
 
-<header class="hud-bar" transition:persist>
-  <div class="container-x flex h-16 items-center justify-between gap-3 lg:gap-6">
-    <!-- Player tag -->
-    <a href="/" class="group flex items-center gap-3" data-cursor-label="Home" data-p1-tag>
-      <span class="relative grid h-10 w-10 place-items-center border-[3px] border-paper bg-pink shadow-[3px_3px_0_var(--cyan)] transition-transform group-hover:-rotate-6">
-        <img src="/images/icon.png" alt="" width="28" height="28" class="h-7 w-7" loading="eager" />
-      </span>
-      <span class="flex flex-col leading-none">
-        <span class="hud text-cyan" data-p1-label>P1</span>
-        <span class="whitespace-nowrap font-display text-2xl tracking-wider">{site.name}</span>
-      </span>
+<header class="sticky top-0 z-50 w-full border-b border-border bg-background/85 backdrop-blur">
+  <div class="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between gap-4">
+    <a href="/" class="inline-flex items-center gap-2.5 font-semibold tracking-tight hover:opacity-80 transition-opacity text-base sm:text-lg">
+      <img
+        src="/images/icon.png"
+        alt="Site icon"
+        width="28"
+        height="28"
+        class="w-7 h-7 rounded-md"
+        loading="eager"
+        decoding="async"
+      />
+      Daksh Agrawal
     </a>
 
-    <nav class="hidden items-center md:flex" aria-label="Primary">
-      {nav.map((item, i) => (
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-1" aria-label="Primary navigation">
+      {navItems.map((item) => (
         <a
           href={item.href}
-          data-scramble
-          class:list={[
-            "hud relative whitespace-nowrap px-2 py-2 transition-colors hover:text-yellow lg:px-3",
-            isActive(item.href) ? "text-yellow" : "text-paper",
-          ]}
+          target={isExternal(item.href) ? "_blank" : undefined}
+          rel={isExternal(item.href) ? "noopener noreferrer" : undefined}
           aria-current={isActive(item.href) ? "page" : undefined}
+          class:list={[
+            "px-3 py-2 rounded-md text-sm font-medium transition-colors inline-flex items-center gap-2",
+            isActive(item.href)
+              ? "bg-secondary text-secondary-foreground"
+              : "text-muted-foreground hover:text-foreground hover:bg-secondary/60",
+          ]}
         >
-          <span class="mr-1.5 text-pink">{String(i + 1).padStart(2, "0")}</span>{item.label}
+          <Icon name={item.icon} class="w-4 h-4" />
+          {item.label}
         </a>
       ))}
     </nav>
 
-    <div class="flex items-center gap-3">
-      <!-- XP meter, fills as you scroll -->
-      <div class="hidden items-center gap-2 lg:flex" title="XP: scroll to earn">
-        <span class="hud whitespace-nowrap text-lime">LV <b data-level>1</b></span>
-        <div class="xp-bar" data-xp><i></i></div>
-      </div>
-
-      <span class="sticker sleepy sticker-violet whitespace-nowrap !px-2 !py-1 !text-xs" style="--rot: 0deg" title="It's late. Go to sleep.">😴 go to sleep</span>
-
-      <button type="button" data-sound class="snd hud whitespace-nowrap text-lime" aria-pressed="false" aria-label="Toggle sound">
-        <span class="bars"><i style="--d:0s"></i><i style="--d:.15s"></i><i style="--d:.3s"></i><i style="--d:.45s"></i></span>
-        <span data-sound-label class="hidden sm:inline">SND OFF</span>
-      </button>
-
-      <a href={site.resume} download data-magnetic="0.25" class="btn-yellow hidden !px-3 !py-1.5 !text-base sm:inline-flex">
-        Résumé
+    <div class="flex items-center gap-2">
+      <a
+        href="mailto:dakshagrawalx@gmail.com"
+        class="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium"
+      >
+        <Icon name="mail" class="w-4 h-4" />
+        Email me
       </a>
 
-      <button
-        type="button"
-        data-menu-toggle
-        class="grid h-10 w-10 place-items-center border-[3px] border-paper bg-void text-paper md:hidden"
-        aria-label="Open menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
-          <path stroke-linecap="square" d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      </button>
+      <!-- Mobile menu (no JS) -->
+      <details class="md:hidden relative">
+        <summary class="list-none cursor-pointer select-none px-3 py-2 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors text-sm font-medium">
+          <span class="inline-flex items-center gap-2">
+            <Icon name="menu" class="w-4 h-4" />
+            Menu
+          </span>
+        </summary>
+        <div class="absolute right-0 mt-2 w-56 rounded-lg border border-border bg-background shadow-lg overflow-hidden">
+          <nav class="p-2 flex flex-col gap-1" aria-label="Mobile navigation">
+            {navItems.map((item) => (
+              <a
+                href={item.href}
+                target={isExternal(item.href) ? "_blank" : undefined}
+                rel={isExternal(item.href) ? "noopener noreferrer" : undefined}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                class:list={[
+                  "px-3 py-2 rounded-md text-sm font-medium transition-colors inline-flex items-center gap-2",
+                  isActive(item.href)
+                    ? "bg-secondary text-secondary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/60",
+                ]}
+              >
+                <Icon name={item.icon} class="w-4 h-4" />
+                {item.label}
+              </a>
+            ))}
+            <div class="my-1 border-t border-border"></div>
+            <a
+              href="mailto:dakshagrawalx@gmail.com"
+              class="px-3 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+            >
+              <Icon name="mail" class="w-4 h-4" />
+              Email me
+            </a>
+
+            <a
+              href="/Daksh_Agrawal_Resume.pdf"
+              download
+              class="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors inline-flex items-center gap-2"
+            >
+              <Icon name="download" class="w-4 h-4" />
+              Download CV
+            </a>
+          </nav>
+        </div>
+      </details>
     </div>
   </div>
-
-  <div id="mobile-menu" class="hidden border-t-[3px] border-paper bg-void md:hidden">
-    <nav class="container-x flex flex-col py-2" aria-label="Mobile">
-      {nav.map((item, i) => (
-        <a href={item.href} class="flex items-baseline gap-3 border-b-2 border-paper/20 py-4 font-display text-3xl tracking-wider last:border-0">
-          <span class="hud text-pink">{String(i + 1).padStart(2, "0")}</span>{item.label}
-        </a>
-      ))}
-      <a href={site.resume} download class="hud py-4 text-yellow">▼ Download résumé</a>
-    </nav>
-  </div>
 </header>
+
+
