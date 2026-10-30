@@ -9,7 +9,10 @@ const blogPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<Layout title="Blog | Daksh Agrawal">
+<Layout
+  title="Blog | Daksh Agrawal, AI & Data Engineer"
+  description="Writing by Daksh Agrawal, an AI Engineer and Data Engineer in Melbourne and Udaipur, on AI engineering, data, product and shipping software."
+>
   <div class="max-w-6xl mx-auto px-6 py-16">
     <!-- Header -->
     <header class="mb-16 text-center">
@@ -25,7 +28,7 @@ const blogPosts = (await getCollection('blog'))
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {blogPosts.map((post) => (
         <article class="group rounded-xl border border-border bg-secondary/30 overflow-hidden hover:bg-secondary/40 transition-colors">
-          <a href={`/blog/${post.slug}`} class="block">
+          <a href={`/blog/${post.slug}/`} class="block">
             <div class="relative">
               {post.data.heroImage ? (
                 <img

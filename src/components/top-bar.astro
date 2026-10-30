@@ -7,8 +7,8 @@ type NavItem = { href: string; label: string; icon: "home" | "pen" | "image" | "
 const navItems: NavItem[] = [
   { href: "/", label: "Home", icon: "home" },
   { href: "https://dakshagrawal.substack.com/", label: "Writing", icon: "pen" },
-  { href: "/gallery", label: "Gallery", icon: "image" },
-  { href: "/tech-stack", label: "Tech Stack", icon: "stack" },
+  { href: "/gallery/", label: "Gallery", icon: "image" },
+  { href: "/tech-stack/", label: "Tech Stack", icon: "stack" },
 ];
 
 const isExternal = (href: string) => href.startsWith("http");
@@ -16,7 +16,7 @@ const isExternal = (href: string) => href.startsWith("http");
 const isActive = (href: string) => {
   if (isExternal(href)) return false;
   if (href === "/") return pathname === "/";
-  return pathname === href || pathname.startsWith(`${href}/`);
+  return pathname.startsWith(href) || `${pathname}/` === href;
 };
 ---
 
@@ -32,7 +32,7 @@ const isActive = (href: string) => {
     <a href="/" class="inline-flex items-center gap-2.5 font-semibold tracking-tight hover:opacity-80 transition-opacity text-base sm:text-lg">
       <img
         src="/images/icon.png"
-        alt="Site icon"
+        alt=""
         width="28"
         height="28"
         class="w-7 h-7 rounded-md"

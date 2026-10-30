@@ -11,5 +11,5 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
-  site: "https://dakshAg.github.io",
+  site: "https://dakshagrawalx.com",
 });

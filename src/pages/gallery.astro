@@ -8,7 +8,10 @@ const galleryItems = (await getCollection("gallery"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Layout title="Gallery | Daksh Agrawal">
+<Layout
+  title="Gallery | Daksh Agrawal"
+  description="Moments, milestones and things Daksh Agrawal has built: from the University of Melbourne to Square Peg, TasWater and beyond."
+>
   <div class="max-w-5xl mx-auto px-6 py-16 space-y-12">
     <!-- Header -->
     <header class="space-y-4">
