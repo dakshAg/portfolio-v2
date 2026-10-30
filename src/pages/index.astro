@@ -19,11 +19,13 @@ const profileSchema = {
   mainEntity: personRef,
 };
 
-type Base = { city: string; country: string; timeZone: string };
+const roles = ["AI Engineer", "Data Engineer", "Data Scientist", "Data Analyst"];
+
+type Base = { city: string; country: string; timeZone: string; flag: string };
 
 const bases: Base[] = [
-  { city: "Melbourne", country: "Australia", timeZone: "Australia/Melbourne" },
-  { city: "Udaipur", country: "India", timeZone: "Asia/Kolkata" },
+  { city: "Melbourne", country: "Australia", timeZone: "Australia/Melbourne", flag: "/images/flags/au.svg" },
+  { city: "Udaipur", country: "India", timeZone: "Asia/Kolkata", flag: "/images/flags/in.svg" },
 ];
 
 // Get recent gallery items (limit to 3 most recent)
@@ -316,57 +318,10 @@ const projects: Project[] = [
         </div>
         <div class="space-y-6 flex-1 flex flex-col text-center lg:text-left order-2 lg:order-2">
           <div class="space-y-4">
-            <h1 class="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-tight">
-              Daksh Agrawal
-              <span class="sr-only"> — </span>
-              <span class="mt-2.5 flex flex-wrap justify-center lg:justify-start gap-x-3 sm:gap-x-2 gap-y-1 leading-normal text-[0.7rem] sm:text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                {["AI Engineer", "Data Engineer", "Data Scientist", "Data Analyst"].map((role, i) => (
-                  <span class="inline-flex items-center gap-2">
-                    {i > 0 && <span aria-hidden="true" class="hidden sm:inline text-border">/</span>}
-                    {role}
-                  </span>
-                ))}
-              </span>
-            </h1>
-            <p class="text-lg sm:text-xl lg:text-xl text-muted-foreground font-medium max-w-2xl">
+            <h1 class="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-tight">Daksh Agrawal</h1>
+            <p class="text-lg sm:text-xl lg:text-xl text-muted-foreground font-medium max-w-2xl text-balance">
               Founder's energy, merchant's instinct, engineer's craft, analyst's eye.
             </p>
-
-            <!-- Bases: Melbourne <-> Udaipur, with live local time -->
-            <div class="flex flex-col items-center lg:items-start gap-2 pt-1">
-              <p class="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground">Based in</p>
-              <div class="flex items-center gap-1.5 sm:gap-2">
-                {bases.map((base, i) => (
-                  <Fragment>
-                    {i > 0 && (
-                      <svg class="w-9 sm:w-12 h-5 shrink-0 text-muted-foreground/60" viewBox="0 0 48 20" fill="none" aria-hidden="true">
-                        <path d="M3 16 Q24 -2 45 16" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.5 3" stroke-linecap="round" />
-                        <circle cx="3" cy="16" r="2" fill="currentColor" />
-                        <circle cx="45" cy="16" r="2" fill="currentColor" />
-                      </svg>
-                    )}
-                    {i > 0 && <span class="sr-only">and</span>}
-                    <span
-                      class="inline-flex items-center gap-2.5 rounded-xl border border-border bg-background/80 backdrop-blur-sm px-3 sm:pl-2.5 sm:pr-3.5 py-2 text-left shadow-sm"
-                      data-clock={base.timeZone}
-                    >
-                      <span class="hidden sm:flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 01-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0116 0z" />
-                          <circle cx="12" cy="10" r="3" stroke-width="2" />
-                        </svg>
-                      </span>
-                      <span class="flex flex-col leading-tight">
-                        <span class="text-sm font-semibold text-foreground">{base.city}<span class="sr-only">,</span></span>
-                        <span class="whitespace-nowrap text-xs text-muted-foreground">
-                          {base.country}<time class="tabular-nums before:content-['·'] before:mx-1" hidden></time>
-                        </span>
-                      </span>
-                    </span>
-                  </Fragment>
-                ))}
-              </div>
-            </div>
           </div>
           
           <!-- Social Links & CV Download -->
@@ -416,6 +371,45 @@ const projects: Project[] = [
               </svg>
               Tech Stack
             </a>
+          </div>
+        </div>
+
+        <!-- Roles + bases (Melbourne, Udaipur) with live local time -->
+        <div class="order-3 flex flex-col items-center lg:items-stretch gap-5 lg:w-60 lg:shrink-0 lg:self-stretch lg:justify-center lg:border-l lg:border-border lg:pl-8">
+          <ul class="flex flex-wrap justify-center gap-x-3 gap-y-1 lg:flex-col lg:gap-y-2 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground" aria-label="Roles">
+            {roles.map((role) => <li>{role}</li>)}
+          </ul>
+
+          <div class="flex items-center lg:flex-col lg:items-stretch">
+            {bases.map((base, i) => (
+              <Fragment>
+                {i > 0 && (
+                  <span
+                    aria-hidden="true"
+                    class="relative shrink-0 h-px w-6 sm:w-8 lg:h-5 lg:w-px lg:ml-[26.5px] bg-muted-foreground/40 before:absolute before:size-1.5 before:rounded-full before:bg-muted-foreground/60 after:absolute after:size-1.5 after:rounded-full after:bg-muted-foreground/60 before:-left-[3px] before:-top-[2.5px] after:-right-[3px] after:-top-[2.5px] lg:before:-left-[2.5px] lg:before:-top-[3px] lg:after:left-[-2.5px] lg:after:right-auto lg:after:top-auto lg:after:-bottom-[3px]"
+                  ></span>
+                )}
+                {i > 0 && <span class="sr-only">and</span>}
+                <span
+                  class="inline-flex items-center gap-2.5 rounded-xl border border-border bg-background/80 backdrop-blur-sm px-3 py-2 text-left shadow-sm"
+                  data-clock={base.timeZone}
+                >
+                  <img
+                    src={base.flag}
+                    alt=""
+                    width="28"
+                    height="20"
+                    class="h-5 w-7 shrink-0 rounded-[4px] object-cover ring-1 ring-black/10"
+                  />
+                  <span class="flex flex-col leading-tight">
+                    <span class="text-sm font-semibold text-foreground">{base.city}<span class="sr-only">,</span></span>
+                    <span class="whitespace-nowrap text-xs text-muted-foreground">
+                      {base.country}<time class="tabular-nums before:content-['·'] before:mx-1" hidden></time>
+                    </span>
+                  </span>
+                </span>
+              </Fragment>
+            ))}
           </div>
         </div>
       </div>
