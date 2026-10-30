@@ -611,18 +611,16 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
 
     <!-- Education Section -->
     <section class="relative space-y-6">
-      <!-- Graphite Nike statue, hovering (decorative) -->
-      <div class="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 -right-20 w-60 sm:-right-8 sm:w-72 lg:right-0 lg:w-[22rem]" aria-hidden="true">
-        <img
-          src="/images/graphite/nike.webp"
-          alt=""
-          width="1200"
-          height="1789"
-          loading="lazy"
-          class="nike-float w-full h-auto opacity-[0.2] lg:opacity-[0.32]"
-        />
-        <div class="nike-shadow mx-auto -mt-7 h-3 w-2/5 rounded-full bg-foreground/[0.06] blur-md lg:bg-foreground/[0.09]"></div>
-      </div>
+      <!-- Graphite Nike statue (decorative) -->
+      <img
+        src="/images/graphite/nike.webp"
+        alt=""
+        aria-hidden="true"
+        width="1200"
+        height="1789"
+        loading="lazy"
+        class="pointer-events-none select-none absolute -z-10 top-1/2 -translate-y-1/2 -rotate-12 max-w-none -right-[45vw] w-[115vw] opacity-[0.16] sm:-right-[28vw] sm:w-[88vw] lg:-right-[14vw] lg:w-[68vw] lg:opacity-[0.24]"
+      />
 
       <h2 class="relative text-2xl font-semibold">Education</h2>
       <div class="relative space-y-4">
@@ -1069,19 +1067,6 @@ Scaled the platform to 8,000+ daily bookings and secured seed funding.
     .substack-embeds :global(iframe) {
       width: 100% !important;
       max-width: 100% !important;
-    }
-
-    @keyframes nike-hover {
-      0%, 100% { transform: translateY(0) rotate(-0.6deg); }
-      50% { transform: translateY(-16px) rotate(0.6deg); }
-    }
-    @keyframes nike-shadow {
-      0%, 100% { transform: scaleX(1); opacity: 1; }
-      50% { transform: scaleX(0.75); opacity: 0.5; }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .nike-float { animation: nike-hover 7s ease-in-out infinite; }
-      .nike-shadow { animation: nike-shadow 7s ease-in-out infinite; }
     }
   </style>
 
