@@ -1,0 +1,25 @@
+name: Daily rebuild
+
+# The GitHub contribution heatmap is fetched at build time, so the live site
+# (a Cloudflare Worker built by Workers Builds) only refreshes it on a rebuild.
+# This pings a Workers Builds deploy hook once a day to trigger one.
+on:
+  schedule:
+    - cron: "17 18 * * *" # 18:17 UTC, early morning in Melbourne
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare build
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "::error::CLOUDFLARE_DEPLOY_HOOK_URL secret is not set"
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error -X POST "$DEPLOY_HOOK_URL"
