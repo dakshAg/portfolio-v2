@@ -755,9 +755,20 @@ const projects: Project[] = [
     <div class="border-b border-border"></div>
 
     <!-- Books Section -->
-    <section id="books" class="space-y-6 scroll-mt-24">
-      <h2 class="text-2xl font-semibold">Books I've Read</h2>
-      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-6">
+    <section id="books" class="relative space-y-6 scroll-mt-24">
+      <!-- Graphite White Monster can (decorative) -->
+      <img
+        src="/images/graphite/white-monster.webp"
+        alt=""
+        aria-hidden="true"
+        width="1342"
+        height="2000"
+        loading="lazy"
+        class="pointer-events-none select-none absolute -z-10 bottom-0 translate-y-[12%] rotate-[8deg] max-w-none -right-[30vw] w-[80vw] opacity-[0.14] sm:-right-[18vw] sm:w-[52vw] lg:-right-[8vw] lg:w-[32vw] lg:opacity-[0.2]"
+      />
+
+      <h2 class="relative text-2xl font-semibold">Books I've Read</h2>
+      <div class="relative grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-6">
         {books.map((book) => (
           <div class="space-y-2">
             <img
@@ -780,19 +791,8 @@ const projects: Project[] = [
     <div class="border-b border-border"></div>
 
     <!-- Referrals Section -->
-    <section id="referrals" class="relative space-y-6 scroll-mt-24" aria-label="Referrals">
-      <!-- Graphite White Monster can (decorative) -->
-      <img
-        src="/images/graphite/white-monster.webp"
-        alt=""
-        aria-hidden="true"
-        width="1342"
-        height="2000"
-        loading="lazy"
-        class="pointer-events-none select-none absolute -z-10 -top-24 rotate-[8deg] max-w-none -right-[30vw] w-[80vw] opacity-[0.14] sm:-right-[18vw] sm:w-[52vw] lg:-top-32 lg:-right-[8vw] lg:w-[32vw] lg:opacity-[0.2]"
-      />
-
-      <div class="relative space-y-2">
+    <section id="referrals" class="space-y-6 scroll-mt-24" aria-label="Referrals">
+      <div class="space-y-2">
         <h2 class="text-2xl font-semibold">Referrals</h2>
         <p class="text-muted-foreground text-sm">
           People I’ve worked with who can speak to my strengths.
