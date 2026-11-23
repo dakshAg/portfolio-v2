@@ -78,6 +78,13 @@ const levelColors = ["bg-foreground/[0.07]", "bg-emerald-200", "bg-emerald-400",
 const builds = [
   {
     kind: "Live",
+    title: "G7 Properties",
+    blurb: "Udaipur property listings pulled from WhatsApp, email and newspaper classifieds, then matched to buyers with LLMs.",
+    image: "/images/projects/g7-properties.jpg",
+    href: "https://g7properties.app/",
+  },
+  {
+    kind: "Live",
     title: "Puddle",
     blurb: "Visualise heaps of anything, from money to monsters, to get a feel for scale.",
     image: "/images/projects/puddle.png",
@@ -303,7 +310,7 @@ const proof: Record<string, ProofLink[]> = {
       )}
     </a>
 
-    <ul class="grid gap-5 md:grid-cols-3">
+    <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
       {builds.map((build) => {
         const external = build.href.startsWith("http");
         return (
@@ -319,9 +326,11 @@ const proof: Record<string, ProofLink[]> = {
               ) : (
                 <pre class="h-44 overflow-hidden border-b border-border bg-[#0b0e11] p-4 font-mono text-xs leading-relaxed text-neutral-300" aria-hidden="true"><span class="text-emerald-400">$</span> make
 <span class="text-emerald-400">$</span> ./htproxy myproxy 8080 -c
-<span class="text-neutral-500"># forward requests to origin servers</span>
-<span class="text-neutral-500"># -c: cache responses, honour expiry</span>
-<span class="text-neutral-500">#     headers, evict when full</span></pre>
+<span class="text-neutral-500"># forward requests to</span>
+<span class="text-neutral-500"># origin servers</span>
+<span class="text-neutral-500"># -c: cache responses,</span>
+<span class="text-neutral-500">#     honour expiry headers,</span>
+<span class="text-neutral-500">#     evict when full</span></pre>
               )}
               <div class="flex flex-1 flex-col gap-2 p-4">
                 <p class="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{build.kind}</p>
